@@ -1,0 +1,1 @@
+sbt "run 9075 -Dplay.http.router=testOnlyDoNotUseInAppConf.Routes"
