@@ -32,7 +32,7 @@ lazy val microservice = Project(appName, file("."))
     Test / Keys.fork := true,
     Test / javaOptions += "-Dlogger.resource=logback-test.xml",
     libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always,
-    PlayKeys.playDefaultPort := 9088
+    PlayKeys.playDefaultPort := 9075
   )
   .settings(
     Keys.fork := false
