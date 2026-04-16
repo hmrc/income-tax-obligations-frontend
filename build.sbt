@@ -35,7 +35,12 @@ lazy val microservice = Project(appName, file("."))
     PlayKeys.playDefaultPort := 9075
   )
   .settings(
-    Keys.fork := false
+    Keys.fork := false,
+    TwirlKeys.templateImports ++= Seq(
+      "uk.gov.hmrc.govukfrontend.views.html.components.implicits._",
+      "uk.gov.hmrc.hmrcfrontend.views.html.helpers._",
+      "uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._"
+    )
   )
 
 lazy val it = project

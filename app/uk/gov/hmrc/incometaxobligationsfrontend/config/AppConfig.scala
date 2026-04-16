@@ -18,10 +18,43 @@ package uk.gov.hmrc.incometaxobligationsfrontend.config
 
 import javax.inject.{Inject, Singleton}
 import play.api.Configuration
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 @Singleton
-class AppConfig @Inject()(config: Configuration){
+class AppConfig @Inject()(val servicesConfig: ServicesConfig, config: Configuration){
+
+  // TODO: implement controllers.routes.SignOutController.signOut().url from income-tax-view-change-frontend
+  lazy val signOutControllerSignOutUrl: String = "#"
+
+  // TODO: implement controllers.routes.HomeController.show().url from income-tax-view-change-frontend
+  lazy val homeControllerShowUrl: String = "#"
+
+  // TODO: implement controllers.routes.HomeController.showAgent().url from income-tax-view-change-frontend
+  lazy val homeControllerShowAgentUrl: String = "#"
+
+  // TODO: implement controllers.routes.LocalLanguageController.switchToLanguage("cymraeg").url
+  //        and .switchToLanguage("english") from income-tax-view-change-frontend
+  lazy val localLanguageControllerSwitchLanguageUrl: String = "#"
+
+  // TODO: implement controllers.timeout.routes.SessionTimeoutController.keepAlive().url from income-tax-view-change-frontend
+  lazy val sessiontTimeoutControllerKeepAliveUrl: String = "#"
 
   val welshLanguageSupportEnabled: Boolean =
     config.getOptional[Boolean]("features.welsh-language-support").getOrElse(false)
+
+  lazy val enterSurveyUrl: String = servicesConfig.getString("enter-survey.url")
+
+  lazy val baseUrl: String = "report-quarterly/income-and-expenses/view"
+  lazy val agentBaseUrl: String = s"$baseUrl/agents"
+  lazy val betaFeedbackUrl = s"/$baseUrl/feedback"
+  lazy val agentBetaFeedbackUrl = s"/$agentBaseUrl/feedback"
+
+  private lazy val contactHost: String = servicesConfig.getString("contact-frontend.host")
+  lazy val contactFormServiceIdentifier: String = "ITVC"
+  lazy val reportAProblemNonJSUrl: String = s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
+
+  lazy val itvcRebrand: Boolean = servicesConfig.getBoolean("itvc.useRebrand")
+
+  lazy val itvcFrontendEnvironment: String = servicesConfig.getString("base.url")
+
 }
