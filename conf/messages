@@ -1,2 +1,12 @@
 service.name = income-tax-obligations-frontend
 service.text = This is your new service
+
+## Base ##
+base.back                                                       = Back
+
+# HTML Titles                                       //notify submission team regarding title changes to htmlTitle.confirmClient in HtmlTitle.scala
+htmlTitle                                           = {0} - Manage your Self Assessment - GOV.UK
+htmlTitle.agent                                     = {0} - Manage your Self Assessment - GOV.UK
+htmlTitle.errorPage                                 = {0} - GOV.UK
+htmlTitle.invalidInput                              = Error: {0} - GOV.UK
+htmlTitle.confirmClient                             = {0} - Manage your Self Assessment - GOV.UK

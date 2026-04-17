@@ -21,7 +21,7 @@ import play.api.Configuration
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 @Singleton
-class AppConfig @Inject()(val servicesConfig: ServicesConfig, config: Configuration){
+class AppConfig @Inject()(val servicesConfig: ServicesConfig, val config: Configuration){
 
   // TODO: implement controllers.routes.SignOutController.signOut().url from income-tax-view-change-frontend
   lazy val signOutControllerSignOutUrl: String = "#"
