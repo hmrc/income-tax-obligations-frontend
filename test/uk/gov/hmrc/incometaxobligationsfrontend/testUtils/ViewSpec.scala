@@ -22,8 +22,6 @@ import org.scalatest.Assertion
 import play.twirl.api.Html
 import play.twirl.api.TwirlHelperImports.twirlJavaCollectionToScala
 
-import scala.language.implicitConversions
-
 trait ViewSpec extends TestSupport {
 
   class Setup(page: Html) {
