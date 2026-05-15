@@ -2,7 +2,7 @@
 <configuration>
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>logs/income-tax-view-change-frontend.log</file>
+        <file>logs/income-tax-obligations-frontend.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>[%.-4level]  %date{ISO8601} %class{0}#%M:%line %message %replace(exception=[%xException]){'^exception=\[\]$',''}%n</pattern>
         </encoder>
