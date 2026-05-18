@@ -1,0 +1,3 @@
+#Payment Allocation
+GET         /payment-made-to-hmrc                                         financials.controllers.PaymentAllocationsController.viewPaymentAllocation(documentNumber: String, origin: Option[String] ?= None)
+GET         /agents/payment-made-to-hmrc                                  financials.controllers.PaymentAllocationsController.viewPaymentAllocationAgent(documentNumber: String)
