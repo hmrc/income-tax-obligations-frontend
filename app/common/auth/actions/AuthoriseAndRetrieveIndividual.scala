@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,7 +70,7 @@ class AuthoriseAndRetrieveIndividual @Inject()(val authorisedFunctions: Frontend
       .retrieve(allEnrolments and name and credentials and affinityGroup and confidenceLevel) {
         redirectIfAgent() orElse
         redirectIfInsufficientConfidence() orElse constructAuthorisedAndEnrolledUser()
-      }(hc, executionContext) recoverWith logAndRedirect()
+      }(hc, executionContext) recoverWith(logAndRedirect())
   }
 
   // this URL is incorrect in live - the completion and failure URLs must be URL encoded

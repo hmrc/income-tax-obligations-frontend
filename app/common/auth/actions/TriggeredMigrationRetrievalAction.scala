@@ -81,7 +81,7 @@ class TriggeredMigrationRetrievalAction @Inject()(
                           Future.successful(Right(req))
                         } else {
                           Future.successful(
-                            Left(Redirect(appConfig.getHomePageUrl(req.isAgent) + "/check-your-active-businesses/hmrc-record"))
+                            Left(Redirect(appConfig.getHomePageBaseRoute(req.isAgent) + "/check-your-active-businesses/hmrc-record"))
                           )
                         }
                       case Left(errorResult) =>
@@ -126,7 +126,7 @@ class TriggeredMigrationRetrievalAction @Inject()(
 
   private def isItsaStatusVoluntaryOrMandated()(implicit hc: HeaderCarrier, user: MtdItUser[_]): Future[Either[Result, Boolean]] = {
     def redirectBasedOnUser: Future[Either[Result, Boolean]] =
-      Future(Left(Redirect(appConfig.getHomePageUrl(user.isAgent))))
+      Future(Left(Redirect(appConfig.getHomePageBaseRoute(user.isAgent))))
 
     ITSAStatusService.getITSAStatusDetail(dateService.getCurrentTaxYear, futureYears = true, history = false).flatMap {
       itsaStatusList =>
@@ -170,7 +170,7 @@ class TriggeredMigrationRetrievalAction @Inject()(
     }
   }
 
-  private def redirectToHome(isAgent: Boolean): Result = {Redirect(appConfig.getHomePageUrl(isAgent))}
+  private def redirectToHome(isAgent: Boolean): Result = {Redirect(appConfig.clientIncomeTaxRoute(isAgent))}
 
   private def confirmIneligibleUser[A](req: MtdItUser[A], isTriggeredMigrationPage: Boolean)(implicit hc: HeaderCarrier) = {
     customerFactsUpdateService.updateCustomerFacts(req.mtditid).map {

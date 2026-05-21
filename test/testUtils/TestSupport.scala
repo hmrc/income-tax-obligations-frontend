@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +16,15 @@
 
 package testUtils
 
-import common.auth.AuthActionsTestData.defaultMTDITUser
 import common.auth.MtdItUser
-import common.config.{FrontendAppConfig, ItvcHeaderCarrierForPartialsConverter}
+import common.auth.actions.AuthActionsTestData.*
 import common.config.featureswitch.FeatureSwitching
+import common.config.{FrontendAppConfig, ItvcHeaderCarrierForPartialsConverter}
 import common.enums.{MTDIndividual, MTDPrimaryAgent, MTDUserRole}
 import common.implicits.ImplicitDateFormatterImpl
 import common.utils.session
-import common.models.admin.FeatureSwitchName
-import common.models.admin.FeatureSwitchName.allFeatureSwitches
 import common.models.incomeSourceDetails.{IncomeSourceDetailsModel, TaxYear, TaxYearRange}
-import common.repository.FeatureSwitchRepository
 import common.services.DateService
-import financials.models.financialDetails.ChargeItem
 import org.apache.pekko.actor.ActorSystem
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -45,7 +41,7 @@ import play.api.test.{FakeRequest, Injecting}
 import play.api.{Configuration, Environment}
 import play.twirl.api.Html
 import testConstants.BaseTestConstants.*
-import testConstants.incomeSources.IncomeSourceDetailsTestConstants.*
+import testConstants.IncomeSourceDetailsTestConstants.*
 import uk.gov.hmrc.auth.core.AffinityGroup.Agent
 import uk.gov.hmrc.auth.core.retrieve.*
 import uk.gov.hmrc.auth.core.{AffinityGroup, ConfidenceLevel, CredentialRole, Enrolments}
@@ -55,7 +51,7 @@ import uk.gov.hmrc.play.partials.HeaderCarrierForPartials
 
 import java.time.LocalDate
 import scala.concurrent.duration.*
-import scala.concurrent.{Await, ExecutionContext, Future}
+import scala.concurrent.{ExecutionContext, Future}
 
 trait TestSupport extends UnitSpec with GuiceOneAppPerSuite with BeforeAndAfterAll with BeforeAndAfterEach with Injecting with FeatureSwitching {
 
@@ -99,7 +95,7 @@ trait TestSupport extends UnitSpec with GuiceOneAppPerSuite with BeforeAndAfterA
   def assertJsonEquals(actual: JsValue, expected: JsValue): Assertion =
     normalise(actual) shouldEqual normalise(expected)
 
-  val featureSwitchRepository = app.injector.instanceOf[FeatureSwitchRepository]
+//  val featureSwitchRepository = app.injector.instanceOf[FeatureSwitchRepository]
 
   implicit val timeout: PatienceConfig = PatienceConfig(5.seconds)
 
@@ -153,10 +149,10 @@ trait TestSupport extends UnitSpec with GuiceOneAppPerSuite with BeforeAndAfterA
   lazy val tsTestUser: MtdItUser[_] =
     defaultMTDITUser(Some(testUserTypeIndividual), IncomeSourceDetailsModel(testNino, "test", None, List.empty, List.empty))
 
-  lazy val tsTestUserAgent: MtdItUser[_] =
-    defaultMTDITUser(Some(testUserTypeAgent), IncomeSourceDetailsModel(testNino, "test", None, List.empty, List.empty))
+   lazy val tsTestUserAgent: MtdItUser[_] =
+     defaultMTDITUser(Some(testUserTypeAgent), IncomeSourceDetailsModel(testNino, "test", None, List.empty, List.empty))
 
-  implicit val individualUser: MtdItUser[_] = getIndividualUser(FakeRequest())
+   implicit lazy val individualUser: MtdItUser[_] = getIndividualUser(FakeRequest())
 
   def commonAuditDetails(af: AffinityGroup, isSupportingAgent: Boolean = false): JsObject = {
     val commonDetails = Json.obj(
@@ -329,7 +325,7 @@ trait TestSupport extends UnitSpec with GuiceOneAppPerSuite with BeforeAndAfterA
     fakePostRequestWithActiveSession.withSession("nino" -> testNino, "origin" -> origin)
 
   lazy val fakeRequestWithNinoAndCalc: FakeRequest[AnyContentAsEmpty.type] = fakeRequestWithActiveSession.withSession(
-    common.forms.utils.SessionKeys.calculationId -> "1234567890",
+    common.utils.session.SessionKeys.calculationId -> "1234567890",
     "nino" -> testNino
   )
 
@@ -343,36 +339,5 @@ trait TestSupport extends UnitSpec with GuiceOneAppPerSuite with BeforeAndAfterA
     def addingToSession(newSessions: (String, String)*): FakeRequest[C] = {
       fakeRequest.withSession(fakeRequest.session.data ++: newSessions: _*)
     }
-  }
-
-//  def disableAllSwitches(): Unit =
-//    if (appConfig.readFeatureSwitchesFromMongo)
-//      Await.result(featureSwitchRepository.setFeatureSwitches(allFeatureSwitches.map(_ -> false).toMap), 5.seconds)
-//    else
-//      allFeatureSwitches.foreach(switch => disable(switch))
-//
-//  override def enable(featureSwitch: FeatureSwitchName): Unit =
-//    if (appConfig.readFeatureSwitchesFromMongo)
-//      Await.result(featureSwitchRepository.setFeatureSwitch(featureSwitch, true), 5.seconds)
-//    else
-//      sys.props += featureSwitch.name -> FEATURE_SWITCH_ON
-//
-//  override def enable(featureSwitchNames: FeatureSwitchName*): Unit = {
-//    featureSwitchNames.foreach { featureSwitch =>
-//      if (appConfig.readFeatureSwitchesFromMongo)
-//        Await.result(featureSwitchRepository.setFeatureSwitch(featureSwitch, true), 5.seconds)
-//      else
-//        sys.props += featureSwitch.name -> FEATURE_SWITCH_ON
-//    }
-//  }
-//
-//  override def disable(featureSwitch: FeatureSwitchName): Unit =
-//    if (appConfig.readFeatureSwitchesFromMongo)
-//      Await.result(featureSwitchRepository.setFeatureSwitch(featureSwitch, false), 5.seconds)
-//    else
-//      sys.props += featureSwitch.name -> FEATURE_SWITCH_OFF
-
-  def mainChargeIsNotPaidFilter: PartialFunction[ChargeItem, ChargeItem] = {
-    case x if x.remainingToPayByChargeOrInterest > 0 => x
   }
 }

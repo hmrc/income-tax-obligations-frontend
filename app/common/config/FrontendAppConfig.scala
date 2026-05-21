@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,16 +57,16 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
   //View L&P
   def saViewLandPService(utr: String): String = servicesConfig.getString("old-sa-viewer-frontend.host") + s"/$utr/account"
 
-  
   //GG Sign In via BAS Gateway
   lazy val signInUrl: String = servicesConfig.getString("base.sign-in")
   lazy val ggSignInUrl: String = servicesConfig.getString("government-gateway.sign-in.url")
   lazy val homePageBaseUrl: String = servicesConfig.getString("base.fullUrl")
+  lazy val homePageBaseRoute: String = servicesConfig.getString("base.context-root")
+  lazy val getHomePageBaseRoute: Boolean => String = isAgent =>  if(isAgent) homePageBaseRoute + "/agents" else homePageBaseRoute
   lazy val getHomePageUrl: Boolean => String = isAgent =>  if(isAgent) homePageBaseUrl + "/agents" else homePageBaseUrl
-  lazy val enterClientsUTRUrl: String = s"$homePageBaseUrl/agents/client-utr"
+  lazy val clientIncomeTaxRoute: Boolean => String = isAgent => if(isAgent) s"$homePageBaseRoute/agents/client-income-tax" else homePageBaseRoute
   lazy val youMustWaitToSignUpUrl: Boolean => String = isAgent => if(isAgent) s"$homePageBaseUrl/agents/view-client-from-next-tax-year" else s"$homePageBaseUrl/access-service-from-next-tax-year"
-  
-  
+
   //Exit Survey
   lazy val exitSurveyBaseUrl: String = servicesConfig.getString("feedback-frontend.host") + servicesConfig.getString("feedback-frontend.url")
 
@@ -149,7 +149,6 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
   //lazy val dynamicStubUrl: String = servicesConfig.baseUrl("itvc-dynamic-stub")
   
   // API timeout
-
   lazy val claimToAdjustTimeout: Int = servicesConfig.getInt("claim-to-adjust.timeout")
 
   // enrolment-store-proxy url

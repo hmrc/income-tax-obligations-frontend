@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package common.auth.actions
 
 import common.auth.MtdItUser
 import common.config.{AgentItvcErrorHandler, ItvcErrorHandler}
-import common.connectors.BusinessDetailsConnector
+import common.connectors.IncomeSourceConnector
 import common.controllers.BaseController
 import common.models.auth.AuthorisedAndEnrolledRequest
 import common.models.incomeSourceDetails.{IncomeSourceDetailsError, IncomeSourceDetailsModel}
@@ -30,7 +30,7 @@ import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class IncomeSourceRetrievalAction @Inject()(val businessDetailsConnector: BusinessDetailsConnector)
+class IncomeSourceRetrievalAction @Inject()(val incomeSourceConnector: IncomeSourceConnector)
                                            (implicit val executionContext: ExecutionContext,
                                             val individualErrorHandler: ItvcErrorHandler,
                                             val agentErrorHandler: AgentItvcErrorHandler,
@@ -55,7 +55,7 @@ class IncomeSourceRetrievalAction @Inject()(val businessDetailsConnector: Busine
 
     implicit val req: AuthorisedAndEnrolledRequest[A] = request
 
-    businessDetailsConnector.getIncomeSources().map {
+    incomeSourceConnector.getIncomeSources().map {
       case response: IncomeSourceDetailsModel =>
         Right(MtdItUser(req.mtditId, response.nino, req.mtdUserRole, req.authUserDetails, req.clientDetails, response))
       case error: IncomeSourceDetailsError =>

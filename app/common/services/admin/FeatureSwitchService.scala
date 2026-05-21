@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,15 +21,13 @@ import common.config.featureswitch.FeatureSwitching
 import common.connectors.FeatureSwitchConnector
 import common.models.admin.{FeatureSwitch, FeatureSwitchName}
 import play.api.Logger
-import common.repository.FeatureSwitchRepository
 import uk.gov.hmrc.http.HeaderCarrier
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class FeatureSwitchService @Inject()(val featureSwitchRepository: FeatureSwitchRepository,
-                                     val featureSwitchConnector: FeatureSwitchConnector,
+class FeatureSwitchService @Inject()(val featureSwitchConnector: FeatureSwitchConnector,
                                      val appConfig: FrontendAppConfig)
                                     (implicit val ec: ExecutionContext) extends FeatureSwitching {
 
@@ -48,19 +46,7 @@ class FeatureSwitchService @Inject()(val featureSwitchRepository: FeatureSwitchR
     }
 
     if (appConfig.readFeatureSwitchesFromMongo) {
-      featureSwitchConnector.getAllSwitches()
-        .flatMap { switches =>
-          if (switches.nonEmpty) {
-            Future.successful(switches)
-          } else {
-            Logger("application").warn(
-              "Connector returned empty list, falling back to repository"
-            )
-            featureSwitchRepository.getFeatureSwitches
-          }
-        }
-        .map(enrich)
-
+      featureSwitchConnector.getAllSwitches().map(enrich)
     } else {
       Future.successful(enrich(getFSList))
     }
@@ -71,8 +57,8 @@ class FeatureSwitchService @Inject()(val featureSwitchRepository: FeatureSwitchR
     if (appConfig.readFeatureSwitchesFromMongo) {
       featureSwitchConnector.setSwitch(featureSwitchName, enabled)
     } else {
-      setFS(featureSwitchName, enabled)
-      Future.successful(true)
+      Logger("application").error("Cannot set feature switch when read-from-mongo is disabled")
+      Future(false)
     }
   }
 
@@ -81,9 +67,7 @@ class FeatureSwitchService @Inject()(val featureSwitchRepository: FeatureSwitchR
     if (appConfig.readFeatureSwitchesFromMongo) {
       featureSwitchConnector.setSwitches(featureSwitches).map(_ => ())
     } else {
-      featureSwitches.foreach { case (featureSwitchName, state) =>
-        setFS(featureSwitchName, state)
-      }
+      Logger("application").error("Cannot set feature switches when read-from-mongo is disabled")
       Future.successful((): Unit)
     }
   }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,7 +68,7 @@ class AuthoriseAndRetrieveAgent @Inject()(val authorisedFunctions: FrontendAutho
       authorisedFunctions.authorised(predicate)
         .retrieve(allEnrolments and name and credentials and affinityGroup and confidenceLevel) {
           redirectIfNotAgent() orElse constructAgentUser()
-        }(hc, executionContext) recoverWith logAndRedirect
+        }(hc, executionContext) recoverWith(logAndRedirect)
     }
   }
 

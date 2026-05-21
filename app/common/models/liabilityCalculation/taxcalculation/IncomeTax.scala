@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,8 @@ case class IncomeTax(
                       totalAnnuityPaymentsTaxCharged: Option[BigDecimal] = None,
                       totalRoyaltyPaymentsTaxCharged: Option[BigDecimal] = None,
                       giftAidTaxChargeWhereBasicRateDiffers: Option[BigDecimal] = None,
-                      incomeTaxChargedOnTransitionProfits: Option[BigDecimal] = None
+                      incomeTaxChargedOnTransitionProfits: Option[BigDecimal] = None,
+                      winterFuelPaymentCharge: Option[BigDecimal] = None
                     )
 object IncomeTax {
   implicit val format: OFormat[IncomeTax] = Json.format[IncomeTax]

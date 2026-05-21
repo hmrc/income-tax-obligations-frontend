@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ class AgentLanguageController @Inject()(implicit mcc: MessagesControllerComponen
                                         appConfig: FrontendAppConfig,
                                         languageUtils: LanguageUtils) extends LanguageController(languageUtils, mcc) {
 
-  override def fallbackURL: String = appConfig.enterClientsUTRUrl //will fall back to Agent home when implemented
+  override def fallbackURL: String = appConfig.getHomePageBaseRoute(true) + "/client-utr" //will fall back to Agent home when implemented
 
   override protected def languageMap: Map[String, Lang] = appConfig.languageMap
 

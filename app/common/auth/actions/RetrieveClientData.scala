@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,9 +75,9 @@ class RetrieveClientData @Inject()(sessionDataService: SessionDataService,
             ))
             case Left(error) =>
               Logger("error").error(s"unable to find client with UTR: ${sessionData.utr} " + error)
-              Left(Redirect(appConfig.enterClientsUTRUrl))
+              Left(Redirect(appConfig.getHomePageBaseRoute(true) + "/client-utr"))
           }
-        case Left(_: SessionDataNotFound) => Future.successful(Left(Redirect(appConfig.enterClientsUTRUrl)))
+        case Left(_: SessionDataNotFound) => Future.successful(Left(Redirect(appConfig.getHomePageBaseRoute(true) + "/client-utr")))
         case Left(_) => Future.successful(Left(errorHandler.showInternalServerError()))
       }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,7 +73,7 @@ class AuthoriseAndRetrieveIndividualForNrs @Inject()(val authorisedFunctions: Fr
       and mdtpInformation and itmpName and itmpDateOfBirth and itmpAddress and credentialStrength and loginTimes) {
         redirectIfAgentNrs() orElse
           redirectIfInsufficientConfidenceNrs() orElse constructAuthorisedAndEnrolledUserForNrs()
-      }(hc, executionContext) recoverWith logAndRedirect()
+      }(hc, executionContext) recoverWith(logAndRedirect())
   }
 
   // this URL is incorrect in live - the completion and failure URLs must be URL encoded
@@ -89,7 +89,7 @@ class AuthoriseAndRetrieveIndividualForNrs @Inject()(val authorisedFunctions: Fr
     implicit @unused request: Request[A]): PartialFunction[NrsIndividualAuthRetrievals, Future[Either[Result, AuthorisedAndEnrolledRequest[A]]]] = {
     case _ ~ _ ~ _ ~ Some(Agent) ~ _ ~ _ ~ _ ~ _ ~ _ ~ _ ~ _ ~ _ ~ _ ~ _ ~ _ ~ _ ~ _ ~ _ =>
       logger.error(s"Agent on endpoint for individuals")
-      Future.successful(Left(Redirect(appConfig.enterClientsUTRUrl)))
+      Future.successful(Left(Redirect(appConfig.getHomePageBaseRoute(true) + "/client-utr")))
   }
 
   private def redirectIfInsufficientConfidenceNrs[A]()(

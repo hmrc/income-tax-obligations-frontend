@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ class AgentHasConfirmedClientAction @Inject()(implicit val executionContext: Exe
     if(request.clientDetails.exists(_.confirmed)) {
       Future.successful(Right(request))
     } else {
-      Future.successful(Left(Redirect(appConfig.enterClientsUTRUrl)))
+      Future.successful(Left(Redirect(appConfig.getHomePageBaseRoute(true) + "/confirm-client-details")))
     }
   }
 }

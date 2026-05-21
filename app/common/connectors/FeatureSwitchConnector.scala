@@ -91,5 +91,4 @@ class FeatureSwitchConnector @Inject()(val appConfig: FrontendAppConfig,
         }
       }
   }
-
 }

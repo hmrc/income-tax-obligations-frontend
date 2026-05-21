@@ -20,6 +20,6 @@ enum Channel(value: String) {
   case CustomerLed extends Channel("Customer-led")
   case HmrcUnconfirmed extends Channel("Hmrc-led-unconfirmed")
   case HmrcConfirmed extends Channel("Hmrc-led-confirmed")
-  
+
   def getValue: String = value
 }

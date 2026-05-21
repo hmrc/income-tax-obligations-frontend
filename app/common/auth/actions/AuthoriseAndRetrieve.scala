@@ -58,7 +58,7 @@ class AuthoriseAndRetrieve @Inject()(val authorisedFunctions: FrontendAuthorised
     authorisedFunctions.authorised(EmptyPredicate)
       .retrieve(allEnrolments and name and credentials and affinityGroup and confidenceLevel) {
         constructAuthorisedUser()
-      }(hc, executionContext) recoverWith logAndRedirect
+      }(hc, executionContext) recoverWith(logAndRedirect)
   }
 
   def logAndRedirect[A]: PartialFunction[Throwable, Future[Either[Result, AuthorisedUserRequest[A]]]] = {

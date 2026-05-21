@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,8 +65,8 @@ case class AddIncomeSourceData(
             }
           )
       },
-      chooseSoleTraderAddress.map { case
-        ChooseSoleTraderAddressUserAnswer(
+      chooseSoleTraderAddress.map {
+        case ChooseSoleTraderAddressUserAnswer(
           addressLine1: Option[String],
           addressLine2: Option[String],
           addressLine3: Option[String],
