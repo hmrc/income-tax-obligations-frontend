@@ -22,14 +22,15 @@ import common.controllers.bta.BtaNavBarController
 import common.models.OriginEnum
 import common.models.OriginEnum.{BTA, PTA}
 import common.models.admin.NavBarFs
+import common.utils.auth.AuthUtils.ORIGIN
+import common.views.html.navBar.{BtaPartial, PtaPartial}
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.mvc.*
 import uk.gov.hmrc.govukfrontend.views.Aliases.{ServiceNavigationItem, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.ServiceNavigation
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.http.HeaderCarrierConverter
-import common.views.html.navBar.{BtaPartial, PtaPartial}
-import common.utils.auth.AuthUtils.ORIGIN
+
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 

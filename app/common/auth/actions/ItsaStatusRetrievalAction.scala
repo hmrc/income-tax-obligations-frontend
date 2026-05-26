@@ -17,26 +17,26 @@
 package common.auth.actions
 
 import common.auth.MtdItUser
-import common.config.{AgentItvcErrorHandler, FrontendAppConfig, ItvcErrorHandler}
 import common.config.featureswitch.FeatureSwitching
+import common.config.{AgentItvcErrorHandler, FrontendAppConfig, ItvcErrorHandler}
+import common.connectors.ITSAStatusConnector
 import common.controllers.BaseController
+import common.models.admin.`CY+1YouMustWaitToSignUpPageEnabled`
 import common.models.auth.ItsaStatusRetrievalActionError
 import common.services.DateServiceInterface
-import common.connectors.ITSAStatusConnector
-import common.models.admin.`CY+1YouMustWaitToSignUpPageEnabled`
 import play.api.Logger
 import play.api.mvc.{ActionRefiner, MessagesControllerComponents, Result}
 import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Individual, Organisation}
+
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class ItsaStatusRetrievalAction @Inject()(
-                                           frontendAppConfig: FrontendAppConfig,
+class ItsaStatusRetrievalAction @Inject()(frontendAppConfig: FrontendAppConfig,
                                            itsaStatusConnector: ITSAStatusConnector,
                                            dateService: DateServiceInterface
-                                         )(
-                                           implicit val executionContext: ExecutionContext,
+                                         )
+                                         (implicit val executionContext: ExecutionContext,
                                            individualErrorHandler: ItvcErrorHandler,
                                            agentErrorHandler: AgentItvcErrorHandler,
                                            mcc: MessagesControllerComponents

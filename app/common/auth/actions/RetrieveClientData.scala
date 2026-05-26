@@ -19,10 +19,10 @@ package common.auth.actions
 import com.google.inject.Singleton
 import common.config.{AgentItvcErrorHandler, FrontendAppConfig}
 import common.models.auth.{AgentClientDetails, AuthorisedAgentWithClientDetailsRequest, AuthorisedUserRequest}
+import common.models.sessionData.SessionDataGetResponse.SessionDataNotFound
 import common.services.SessionDataService
 import common.services.agent.ClientDetailsService
 import common.utils.session.SessionKeys
-import common.models.sessionData.SessionDataGetResponse.SessionDataNotFound
 import play.api.Logger
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{ActionRefiner, MessagesControllerComponents, Request, Result}
@@ -70,9 +70,9 @@ class RetrieveClientData @Inject()(sessionDataService: SessionDataService,
                 }
               )
               Right(AuthorisedAgentWithClientDetailsRequest(
-              request.authUserDetails,
+                request.authUserDetails,
                 agentClientDetails
-            ))
+              ))
             case Left(error) =>
               Logger("error").error(s"unable to find client with UTR: ${sessionData.utr} " + error)
               Left(Redirect(appConfig.getHomePageBaseRoute(true) + "/client-utr"))

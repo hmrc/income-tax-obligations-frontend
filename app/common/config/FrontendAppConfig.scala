@@ -63,7 +63,7 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
   lazy val homePageBaseUrl: String = servicesConfig.getString("base.fullUrl")
   lazy val homePageBaseRoute: String = servicesConfig.getString("base.context-root")
   lazy val getHomePageBaseRoute: Boolean => String = isAgent =>  if(isAgent) homePageBaseRoute + "/agents" else homePageBaseRoute
-  lazy val getHomePageUrl: Boolean => String = isAgent =>  if(isAgent) homePageBaseUrl + "/agents" else homePageBaseUrl
+  lazy val getHomePageBaseUrl: Boolean => String = isAgent =>  if(isAgent) homePageBaseUrl + "/agents" else homePageBaseUrl
   lazy val clientIncomeTaxRoute: Boolean => String = isAgent => if(isAgent) s"$homePageBaseRoute/agents/client-income-tax" else homePageBaseRoute
   lazy val youMustWaitToSignUpUrl: Boolean => String = isAgent => if(isAgent) s"$homePageBaseUrl/agents/view-client-from-next-tax-year" else s"$homePageBaseUrl/access-service-from-next-tax-year"
 
@@ -144,9 +144,7 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
   lazy val incomeTaxPenaltiesFrontendLPP2Calculation: String => String = chargeRef => servicesConfig.getString("income-tax-penalties-frontend.homeUrl") + s"/second-lpp-calculation?penaltyId=$chargeRef"
   lazy val incomeTaxPenaltiesFrontendLPP2CalculationAgent: String => String = chargeRef => servicesConfig.getString("income-tax-penalties-frontend.homeUrl") + s"/agent-second-lpp-calculation?penaltyId=$chargeRef"
 
-  lazy val incomeTaxVcFsAndStubUrl: String = servicesConfig.baseUrl("income-tax-vc-fs-and-stub")
-  // Old TestOnly Stub Url from V&C Frontend
-  //lazy val dynamicStubUrl: String = servicesConfig.baseUrl("itvc-dynamic-stub")
+  lazy val incomeTaxVcFsAndStubUrl: String = servicesConfig.getString("income-tax-vc-fs-and-stub.url")
   
   // API timeout
   lazy val claimToAdjustTimeout: Int = servicesConfig.getInt("claim-to-adjust.timeout")

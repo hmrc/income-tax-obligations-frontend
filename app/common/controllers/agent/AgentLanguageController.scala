@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package common.controllers
+package common.controllers.agent
 
 import common.config.FrontendAppConfig
 import play.api.i18n.Lang

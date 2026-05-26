@@ -17,9 +17,10 @@
 package common.models.audit
 
 import common.enums.AuditType.LowConfidenceLevelIvOutcomeSuccess
+import common.enums.TransactionName
 
 case class IvOutcomeSuccessAuditModel(nino: String) extends AuditModel {
-  override val transactionName: String = common.enums.TransactionName.LowConfidenceLevelIvOutcomeSuccess
+  override val transactionName: String = TransactionName.LowConfidenceLevelIvOutcomeSuccess
   override val detail: Seq[(String, String)] = Seq(
     "userType" -> "Individual",
     "nino" -> nino

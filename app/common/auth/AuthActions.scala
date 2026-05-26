@@ -101,7 +101,7 @@ class AuthActions @Inject()(
       itsaStatusRetrievalAction andThen
       triggeredMigrationRetrievalAction(isTriggeredMigrationPage)
   }
-  
+
   def asMTDPrimaryAgentForNrs: ActionBuilder[MtdItUser, AnyContent] = {
     checkSessionTimeout andThen
       authoriseAndRetrieveAgentForNrs.authorise() andThen
@@ -177,4 +177,3 @@ class AuthActions @Inject()(
     checkSessionTimeout andThen authoriseAndRetrieve
   }
 }
-

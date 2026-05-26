@@ -55,14 +55,14 @@ class FeedbackConnector @Inject()(val http: HttpClientV2,
       .withBody(data)
       .execute[HttpResponse]
       .map {resp =>
-          resp.status match {
-            case OK =>
-              Logger("application").info(s"RESPONSE status: ${resp.status}")
-              Right(())
-            case status =>
-              Logger("application").error(s"RESPONSE status: ${resp.status}")
-              Left(status)
-          }
-    }
+        resp.status match {
+          case OK =>
+            Logger("application").info(s"RESPONSE status: ${resp.status}")
+            Right(())
+          case status =>
+            Logger("application").error(s"RESPONSE status: ${resp.status}")
+            Left(status)
+        }
+      }
   }
 }

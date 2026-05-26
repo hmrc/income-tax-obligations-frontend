@@ -17,31 +17,34 @@
 //noinspection ScalaDeprecation
 package common.auth.actions
 
-import common.auth.*
 import com.google.inject.Singleton
+import common.auth.{Constants, FrontendAuthorisedFunctions}
 import common.config.FrontendAppConfig
+import common.controllers.errors.routes as errorRoutes
+import common.controllers.routes as appRoutes
+import common.enums.MTDIndividual
+import common.models.audit.IvUpliftRequiredAuditModel
 import common.models.auth.{AuthUserDetails, AuthorisedAndEnrolledRequest}
-import common.utils.auth.AuthUtils.*
+import common.services.AuditingService
+import common.utils.AuthUtils.{ORIGIN, mtdEnrolmentName}
 import play.api.Logger
-import play.api.mvc.Results.Redirect
 import play.api.mvc.*
+import play.api.mvc.Results.Redirect
 import uk.gov.hmrc.auth.core.*
 import uk.gov.hmrc.auth.core.authorise.Predicate
 import uk.gov.hmrc.auth.core.retrieve.v2.Retrievals.*
 import uk.gov.hmrc.auth.core.retrieve.~
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.http.HeaderCarrierConverter
-import common.controllers.routes as appRoutes
-import common.controllers.errors.routes as errorsRoutes
-import common.enums.MTDIndividual
-import common.models.audit.IvUpliftRequiredAuditModel
-import common.services.AuditingService
 
 import java.net.URLEncoder
 import javax.inject.Inject
-import scala.annotation.unused
+import scala.annotation.{nowarn, unused}
 import scala.concurrent.{ExecutionContext, Future}
 
+// Added @nowarn annotation to suppress compiler warning on line 72. As the filed name from Retrieval had been deprecated since 2024-02-26. But we are still using it (https://jira.tools.tax.service.gov.uk/browse/MISUV-11315)
+// https://github.com/hmrc/auth-client/blob/4ab64507528f7e5e4200eca6d01f6ddc6aa3b269/src-common/main/scala/uk/gov/hmrc/auth/core/retrieve/v2/Retrievals.scala#L54-L56
+@nowarn("cat=deprecation")
 @Singleton
 class AuthoriseAndRetrieveIndividual @Inject()(val authorisedFunctions: FrontendAuthorisedFunctions,
                                                val appConfig: FrontendAppConfig,
@@ -69,8 +72,8 @@ class AuthoriseAndRetrieveIndividual @Inject()(val authorisedFunctions: Frontend
     authorisedFunctions.authorised(AffinityGroup.Agent or predicate)
       .retrieve(allEnrolments and name and credentials and affinityGroup and confidenceLevel) {
         redirectIfAgent() orElse
-        redirectIfInsufficientConfidence() orElse constructAuthorisedAndEnrolledUser()
-      }(hc, executionContext) recoverWith(logAndRedirect())
+          redirectIfInsufficientConfidence() orElse constructAuthorisedAndEnrolledUser()
+      }(hc, executionContext) recoverWith logAndRedirect()
   }
 
   // this URL is incorrect in live - the completion and failure URLs must be URL encoded
@@ -78,7 +81,7 @@ class AuthoriseAndRetrieveIndividual @Inject()(val authorisedFunctions: Frontend
     val host = if (appConfig.relativeIVUpliftParams) "" else appConfig.itvcFrontendEnvironment
     @unused val origin = request.getQueryString(ORIGIN)
     val completionUrl: String = s"$host${appRoutes.UpliftSuccessController.success().url}"
-    val failureUrl: String = s"$host${errorsRoutes.UpliftFailedController.show().url}"
+    val failureUrl: String = s"$host${errorRoutes.UpliftFailedController.show().url}"
     s"${appConfig.ivUrl}/uplift?origin=ITVC&confidenceLevel=$requiredConfidenceLevel&completionURL=${URLEncoder.encode(completionUrl, "UTF-8")}&failureURL=${URLEncoder.encode(failureUrl, "UTF-8")}"
   }
 

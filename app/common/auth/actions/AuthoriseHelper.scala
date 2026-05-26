@@ -17,26 +17,25 @@
 package common.auth.actions
 
 import common.config.featureswitch.FeatureSwitching
-import common.controllers.timeout.routes as timeoutRoutes
-import common.controllers.routes as appRoutes
+import common.controllers.errors.routes as errorRoutes
 import common.models.auth.AuthorisedAndEnrolledRequest
+import common.viewUtils.InternalUrlHelper
 import play.api.Logger
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{Request, Result}
+import uk.gov.hmrc.auth.core.*
 import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Individual, Organisation}
-import uk.gov.hmrc.auth.core._
-import uk.gov.hmrc.auth.core.retrieve.{AgentInformation, Credentials, ItmpAddress, ItmpName, LoginTimes, MdtpInformation, Name, ~}
+import uk.gov.hmrc.auth.core.retrieve.*
 
 import java.time.LocalDate
 import scala.concurrent.Future
-import common.controllers.errors.routes as errorsRoutes
 
 trait AuthoriseHelper extends FeatureSwitching {
 
   type AuthRetrievals = Enrolments ~ Option[Name] ~ Option[Credentials] ~ Option[AffinityGroup] ~ ConfidenceLevel
   type NrsIndividualAuthRetrievals = Enrolments ~ Option[Name] ~ Option[Credentials] ~ Option[AffinityGroup] ~ ConfidenceLevel ~
-  Option[String] ~ Option[String] ~ Option[String] ~ Option[LocalDate] ~ Option[String] ~ Option[String] ~ Option[CredentialRole] ~
-  Option[MdtpInformation] ~ Option[ItmpName] ~ Option[LocalDate] ~ Option[ItmpAddress] ~ Option[String] ~ LoginTimes
+    Option[String] ~ Option[String] ~ Option[String] ~ Option[LocalDate] ~ Option[String] ~ Option[String] ~ Option[CredentialRole] ~
+    Option[MdtpInformation] ~ Option[ItmpName] ~ Option[LocalDate] ~ Option[ItmpAddress] ~ Option[String] ~ LoginTimes
   type NrsAgentAuthRetrievals = Enrolments ~ Option[Name] ~ Option[Credentials] ~ Option[AffinityGroup] ~ ConfidenceLevel ~
     Option[String] ~ Option[String] ~ Option[String] ~ Option[String] ~ Option[LocalDate] ~ Option[String]~ AgentInformation ~
     Option[String] ~ Option[CredentialRole] ~ Option[MdtpInformation] ~ Option[ItmpName] ~ Option[LocalDate] ~
@@ -47,14 +46,14 @@ trait AuthoriseHelper extends FeatureSwitching {
   def logAndRedirect[A](): PartialFunction[Throwable, Future[Either[Result, AuthorisedAndEnrolledRequest[A]]]] = {
     case _: BearerTokenExpired =>
       logger.warn("Bearer Token Timed Out.")
-      Future.successful(Left(Redirect(timeoutRoutes.SessionTimeoutController.timeout())))
+      Future.successful(Left(Redirect(InternalUrlHelper.timeoutCall)))
     case insufficientEnrolments: InsufficientEnrolments =>
-      logger.error(s"Insufficient enrolments: ${insufficientEnrolments.msg}")
-      Future.successful(Left(Redirect(errorsRoutes.NotEnrolledController.show())))
+      logger.warn(s"Insufficient enrolments: ${insufficientEnrolments.msg}")
+      Future.successful(Left(Redirect(errorRoutes.NotEnrolledController.show())))
     case authorisationException: AuthorisationException =>
-      logger.error(s"Unauthorised request: ${authorisationException.reason}. Redirect to Sign In.")
-      Future.successful(Left(Redirect(appRoutes.SignInController.signIn())))
-    // No catch all block at end - bubble up to global error handler
+      logger.warn(s"Unauthorised request: ${authorisationException.reason}. Redirect to Sign In.")
+      Future.successful(Left(Redirect(InternalUrlHelper.signinCall)))
+    // No catch-all block at end - bubble up to global error handler
     // See investigation: https://github.com/hmrc/income-tax-view-change-frontend/pull/2432
   }
 

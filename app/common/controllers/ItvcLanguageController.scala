@@ -29,7 +29,7 @@ class ItvcLanguageController @Inject()(mcc: MessagesControllerComponents, appCon
                                        languageUtils: LanguageUtils) extends LanguageController(languageUtils, mcc) {
 
 
-  override def fallbackURL: String = appConfig.homePageBaseUrl
+  override def fallbackURL: String = appConfig.homePageBaseRoute
 
   val english: Lang = Lang("en")
   val welsh: Lang = Lang("cy")

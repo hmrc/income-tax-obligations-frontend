@@ -57,7 +57,7 @@ trait ControllerISpecBase
 
   val mockHost = WiremockHelper.wiremockHost
   val mockPort = WiremockHelper.wiremockPort.toString
-  val mockUrl = WiremockHelper.url
+  val mockUrl = s"http://$mockHost:$mockPort"
 
   val testAppConfig: FrontendAppConfig = app.injector.instanceOf[FrontendAppConfig]
   val cache: AsyncCacheApi = app.injector.instanceOf[AsyncCacheApi]

@@ -22,11 +22,12 @@ import common.auth.FrontendAuthorisedFunctions
 import common.config.FrontendAppConfig
 import common.config.featureswitch.FeatureSwitching
 import common.models.auth.{AuthUserDetails, AuthorisedUserRequest}
+import common.viewUtils.InternalUrlHelper
 import play.api.Logger
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{ActionRefiner, MessagesControllerComponents, Request, Result}
-import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import uk.gov.hmrc.auth.core.*
+import uk.gov.hmrc.auth.core.AffinityGroup.{Individual, Organisation}
 import uk.gov.hmrc.auth.core.authorise.{EmptyPredicate, Predicate}
 import uk.gov.hmrc.auth.core.retrieve.v2.Retrievals.*
 import uk.gov.hmrc.auth.core.retrieve.~
@@ -34,12 +35,12 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.http.HeaderCarrierConverter
 
 import javax.inject.Inject
-import scala.annotation.unused
+import scala.annotation.{nowarn, unused}
 import scala.concurrent.{ExecutionContext, Future}
-import common.controllers.agent.errors.routes as agentErrorsRoutes
-import common.controllers.timeout.routes as timeoutRoutes
-import common.controllers.routes as appRoutes
 
+// Added @nowarn annotation to suppress compiler warning on line 69. As the filed name from Retrieval had been deprecated since 2024-02-26. But we are still using it (https://jira.tools.tax.service.gov.uk/browse/MISUV-11315)
+// https://github.com/hmrc/auth-client/blob/4ab64507528f7e5e4200eca6d01f6ddc6aa3b269/src-common/main/scala/uk/gov/hmrc/auth/core/retrieve/v2/Retrievals.scala#L54-L56
+@nowarn("cat=deprecation")
 @Singleton
 class AuthoriseAndRetrieveAgentForNrs @Inject()(val authorisedFunctions: FrontendAuthorisedFunctions,
                                                 val appConfig: FrontendAppConfig,
@@ -78,14 +79,14 @@ class AuthoriseAndRetrieveAgentForNrs @Inject()(val authorisedFunctions: Fronten
   def agentLogAndRedirect[A]: PartialFunction[Throwable, Future[Either[Result, AuthorisedUserRequest[A]]]] = {
     case _: BearerTokenExpired =>
       logger.warn("Bearer Token Timed Out.")
-      Future.successful(Left(Redirect(timeoutRoutes.SessionTimeoutController.timeout())))
+      Future.successful(Left(Redirect(InternalUrlHelper.timeoutCall)))
     case _: InsufficientEnrolments =>
       logger.error(s"missing agent reference. Redirect to agent error page.")
-      Future.successful(Left(Redirect(agentErrorsRoutes.AgentErrorController.show())))
+      Future.successful(Left(Redirect(InternalUrlHelper.agentErrorCall)))
     case authorisationException: AuthorisationException =>
       logger.error(s"Unauthorised request: ${authorisationException.reason}. Redirect to Sign In.")
-      Future.successful(Left(Redirect(appRoutes.SignInController.signIn())))
-    // No catch-all block at end - bubble up to global error handler
+      Future.successful(Left(Redirect(InternalUrlHelper.signinCall)))
+    // No catch all block at end - bubble up to global error handler
     // See investigation: https://github.com/hmrc/income-tax-view-change-frontend/pull/2432
   }
 

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package common.controllers.agent.errors
+package common.controllers.agent
 
 import common.auth.AuthActions
 import common.config.FrontendAppConfig
+import common.views.html.errorPages.agent.NoAssignmentView
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
-import common.views.html.errorPages.agent.NoAssignmentView
 
 import javax.inject.{Inject, Singleton}
 

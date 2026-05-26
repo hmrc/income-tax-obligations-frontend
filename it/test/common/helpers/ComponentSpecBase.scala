@@ -16,10 +16,11 @@
 
 package common.helpers
 
+import com.github.tomakehurst.wiremock.client.WireMock
 import common.auth.{HeaderExtractor, MtdItUser}
 import common.config.FrontendAppConfig
-//import common.helpers.serviceMocks.AuditStub
 import common.enums.{MTDIndividual, MTDUserRole}
+import common.helpers.serviceMocks.AuditStub
 import common.implicits.ImplicitDateFormatterImpl
 import common.models.auth.AuthorisedAndEnrolledRequest
 import common.models.incomeSourceDetails.{IncomeSourceDetailsModel, TaxYear}
@@ -28,11 +29,15 @@ import common.services.{DateService, DateServiceInterface}
 import org.scalatest.*
 import org.scalatest.concurrent.{Eventually, IntegrationPatience, ScalaFutures}
 import org.scalatest.matchers.should.Matchers
+import org.scalatest.time.SpanSugar.convertIntToGrainOfTime
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
 import play.api.cache.AsyncCacheApi
 import play.api.i18n.{Lang, MessagesApi}
+import play.api.inject.bind
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.crypto.DefaultCookieSigner
 import play.api.test.FakeRequest
+import play.api.{Application, Environment, Mode}
 import testConstants.BaseIntegrationTestConstants.*
 import uk.gov.hmrc.http.{Authorization, HeaderCarrier, SessionId}
 import uk.gov.hmrc.play.http.HeaderCarrierConverter
@@ -95,7 +100,7 @@ trait ComponentSpecBase extends TestSuite with CustomMatchers
 
   val mockHost: String = WiremockHelper.wiremockHost
   val mockPort: String = WiremockHelper.wiremockPort.toString
-  val mockUrl: String = WiremockHelper.url
+  val mockUrl: String = s"http://$mockHost:$mockPort"
   val appConfig: FrontendAppConfig = app.injector.instanceOf[FrontendAppConfig]
   val cache: AsyncCacheApi = app.injector.instanceOf[AsyncCacheApi]
   val languageUtils: LanguageUtils = app.injector.instanceOf[LanguageUtils]
@@ -209,29 +214,29 @@ trait ComponentSpecBase extends TestSuite with CustomMatchers
     else LocalDate.of(currentDate.getYear + 1, 4, 5)
   }
 
-//
-//  override implicit lazy val app: Application =
-//    new GuiceApplicationBuilder()
-//      .in(Environment.simple(mode = Mode.Dev))
-//      .overrides(bind[HeaderExtractor].to[TestHeaderExtractor])
-//      .overrides(bind[DateServiceInterface].to[TestDateService])
-//      .configure(config)
-//      .build()
-//
-//  override def beforeAll(): Unit = {
-//    super.beforeAll()
-//    startWiremock()
-//  }
-//
-//  override def beforeEach(): Unit = {
-//    super.beforeEach()
-//    WireMock.reset()
-//    AuditStub.stubAuditing()
-//    Await.result(cache.removeAll(), 5.seconds)
-//  }
-//
-//  override def afterAll(): Unit = {
-//    stopWiremock()
-//    super.afterAll()
-//  }
+
+  override implicit lazy val app: Application =
+    new GuiceApplicationBuilder()
+      .in(Environment.simple(mode = Mode.Dev))
+      .overrides(bind[HeaderExtractor].to[TestHeaderExtractor])
+      .overrides(bind[DateServiceInterface].to[TestDateService])
+      .configure(config)
+      .build()
+
+  override def beforeAll(): Unit = {
+    super.beforeAll()
+    startWiremock()
+  }
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    WireMock.reset()
+    AuditStub.stubAuditing()
+    Await.result(cache.removeAll(), 5.seconds)
+  }
+
+  override def afterAll(): Unit = {
+    stopWiremock()
+    super.afterAll()
+  }
 }

@@ -7,6 +7,7 @@ GET         /partial                                                      common
 
 # Client Relationship Failure
 GET         /agents/not-authorised-to-view-client                         common.controllers.agent.ClientRelationshipFailureController.show()
+GET         /agents/no-assignment                                         common.controllers.agent.NoAssignmentController.show()
 
 #Feedback Routes
 GET         /feedback                                                     common.controllers.feedback.FeedbackController.show()
@@ -18,17 +19,14 @@ GET         /agents/thankyou                                              common
 
 #Language Controller
 GET        /language/:lang                                                common.controllers.LocalLanguageController.switchToLanguage(lang: String)
-GET        /agents/language/:lang                                         common.controllers.AgentLanguageController.switchToLanguage(lang: String)
+GET        /agents/language/:lang                                         common.controllers.agent.AgentLanguageController.switchToLanguage(lang: String)
 GET        /language/:lang                                                common.controllers.ItvcLanguageController.switchToLanguage(lang: String)
-GET         /switch-to-welsh                                              common.controllers.ItvcLanguageController.switchToWelsh(fragment: Option[String])
-GET         /switch-to-english                                            common.controllers.ItvcLanguageController.switchToEnglish(fragment: Option[String])
+GET        /switch-to-welsh                                               common.controllers.ItvcLanguageController.switchToWelsh(fragment: Option[String])
+GET        /switch-to-english                                             common.controllers.ItvcLanguageController.switchToEnglish(fragment: Option[String])
 
 # No Income Sources Error page
 GET         /cannot-access-service                                        common.controllers.NoIncomeSourcesController.show(isAgent: Boolean = false)
 GET         /agents/cannot-access-service                                 common.controllers.NoIncomeSourcesController.show(isAgent: Boolean = true)
-
-#Not Assigned
-GET         /agents/no-assignment                                         common.controllers.agent.errors.NoAssignmentController.show()
 
 #Not Enrolled
 GET         /cannot-access-service                                        common.controllers.errors.NotEnrolledController.show()

@@ -26,7 +26,7 @@ import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class AgentHasConfirmedClientAction @Inject()(implicit val executionContext: ExecutionContext, appConfig: FrontendAppConfig)
+class AgentHasConfirmedClientAction @Inject()(implicit val executionContext: ExecutionContext, val appConfig: FrontendAppConfig)
   extends ActionRefiner[AuthorisedAndEnrolledRequest, AuthorisedAndEnrolledRequest] {
 
   override protected def refine[A](request: AuthorisedAndEnrolledRequest[A]): Future[Either[Result, AuthorisedAndEnrolledRequest[A]]] = {

@@ -27,7 +27,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class RedirectIfNoIncomeSourcesAction @Inject()()
-                                     (implicit val executionContext: ExecutionContext)
+                                               (implicit val executionContext: ExecutionContext)
   extends ActionRefiner[MtdItUser, MtdItUser] {
 
   private val logger = Logger("application")

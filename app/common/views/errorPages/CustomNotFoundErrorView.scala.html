@@ -28,7 +28,7 @@
 @(isAgent: Boolean = false)(implicit request : Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @homeUrl = @{
-        appConfig.getHomePageUrl(isAgent)
+        appConfig.getHomePageBaseUrl(isAgent)
 }
 
 @mainTemplate(pageTitle = messages("error.custom.heading"), isAgent = isAgent) {

@@ -23,7 +23,6 @@ import uk.gov.hmrc.play.partials.HeaderCarrierForPartialsConverter
 
 import javax.inject.{Inject, Singleton}
 
-
 @Singleton
 class FrontendAuthConnector @Inject()(config: ServicesConfig,
                                       val WSHttp: HttpClientV2) extends PlayAuthConnector {

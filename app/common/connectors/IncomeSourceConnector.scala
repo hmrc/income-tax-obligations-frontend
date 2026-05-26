@@ -19,8 +19,8 @@ package common.connectors
 import common.config.FrontendAppConfig
 import common.models.audit.IncomeSourceDetailsResponseAuditModel
 import common.models.auth.AuthorisedAndEnrolledRequest
-import common.services.AuditingService
 import common.models.incomeSourceDetails.{IncomeSourceDetailsError, IncomeSourceDetailsModel, IncomeSourceDetailsResponse}
+import common.services.AuditingService
 import common.utils.Headers.checkAndAddTestHeader
 import play.api.Logger
 import play.api.http.Status.OK
@@ -33,11 +33,10 @@ import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class IncomeSourceConnector @Inject()(
-                                          httpClient: HttpClientV2,
-                                          auditingService: AuditingService,
-                                          appConfig: FrontendAppConfig
-                                        )(implicit val ec: ExecutionContext) {
+class IncomeSourceConnector @Inject()(httpClient: HttpClientV2,
+                                      auditingService: AuditingService,
+                                      appConfig: FrontendAppConfig
+                                     )(implicit val ec: ExecutionContext) {
 
   private[connectors] def getIncomeSourcesUrl(mtditid: String): String = {
     s"${appConfig.itvcProtectedService}/income-tax-view-change/income-sources/$mtditid"
@@ -65,7 +64,7 @@ class IncomeSourceConnector @Inject()(
 
     headerCarrier
   }
-  
+
   def getIncomeSources()(implicit headerCarrier: HeaderCarrier, mtdItUser: AuthorisedAndEnrolledRequest[_]): Future[IncomeSourceDetailsResponse] = {
 
     val url = getIncomeSourcesUrl(mtdItUser.mtditId)

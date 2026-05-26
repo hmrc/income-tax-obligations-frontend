@@ -16,34 +16,30 @@
 
 package common.auth.actions
 
-import common.auth.AuthExceptions.NoAssignment
-import common.controllers.timeout.routes as timeoutRoutes
-import common.controllers.agent.routes as agentRoutes
-import common.controllers.agent.errors.routes as agentErrorRoutes
 import com.google.inject.Singleton
-import common.config.{AgentItvcErrorHandler, FrontendAppConfig}
+import common.auth.AuthExceptions.NoAssignment
 import common.config.featureswitch.FeatureSwitching
+import common.config.{AgentItvcErrorHandler, FrontendAppConfig}
+import common.controllers.agent.routes as agentRoutes
+import common.enums.{MTDPrimaryAgent, MTDSupportingAgent, MTDUserRole}
 import common.models.auth.{AuthorisedAgentWithClientDetailsRequest, AuthorisedAndEnrolledRequest}
-import common.utils.auth.AuthUtils._
+import common.utils.AuthUtils.*
+import common.viewUtils.InternalUrlHelper
 import play.api.Logger
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{ActionRefiner, MessagesControllerComponents, Request, Result}
-import uk.gov.hmrc.auth.core._
+import uk.gov.hmrc.auth.core.*
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.http.HeaderCarrierConverter
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
-import common.controllers.routes as appRoutes
-import common.enums.{MTDPrimaryAgent, MTDSupportingAgent, MTDUserRole}
 
 @Singleton
 class AuthoriseAndRetrieveMtdAgent @Inject()(authorisedFunctions: AuthorisedFunctions,
                                              val appConfig: FrontendAppConfig,
                                              mcc: MessagesControllerComponents,
-                                             errorHandler: AgentItvcErrorHandler)
-  extends FeatureSwitching
-    with ActionRefiner[AuthorisedAgentWithClientDetailsRequest, AuthorisedAndEnrolledRequest] {
+                                             errorHandler: AgentItvcErrorHandler) extends FeatureSwitching with ActionRefiner[AuthorisedAgentWithClientDetailsRequest, AuthorisedAndEnrolledRequest] {
 
   lazy val logger: Logger = Logger(getClass)
 
@@ -106,20 +102,19 @@ class AuthoriseAndRetrieveMtdAgent @Inject()(authorisedFunctions: AuthorisedFunc
     throwable match {
       case _: BearerTokenExpired =>
         logger.warn("Bearer Token Timed Out.")
-        Future.successful(Left(Redirect(timeoutRoutes.SessionTimeoutController.timeout())))
+        Future.successful(Left(Redirect(InternalUrlHelper.timeoutCall)))
       case _: InsufficientEnrolments =>
         logger.error(s"missing delegated enrolment. Redirect to agent error page.")
         Future.successful(Left(Redirect(agentRoutes.ClientRelationshipFailureController.show())))
       case _: NoAssignment =>
         logger.error(s"Agent User is not in an access group associated with the Client.")
-        Future.successful(Left(Redirect(agentErrorRoutes.NoAssignmentController.show())))
+        Future.successful(Left(Redirect(agentRoutes.NoAssignmentController.show())))
       case authorisationException: AuthorisationException =>
-        logger.error(s"Unauthorised request: ${authorisationException.reason}. Redirect to Sign In.")
-        Future.successful(Left(Redirect(appRoutes.SignInController.signIn())))
+        logger.warn(s"Unauthorised request: ${authorisationException.reason}. Redirect to Sign In.")
+        Future.successful(Left(Redirect(InternalUrlHelper.signinCall)))
       case ex =>
         logger.error(s"Unexpected error from Auth. Error message = ${ex.getMessage}")
         Future.successful(Left(errorHandler.showInternalServerError()))
     }
   }
 }
-

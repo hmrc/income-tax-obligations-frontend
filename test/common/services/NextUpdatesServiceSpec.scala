@@ -17,15 +17,15 @@
 package common.services
 
 import common.config.featureswitch.FeatureSwitching
-import common.models.incomeSourceDetails.viewModels.{DatesModel, ObligationsViewModel}
 import common.mocks.connectors.MockObligationsConnector
+import common.models.incomeSourceDetails.viewModels.{DatesModel, ObligationsViewModel}
 import common.models.obligations.*
 import common.services.NextUpdatesService.QuarterlyUpdatesCountForTaxYear
-import testConstants.NextUpdatesTestConstants.*
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import play.api.http.Status.INTERNAL_SERVER_ERROR
 import testConstants.BusinessDetailsTestConstants.obligationsDataSuccessModel as _
+import testConstants.NextUpdatesTestConstants.*
 import testUtils.TestSupport
 
 import java.time.LocalDate
@@ -536,7 +536,7 @@ class NextUpdatesServiceSpec extends TestSupport with MockObligationsConnector w
           ))
         )
       )
-      TestNextUpdatesService.getNextUpdatesViewModel(obligations, true) shouldBe {
+      TestNextUpdatesService.getNextUpdatesViewModel(obligations) shouldBe {
         NextUpdatesViewModel(
           List(DeadlineViewModel(QuarterlyObligation, true, LocalDate.parse("2023-12-15"),
             List(ObligationWithIncomeType("nextUpdates.business", SingleObligationModel(LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-15"), "Quarterly", None, "#001", StatusFulfilled))),
