@@ -71,7 +71,7 @@ class AgentHasConfirmedClientActionSpec extends AuthActionsSpecHelper {
         )
 
         status(result) shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some("/report-quarterly/income-and-expenses/view/agents/confirm-client-details")
+        redirectLocation(result) shouldBe Some("/manage-self-assessment/obligations/agents/confirm-client-details")
 
       }
     }

@@ -145,7 +145,7 @@ class TriggeredMigrationRetrievalActionSpec extends TestSupport with MockSession
         val result = action(true).invokeBlock(confirmedMtdUser, defaultAsyncBody(_.headers.get("Gov-Test-Scenario") shouldBe Some("")))
 
         status(result) shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some("/report-quarterly/income-and-expenses/view")
+        redirectLocation(result) shouldBe Some("/manage-self-assessment/obligations")
       }
 
       "an individual user has a channel of confirmed and is on a triggered migration page and is not recently confirmed (Set to None)" in {
@@ -158,7 +158,7 @@ class TriggeredMigrationRetrievalActionSpec extends TestSupport with MockSession
         val result = action(true).invokeBlock(confirmedMtdUser, defaultAsyncBody(_.headers.get("Gov-Test-Scenario") shouldBe Some("")))
 
         status(result) shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some("/report-quarterly/income-and-expenses/view")
+        redirectLocation(result) shouldBe Some("/manage-self-assessment/obligations")
       }
 
       "an individual user has a channel of customer led and is on a triggered migration page and is not recently confirmed" in {
@@ -171,7 +171,7 @@ class TriggeredMigrationRetrievalActionSpec extends TestSupport with MockSession
         val result = action(true).invokeBlock(confirmedMtdUser, defaultAsyncBody(_.headers.get("Gov-Test-Scenario") shouldBe Some("")))
 
         status(result) shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some("/report-quarterly/income-and-expenses/view")
+        redirectLocation(result) shouldBe Some("/manage-self-assessment/obligations")
       }
       "an agent user has a channel of confirmed and is on a triggered migration page and is not recently confirmed" in {
         val action = actionWithSwitch(Set(TriggeredMigration))
@@ -183,7 +183,7 @@ class TriggeredMigrationRetrievalActionSpec extends TestSupport with MockSession
         val result = action(true).invokeBlock(confirmedMtdUser, defaultAsyncBody(_.headers.get("Gov-Test-Scenario") shouldBe Some("")))
 
         status(result) shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some("/report-quarterly/income-and-expenses/view/agents/client-income-tax")
+        redirectLocation(result) shouldBe Some("/manage-self-assessment/obligations/agents/client-income-tax")
       }
       "an agent user has a channel of customer led and is on a triggered migration page and is not recently confirmed" in {
         val action = actionWithSwitch(Set(TriggeredMigration))
@@ -195,7 +195,7 @@ class TriggeredMigrationRetrievalActionSpec extends TestSupport with MockSession
         val result = action(true).invokeBlock(confirmedMtdUser, defaultAsyncBody(_.headers.get("Gov-Test-Scenario") shouldBe Some("")))
 
         status(result) shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some("/report-quarterly/income-and-expenses/view/agents/client-income-tax")
+        redirectLocation(result) shouldBe Some("/manage-self-assessment/obligations/agents/client-income-tax")
       }
       "the user is unconfirmed and their CY ITSA status is missing but their CY+1 ITSA status is available" in {
         val action = actionWithSwitch(Set(TriggeredMigration))
@@ -212,7 +212,7 @@ class TriggeredMigrationRetrievalActionSpec extends TestSupport with MockSession
         val result = action(true).invokeBlock(confirmedMtdUser, defaultAsyncBody(_.headers.get("Gov-Test-Scenario") shouldBe None))
 
         status(result) shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some("/report-quarterly/income-and-expenses/view")
+        redirectLocation(result) shouldBe Some("/manage-self-assessment/obligations")
         verify(mockCustomerFactsUpdateService, times(0)).updateCustomerFacts(any())(any(), any())
       }
     }
@@ -388,7 +388,7 @@ class TriggeredMigrationRetrievalActionSpec extends TestSupport with MockSession
         val result = action(false).invokeBlock(confirmedMtdUser, defaultAsyncBody(_.headers.get("Gov-Test-Scenario") shouldBe None))
 
         status(result) shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some("/report-quarterly/income-and-expenses/view/check-your-active-businesses/hmrc-record")
+        redirectLocation(result) shouldBe Some("/manage-self-assessment/obligations/check-your-active-businesses/hmrc-record")
         verify(mockCustomerFactsUpdateService, times(0)).updateCustomerFacts(any())(any(), any())
       }
       "the user is unconfirmed, their ITSA status is mandatory, and their calculation is not crystallised and they arent on a triggered migration page" in {
@@ -405,7 +405,7 @@ class TriggeredMigrationRetrievalActionSpec extends TestSupport with MockSession
         val result = action(false).invokeBlock(confirmedMtdUser, defaultAsyncBody(_.headers.get("Gov-Test-Scenario") shouldBe None))
 
         status(result) shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some("/report-quarterly/income-and-expenses/view/check-your-active-businesses/hmrc-record")
+        redirectLocation(result) shouldBe Some("/manage-self-assessment/obligations/check-your-active-businesses/hmrc-record")
         verify(mockCustomerFactsUpdateService, times(0)).updateCustomerFacts(any())(any(), any())
       }
     }

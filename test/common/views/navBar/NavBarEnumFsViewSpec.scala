@@ -38,7 +38,7 @@ class NavBarEnumFsViewSpec extends TestSupport {
     s"have right text '$home' and h-ref" in {
       val link = document.getElementById(s"nav-bar-link-$home")
       link.text shouldBe home
-      link.attr("href") shouldBe "http://localhost:9088/report-quarterly/income-and-expenses/view"
+      link.attr("href") shouldBe "http://localhost:9088/manage-self-assessment/obligations"
     }
 
     s"have right text '$manageAccount' and h-ref'" in {

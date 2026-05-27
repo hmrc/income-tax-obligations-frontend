@@ -159,7 +159,7 @@ class AuthoriseAndRetrieveAgentForNrsSpec extends AuthActionsSpecHelper {
               defaultAsync)
 
             status(result) shouldBe SEE_OTHER
-            redirectLocation(result).get should include("/report-quarterly/income-and-expenses/view/agents/agent-error")
+            redirectLocation(result).get should include("/manage-self-assessment/obligations/agents/agent-error")
           }
         }
       }
@@ -180,12 +180,12 @@ class AuthoriseAndRetrieveAgentForNrsSpec extends AuthActionsSpecHelper {
           defaultAsync)
 
         status(result) shouldBe SEE_OTHER
-        redirectLocation(result).get should include("/report-quarterly/income-and-expenses/view")
+        redirectLocation(result).get should include("/manage-self-assessment/obligations")
       }
     }
 
     "redirect to Session timed out page" when {
-      s"the user is has an expired bearer token" in {
+      s"the user has an expired bearer token" in {
 
         when(mockAuthConnector.authorise[NrsAgentAuthRetrievals](any(), any())(any(), any())).thenReturn(
           Future.failed[NrsAgentAuthRetrievals](BearerTokenExpired())
@@ -196,7 +196,7 @@ class AuthoriseAndRetrieveAgentForNrsSpec extends AuthActionsSpecHelper {
           defaultAsync)
 
         status(result) shouldBe SEE_OTHER
-        redirectLocation(result).get should include("/report-quarterly/income-and-expenses/view/session-timeout")
+        redirectLocation(result).get should include("/manage-self-assessment/obligations/session-timeout")
       }
     }
 
@@ -212,7 +212,7 @@ class AuthoriseAndRetrieveAgentForNrsSpec extends AuthActionsSpecHelper {
           defaultAsync)
 
         status(result) shouldBe SEE_OTHER
-        redirectLocation(result).get should include("/report-quarterly/income-and-expenses/view/sign-in")
+        redirectLocation(result).get should include("/manage-self-assessment/obligations/sign-in")
       }
     }
   }

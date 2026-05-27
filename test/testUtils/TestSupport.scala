@@ -269,7 +269,7 @@ trait TestSupport extends UnitSpec with GuiceOneAppPerSuite with BeforeAndAfterA
       SessionKeys.lastRequestTimestamp -> "1498236506662",
       SessionKeys.authToken -> "Bearer Token"
     ).withHeaders(
-      HeaderNames.REFERER -> "http://www.somedomain.org/report-quarterly/income-and-expenses/view"
+      HeaderNames.REFERER -> "http://www.somedomain.org/manage-self-assessment/obligations"
     )
 
   lazy val fakeRequestWithClientDetails: FakeRequest[AnyContentAsEmpty.type] = fakeRequestWithActiveSession.withSession(

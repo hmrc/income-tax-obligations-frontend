@@ -87,7 +87,7 @@ object BaseTestConstants extends UnitSpec with GuiceOneAppPerSuite {
   val testClientNameString = "Jon Jones"
   val testRetrievedUserName: Name = Name(Some(testUserName), None)
   val testClientName: Name = Name(Some(testFirstName), Some(testSecondName))
-  val testPaymentRedirectUrl = "http://localhost:9088/report-quarterly/income-and-expenses/view"
+  val testPaymentRedirectUrl = "http://localhost:9088/manage-self-assessment/obligations"
   val testMandationStatusOn = "on"
   val testMandationStatusOff = "off"
   val testSetUpPaymentPlanUrl = "http://localhost:9215/set-up-a-payment-plan/sa-payment-plan"
@@ -195,7 +195,7 @@ object BaseTestConstants extends UnitSpec with GuiceOneAppPerSuite {
   val testNavHtml: Html = HtmlFormat.raw(
     "<html><head></head><body>  <nav id='secondary-nav' class='hmrc-account-menu'> " +
       "<ul class='hmrc-account-menu__main govuk-grid-column-full' style='padding: 0;'>" +
-      "<li> <a href='http://localhost:9088/report-quarterly/income-and-expenses/view' id='nav-bar-link-testEnHome' class='hmrc-account-menu__link'> testEnHome </a> </li>" +
+      "<li> <a href='http://localhost:9088/manage-self-assessment/obligations' id='nav-bar-link-testEnHome' class='hmrc-account-menu__link'> testEnHome </a> </li>" +
       "<li> <a href='testUrl' id='nav-bar-link-testEnAccount' class='hmrc-account-menu__link'> testEnAccount </a> </li>" +
       "<li> <a href='testUrl' id='nav-bar-link-testEnMessages' class='hmrc-account-menu__link'> testEnMessages </a> </li>" +
       "<li> <a href='testUrl' id='nav-bar-link-testEnForm' class='hmrc-account-menu__link'> testEnForm <span class='hmrc-notification-badge'>1</span> </a> </li>" +

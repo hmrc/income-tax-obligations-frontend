@@ -125,7 +125,7 @@ class AuthoriseAndRetrieveMtdAgentSpec extends AuthActionsSpecHelper {
         )
 
         status(result) shouldBe SEE_OTHER
-        redirectLocation(result).get should include("/report-quarterly/income-and-expenses/view/agents/not-authorised-to-view-client")
+        redirectLocation(result).get should include("/manage-self-assessment/obligations/agents/not-authorised-to-view-client")
       }
     }
 
@@ -140,7 +140,7 @@ class AuthoriseAndRetrieveMtdAgentSpec extends AuthActionsSpecHelper {
 
         val result = authAction.invokeBlock(defaultAuthorisedWithClientDetailsRequest, defaultAsync)
         status(result) shouldBe SEE_OTHER
-        redirectLocation(result).get should include("/report-quarterly/income-and-expenses/view/agents/no-assignment")
+        redirectLocation(result).get should include("/manage-self-assessment/obligations/agents/no-assignment")
       }
     }
 
@@ -153,11 +153,11 @@ class AuthoriseAndRetrieveMtdAgentSpec extends AuthActionsSpecHelper {
 
         val result = authAction.invokeBlock(
           defaultAuthorisedWithClientDetailsRequest,
-          redirectAsync("/report-quarterly/income-and-expenses/view/session-timeout")
+          redirectAsync("/manage-self-assessment/obligations/view/session-timeout")
         )
 
         status(result) shouldBe SEE_OTHER
-        redirectLocation(result).get should include("/report-quarterly/income-and-expenses/view/session-timeout")
+        redirectLocation(result).get should include("/manage-self-assessment/obligations/session-timeout")
       }
     }
 
@@ -173,7 +173,7 @@ class AuthoriseAndRetrieveMtdAgentSpec extends AuthActionsSpecHelper {
         )
 
         status(result) shouldBe SEE_OTHER
-        redirectLocation(result).get should include("/report-quarterly/income-and-expenses/view/sign-in")
+        redirectLocation(result).get should include("/manage-self-assessment/obligations/sign-in")
       }
     }
 

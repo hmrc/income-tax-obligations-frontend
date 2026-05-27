@@ -255,7 +255,7 @@ trait WiremockHelper {
 
   def resetWiremock() = WireMock.reset()
 
-  def buildClient(path: String) = ws.url(s"http://localhost:$port/report-quarterly/income-and-expenses/view$path")
+  def buildClient(path: String) = ws.url(s"http://localhost:$port/manage-self-assessment/obligations$path")
     .withFollowRedirects(false)
 
   def buildMTDClient(path: String,

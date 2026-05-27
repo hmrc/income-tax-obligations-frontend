@@ -111,7 +111,7 @@ class AuthoriseAndRetrieveAgentSpec extends AuthActionsSpecHelper {
             defaultAsync)
 
           status(result) shouldBe SEE_OTHER
-          redirectLocation(result).get should include("/report-quarterly/income-and-expenses/view/agents/agent-error")
+          redirectLocation(result).get should include("/manage-self-assessment/obligations/agents/agent-error")
         }
       }
 
@@ -129,13 +129,13 @@ class AuthoriseAndRetrieveAgentSpec extends AuthActionsSpecHelper {
               defaultAsync)
 
             status(result) shouldBe SEE_OTHER
-            redirectLocation(result).get should include("/report-quarterly/income-and-expenses/view")
+            redirectLocation(result).get should include("/manage-self-assessment/obligations")
           }
         }
       }
 
       "redirect to Session timed out page" when {
-        s"the user is has an expired bearer token" in {
+        s"the user has an expired bearer token" in {
 
           when(mockAuthConnector.authorise[AuthRetrievals](any(), any())(any(), any())).thenReturn(
             Future.failed[AuthRetrievals](BearerTokenExpired())
@@ -146,7 +146,7 @@ class AuthoriseAndRetrieveAgentSpec extends AuthActionsSpecHelper {
             defaultAsync)
 
           status(result) shouldBe SEE_OTHER
-          redirectLocation(result).get should include("/report-quarterly/income-and-expenses/view/session-timeout")
+          redirectLocation(result).get should include("/manage-self-assessment/obligations/session-timeout")
         }
       }
 
@@ -162,7 +162,7 @@ class AuthoriseAndRetrieveAgentSpec extends AuthActionsSpecHelper {
             defaultAsync)
 
           status(result) shouldBe SEE_OTHER
-          redirectLocation(result).get should include("/report-quarterly/income-and-expenses/view/sign-in")
+          redirectLocation(result).get should include("/manage-self-assessment/obligations/sign-in")
         }
       }
     }
@@ -237,7 +237,7 @@ class AuthoriseAndRetrieveAgentSpec extends AuthActionsSpecHelper {
               defaultAsync)
 
             status(result) shouldBe SEE_OTHER
-            redirectLocation(result).get should include("/report-quarterly/income-and-expenses/view")
+            redirectLocation(result).get should include("/manage-self-assessment/obligations")
           }
         }
       }
@@ -254,7 +254,7 @@ class AuthoriseAndRetrieveAgentSpec extends AuthActionsSpecHelper {
             defaultAsync)
 
           status(result) shouldBe SEE_OTHER
-          redirectLocation(result).get should include("/report-quarterly/income-and-expenses/view/session-timeout")
+          redirectLocation(result).get should include("/manage-self-assessment/obligations/session-timeout")
         }
       }
 
@@ -270,7 +270,7 @@ class AuthoriseAndRetrieveAgentSpec extends AuthActionsSpecHelper {
             defaultAsync)
 
           status(result) shouldBe SEE_OTHER
-          redirectLocation(result).get should include("/report-quarterly/income-and-expenses/view/sign-in")
+          redirectLocation(result).get should include("/manage-self-assessment/obligations/sign-in")
         }
       }
     }

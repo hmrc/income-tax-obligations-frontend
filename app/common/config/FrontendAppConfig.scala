@@ -29,7 +29,7 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
   lazy val hasEnabledTestOnlyRoutes: Boolean = config.get[String]("play.http.router") == "testOnlyDoNotUseInAppConf.Routes"
 
   //App
-  lazy val baseUrl: String = "report-quarterly/income-and-expenses/view"
+  lazy val baseUrl: String = "/manage-self-assessment/obligations"
   lazy val agentBaseUrl: String = s"$baseUrl/agents"
   lazy val itvcFrontendEnvironment: String = servicesConfig.getString("base.url")
   lazy val appName: String = servicesConfig.getString("appName")
@@ -40,8 +40,8 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
   lazy val contactFormServiceIdentifier: String = "ITVC"
   lazy val contactFrontendBaseUrl: String = s"$contactFrontendService"
   lazy val reportAProblemNonJSUrl: String = s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
-  lazy val betaFeedbackUrl = s"/$baseUrl/feedback"
-  lazy val agentBetaFeedbackUrl = s"/$agentBaseUrl/feedback"
+  lazy val betaFeedbackUrl = s"$baseUrl/feedback"
+  lazy val agentBetaFeedbackUrl = s"$agentBaseUrl/feedback"
   lazy val noIncomeSourcesContactUrl: String = s"$contactHost/contact/report-technical-problem?service=$contactFormServiceIdentifier"
 
   //ITVC Protected Service

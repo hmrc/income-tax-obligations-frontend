@@ -36,7 +36,7 @@ class SignInControllerSpec extends TestSupport {
 
     "Redirect to GG Sign In on Company Auth Frontend" in {
       redirectLocation(result) shouldBe Some(
-        "http://localhost:9553/bas-gateway/sign-in?continue_url=http%3A%2F%2Flocalhost%3A9088%2Freport-quarterly%2Fincome-and-expenses%2Fview&origin=income-tax-obligations-frontend"
+        "http://localhost:9553/bas-gateway/sign-in?continue_url=http%3A%2F%2Flocalhost%3A9088%2Fmanage-self-assessment%2Fobligations&origin=income-tax-obligations-frontend"
       )
     }
 
