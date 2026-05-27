@@ -62,17 +62,7 @@ lazy val appDependenciesIt: Seq[ModuleID] = it()
 lazy val plugins: Seq[Plugins] = Seq.empty
 lazy val playSettings: Seq[Setting[_]] = Seq.empty
 
-lazy val scoverageSettings = {
-  import scoverage.ScoverageKeys
-  Seq(
-    ScoverageKeys.coverageExcludedPackages := "<empty>;controllers\\..*Reverse.*;models/.data/..*;" +
-      "filters.*;.handlers.*;components.*;.*BuildInfo.*;.*standardError*.*;.*Routes.*;views.html.*;appConfig.*;" +
-      "controllers.feedback.*;app.*;prod.*;appConfig.*;com.*;testOnlyDoNotUseInAppConf.*;testOnly.*;\"",
-    ScoverageKeys.coverageMinimumStmtTotal := 70.0,
-    ScoverageKeys.coverageFailOnMinimum := false,
-    ScoverageKeys.coverageHighlighting := true
-  )
-}
+
 
 lazy val microservice = Project(appName, file("."))
   .enablePlugins(play.sbt.PlayScala, SbtDistributablesPlugin)
@@ -80,7 +70,7 @@ lazy val microservice = Project(appName, file("."))
   .settings(playSettings *)
   .settings(scalaSettings *)
   .settings(scalaVersion := currentScalaVersion)
-  .settings(scoverageSettings *)
+  .settings(CodeCoverageSettings.settings *)
   .settings(defaultSettings() *)
   .settings(majorVersion := 1)
   .settings(
