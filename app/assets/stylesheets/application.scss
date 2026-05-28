@@ -1,6 +1,9 @@
 $govuk-assets-path: "/report-quarterly/income-and-expenses/view/assets/lib/govuk-frontend/dist/govuk/assets/";
 $hmrc-assets-path: "/report-quarterly/income-and-expenses/view/assets/lib/hmrc-frontend/hmrc/";
 
+$govuk-new-organisation-colours: true;
+$govuk-suppressed-warnings: ("libsass");
+
 @import "lib/govuk-frontend/dist/govuk/index";
 @import "lib/hmrc-frontend/hmrc/all";
 
