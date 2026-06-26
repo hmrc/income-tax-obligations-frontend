@@ -7,4 +7,99 @@ GET         /assets/*file                                                 contro
 # Assets
 GET         /assets/*file                                                 controllers.Assets.at(path="/public", file)
 
-->          /                                                             common.Routes
+GET        /language/:lang                                                controllers.LocalLanguageController.switchToLanguage(lang: String)
+GET        /agents/language/:lang                                         controllers.agent.AgentLanguageController.switchToLanguage(lang: String)
+
+GET         /language/:lang                                               controllers.ItvcLanguageController.switchToLanguage(lang: String)
+GET         /switch-to-welsh                                              controllers.ItvcLanguageController.switchToWelsh(fragment: Option[String])
+GET         /switch-to-english                                            controllers.ItvcLanguageController.switchToEnglish(fragment: Option[String])
+
+# Client Relationship Failure
+GET         /agents/not-authorised-to-view-client                         controllers.agent.ClientRelationshipFailureController.show()
+
+GET         /agents/no-assignment                                         controllers.agent.NoAssignmentController.show()
+
+# No Income Sources Error page
+GET         /cannot-access-service                                        controllers.NoIncomeSourcesController.show(isAgent: Boolean = false)
+GET         /agents/cannot-access-service                                 controllers.NoIncomeSourcesController.show(isAgent: Boolean = true)
+
+#Feedback Routes
+GET         /feedback                                                     controllers.feedback.FeedbackController.show()
+GET         /agents/feedback                                              controllers.feedback.FeedbackController.showAgent()
+POST        /feedback                                                     controllers.feedback.FeedbackController.submit()
+POST        /agents/feedback                                              controllers.feedback.FeedbackController.submitAgent()
+GET         /thankyou                                                     controllers.feedback.FeedbackController.thankYou()
+GET         /agents/thankyou                                              controllers.feedback.FeedbackController.thankYouAgent()
+
+#Timeout Routes
+GET         /session-timeout                                              controllers.timeout.SessionTimeoutController.timeout()
+GET         /keep-alive                                                   controllers.timeout.SessionTimeoutController.keepAlive()
+
+#Sign Out Routes
+GET         /sign-out                                                     controllers.SignOutController.signOut()
+
+#Sign In Routes
+GET         /sign-in                                                      controllers.SignInController.signIn()
+
+#Not Enrolled
+GET         /cannot-access-service                                        controllers.errors.NotEnrolledController.show()
+
+#Agent Error
+GET         /agents/agent-error                                           controllers.agent.errors.AgentErrorController.show()
+
+#Uplift Failed
+GET         /cannot-view-page                                             controllers.errors.UpliftFailedController.show()
+
+#Uplift Success
+GET         /uplift-success                                               controllers.UpliftSuccessController.success()
+
+#BTA Partial
+GET         /partial                                                      controllers.bta.BTAPartialController.setupPartial()
+
+#NextUpdates
+GET         /submission-deadlines                                         controllers.NextUpdatesController.show(origin: Option[String] ?= None)
+GET         /agents/submission-deadlines                                  controllers.NextUpdatesController.showAgent()
+
+#Reporting Obligations
+GET         /reporting-frequency                                          controllers.reportingObligations.ReportingFrequencyPageController.show(isAgent:Boolean = false)
+GET         /agents/reporting-frequency                                   controllers.reportingObligations.ReportingFrequencyPageController.show(isAgent:Boolean = true)
+
+#OptOut
+GET         /optout/confirmed                                             controllers.reportingObligations.optOut.ConfirmedOptOutController.show(isAgent: Boolean = false)
+GET         /agents/optout/confirmed                                      controllers.reportingObligations.optOut.ConfirmedOptOutController.show(isAgent: Boolean = true)
+
+GET         /optout                                                       controllers.reportingObligations.optOut.OptOutTaxYearQuestionController.show(isAgent: Boolean = false, taxYear: Option[String] ?= None)
+GET         /agents/optout                                                controllers.reportingObligations.optOut.OptOutTaxYearQuestionController.show(isAgent: Boolean = true, taxYear: Option[String] ?= None)
+POST        /optout                                                       controllers.reportingObligations.optOut.OptOutTaxYearQuestionController.submit(isAgent: Boolean = false, taxYear: Option[String] ?= None)
+POST        /agents/optout                                                controllers.reportingObligations.optOut.OptOutTaxYearQuestionController.submit(isAgent: Boolean = true, taxYear: Option[String] ?= None)
+
+GET         /optout/check-your-answers/:taxYear                           controllers.reportingObligations.optOut.ConfirmOptOutUpdateController.show(isAgent: Boolean = false, taxYear: String)
+GET         /agents/optout/check-your-answers/:taxYear                    controllers.reportingObligations.optOut.ConfirmOptOutUpdateController.show(isAgent: Boolean = true, taxYear: String)
+POST        /optout/check-your-answers/:taxYear                           controllers.reportingObligations.optOut.ConfirmOptOutUpdateController.submit(isAgent: Boolean = false, taxYear: String)
+POST        /agents/optout/check-your-answers/:taxYear                    controllers.reportingObligations.optOut.ConfirmOptOutUpdateController.submit(isAgent: Boolean = true, taxYear: String)
+
+# Sign Up
+GET         /sign-up/start                                                controllers.reportingObligations.signUp.SignUpStartController.show(isAgent: Boolean = false, taxYear: Option[String] ?= None)
+GET         /agents/sign-up/start                                         controllers.reportingObligations.signUp.SignUpStartController.show(isAgent: Boolean = true, taxYear: Option[String] ?= None)
+
+GET         /sign-up                                                      controllers.reportingObligations.signUp.SignUpTaxYearQuestionController.show(isAgent: Boolean = false, taxYear: Option[String] ?= None)
+GET         /agents/sign-up                                               controllers.reportingObligations.signUp.SignUpTaxYearQuestionController.show(isAgent: Boolean = true, taxYear: Option[String] ?= None)
+POST        /sign-up                                                      controllers.reportingObligations.signUp.SignUpTaxYearQuestionController.submit(isAgent: Boolean = false, taxYear: Option[String] ?= None)
+POST        /agents/sign-up                                               controllers.reportingObligations.signUp.SignUpTaxYearQuestionController.submit(isAgent: Boolean = true, taxYear: Option[String] ?= None)
+
+GET         /sign-up/completed                                            controllers.reportingObligations.signUp.SignUpCompletedController.show(isAgent: Boolean = false)
+GET         /agents/sign-up/completed                                     controllers.reportingObligations.signUp.SignUpCompletedController.show(isAgent: Boolean = true)
+
+#You Must Wait Page
+GET          /access-service-from-next-tax-year                           controllers.reportingObligations.signUp.YouMustWaitToSignUpController.show(isAgent: Boolean = false)
+GET          /agents/view-client-from-next-tax-year                       controllers.reportingObligations.signUp.YouMustWaitToSignUpController.show(isAgent: Boolean = true)
+
+#Sign-up/Opt-out Cannot Go Back
+GET         /signup/cannot-go-back                                        controllers.errors.SignUpOptOutCannotGoBackController.show(isAgent: Boolean = false, isSignUpJourney: Option[Boolean] ?= None)
+GET         /agents/signup/cannot-go-back                                 controllers.errors.SignUpOptOutCannotGoBackController.show(isAgent: Boolean = true, isSignUpJourney: Option[Boolean] ?= None)
+
+
+#Cannot Change Reporting Obligations
+GET         /cannot-update-reporting-obligations                          controllers.errors.CannotUpdateReportingObligationsController.show(isAgent: Boolean = false)
+GET         /agents/cannot-update-reporting-obligations                   controllers.errors.CannotUpdateReportingObligationsController.show(isAgent: Boolean = true)
+
