@@ -4,14 +4,14 @@ import play.sbt.PlayImport.caffeine
 
 object AppDependencies {
 
-  val bootstrapPlayVersion = "10.5.0"
+  val bootstrapPlayVersion = "10.7.0"
   val hmrcMongoVersion = "2.12.0"
 
   val compile = Seq(
     ws,
     "uk.gov.hmrc"       %% "bootstrap-frontend-play-30" % bootstrapPlayVersion,
     "uk.gov.hmrc"       %% "play-partials-play-30"      % "10.2.0",
-    "uk.gov.hmrc"       %% "play-frontend-hmrc-play-30" % "12.31.0",
+    "uk.gov.hmrc"       %% "play-frontend-hmrc-play-30" % "12.32.1",
     "uk.gov.hmrc"       %% "crypto-json-play-30"        % "8.4.0",
     "uk.gov.hmrc.mongo" %% "hmrc-mongo-play-30"         % hmrcMongoVersion,
     "org.typelevel"     %% "cats-core"                   % "2.13.0",

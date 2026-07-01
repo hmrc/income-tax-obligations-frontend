@@ -59,7 +59,6 @@ class IncomeSourceRetrievalAction @Inject()(val incomeSourceConnector: IncomeSou
       case response: IncomeSourceDetailsModel =>
         Right(MtdItUser(req.mtditId, response.nino, req.mtdUserRole, req.authUserDetails, req.clientDetails, response))
       case error: IncomeSourceDetailsError =>
-        println(error.reason)
         Left(internalServerErrorFor(request))
     }
   }
