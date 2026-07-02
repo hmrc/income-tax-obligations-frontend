@@ -25,7 +25,7 @@ import controllers.agent.errors.routes as agentErrorRoutes
 import controllers.errors.routes as errorRoutes
 import enums.{MTDIndividual, MTDPrimaryAgent, MTDSupportingAgent, MTDUserRole}
 import mocks.MockAuditingService
-import mocks.connectors.{MockIncomeSourceConnector, MockIncomeTaxCalculationConnector}
+import mocks.connectors.{MockIncomeSourceConnector}
 import mocks.services.{MockClientDetailsService, MockITSAStatusService, MockSessionDataService}
 import mocks.services.admin.MockFeatureSwitchService
 import models.admin.FeatureSwitchName
@@ -36,7 +36,6 @@ import services.admin.FeatureSwitchService
 import viewUtils.InternalUrlHelper
 import models.itsaStatus.StatusReason.MtdItsaOptOut
 import models.itsaStatus.{ITSAStatusResponseModel, StatusDetail}
-import models.liabilitycalculation.{Inputs, LiabilityCalculationResponse, Metadata, PersonalInformation}
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.*
@@ -69,7 +68,6 @@ trait MockAuthActions
     with MockCustomerFactsUpdateService
     with MockFeatureSwitchService
     with MockITSAStatusService
-    with MockIncomeTaxCalculationConnector
     with MockIncomeSourceConnector {
 
   override def beforeEach(): Unit = {
@@ -161,14 +159,6 @@ trait MockAuthActions
         )
       )))
 
-    when(mockIncomeTaxCalculationConnector.getCalculationResponse(any(), any(), any(), any())(any(), any()))
-      .thenReturn(Future(LiabilityCalculationResponse(
-        metadata = Metadata(None, "IY"),
-        inputs = Inputs(PersonalInformation("")),
-        calculation = None,
-        messages = None,
-        submissionChannel = None
-      )))
   }
 
   def setupMockUserAuth: Unit = {

@@ -17,7 +17,6 @@
 package services
 
 import auth.MtdItUser
-import services.DateServiceInterface
 import models.incomeSourceDetails.{QuarterTypeCalendar, QuarterTypeStandard, TaxYear}
 import models.*
 import services.NextUpdatesService.{QuarterlyUpdatesCountForTaxYear, noQuarterlyUpdates}
@@ -40,7 +39,7 @@ object NextUpdatesService {
 @Singleton
 class NextUpdatesService @Inject()(
                                     val obligationsConnector: ObligationsConnector
-                                  )(implicit ec: ExecutionContext, val dateService: DateServiceInterface) {
+                                  )(implicit ec: ExecutionContext, val dateService: DateService) {
 
   def getNextUpdatesViewModel(obligationsModel: ObligationsModel)(implicit user: MtdItUser[_]): NextUpdatesViewModel = {
     val allDeadlines =
