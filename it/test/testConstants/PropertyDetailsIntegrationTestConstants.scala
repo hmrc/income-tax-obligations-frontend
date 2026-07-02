@@ -16,11 +16,11 @@
 
 package testConstants
 
-import common.models.core.{AccountingPeriodModel, CessationModel}
-import common.models.incomeSourceDetails.PropertyDetailsModel
-import play.api.libs.json.{JsValue, Json}
+import models.core.{AccountingPeriodModel, CessationModel}
 import testConstants.BaseIntegrationTestConstants.{getCurrentTaxYearEnd, testLatencyDetails3, testPropertyIncomeId}
-import testConstants.BusinessDetailsIntegrationTestConstants.endYear
+import models.incomeSourceDetails.PropertyDetailsModel
+import play.api.libs.json.{JsValue, Json}
+import BusinessDetailsIntegrationTestConstants.endYear
 
 import java.time.LocalDate
 

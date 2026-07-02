@@ -1,5 +1,5 @@
 /*
- * Copyright 2026 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,30 +16,24 @@
 
 package testConstants
 
-import common.auth.actions.AuthActionsTestData.*
-import common.auth.MtdItUser
-import common.config.FrontendAppConfig
-import common.models.auth.AuthorisedAndEnrolledRequest
-import common.enums.MTDIndividual
-import common.models.btaNavBar.ListLinks
-import common.models.core.Nino
-import common.models.incomeSourceDetails.{IncomeSourceDetailsModel, TaxYear, TaxYearRange}
+import auth.MtdItUser
+import auth.actions.AuthActionsTestData.*
+import config.FrontendAppConfig
+import enums.MTDIndividual
+import auth.AuthorisedAndEnrolledRequest
+import models.core.Nino
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.http.Status
 import play.api.test.FakeRequest
-import play.twirl.api.{Html, HtmlFormat}
 import testConstants.BusinessDetailsTestConstants.business1
 import testConstants.PropertyDetailsTestConstants.propertyDetails
-import testConstants.IncomeSourceDetailsTestConstants.businessesAndPropertyIncome
+import IncomeSourceDetailsTestConstants.businessesAndPropertyIncome
+import models.incomeSourceDetails.{IncomeSourceDetailsModel, TaxYear, TaxYearRange}
 import testUtils.UnitSpec
 import uk.gov.hmrc.auth.core.*
 import uk.gov.hmrc.auth.core.retrieve.{Credentials, Name, ~}
 import uk.gov.hmrc.govukfrontend.views.Aliases.{ServiceNavigationItem, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.ServiceNavigation
-
-trait BaseTestConstants {
-
-}
 
 object BaseTestConstants extends UnitSpec with GuiceOneAppPerSuite {
 
@@ -87,7 +81,7 @@ object BaseTestConstants extends UnitSpec with GuiceOneAppPerSuite {
   val testClientNameString = "Jon Jones"
   val testRetrievedUserName: Name = Name(Some(testUserName), None)
   val testClientName: Name = Name(Some(testFirstName), Some(testSecondName))
-  val testPaymentRedirectUrl = "http://localhost:9088/manage-self-assessment/obligations"
+  val testPaymentRedirectUrl = "http://localhost:9081/report-quarterly/income-and-expenses/view"
   val testMandationStatusOn = "on"
   val testMandationStatusOff = "off"
   val testSetUpPaymentPlanUrl = "http://localhost:9215/set-up-a-payment-plan/sa-payment-plan"
@@ -124,22 +118,6 @@ object BaseTestConstants extends UnitSpec with GuiceOneAppPerSuite {
   val testBadRequestStatus: Int = Status.BAD_REQUEST
   val testErrorMessage = "Dummy Error Message"
   implicit val appConfig: FrontendAppConfig = app.injector.instanceOf[FrontendAppConfig]
-
-  val testListLink = Seq(
-    ListLinks("testEnHome", appConfig.homePageBaseUrl),
-    ListLinks("testEnAccount", "testUrl"),
-    ListLinks("testEnMessages", "testUrl", Some("0")),
-    ListLinks("testEnForm", "testUrl", Some("1")),
-    ListLinks("testEnHelp", "testUrl")
-  )
-
-  val testListLinkCy = Seq(
-    ListLinks("testEnHome", appConfig.homePageBaseUrl),
-    ListLinks("testEnAccount", "testUrl"),
-    ListLinks("testEnMessages", "testUrl", Some("0")),
-    ListLinks("testEnForm", "testUrl", Some("1")),
-    ListLinks("testEnHelp", "testUrl")
-  )
 
   val mtdItEnrolment = Enrolment("HMRC-MTD-IT", Seq(EnrolmentIdentifier("MTDITID", testMtditid)), "activated")
   val ninoEnrolment = Enrolment("HMRC-NI", Seq(EnrolmentIdentifier("NINO", testNino)), "activated")
@@ -191,16 +169,6 @@ object BaseTestConstants extends UnitSpec with GuiceOneAppPerSuite {
   val agentAuthRetrievalSuccess = new ~(new ~(new ~(new ~(Enrolments(Set(arnEnrolment)), None),  testCredentials), Some(AffinityGroup.Agent)), testConfidenceLevel)
 
   val testReferrerUrl = "/test/url"
-
-  val testNavHtml: Html = HtmlFormat.raw(
-    "<html><head></head><body>  <nav id='secondary-nav' class='hmrc-account-menu'> " +
-      "<ul class='hmrc-account-menu__main govuk-grid-column-full' style='padding: 0;'>" +
-      "<li> <a href='http://localhost:9088/manage-self-assessment/obligations' id='nav-bar-link-testEnHome' class='hmrc-account-menu__link'> testEnHome </a> </li>" +
-      "<li> <a href='testUrl' id='nav-bar-link-testEnAccount' class='hmrc-account-menu__link'> testEnAccount </a> </li>" +
-      "<li> <a href='testUrl' id='nav-bar-link-testEnMessages' class='hmrc-account-menu__link'> testEnMessages </a> </li>" +
-      "<li> <a href='testUrl' id='nav-bar-link-testEnForm' class='hmrc-account-menu__link'> testEnForm <span class='hmrc-notification-badge'>1</span> </a> </li>" +
-      "<li> <a href='testUrl' id='nav-bar-link-testEnHelp' class='hmrc-account-menu__link'> testEnHelp </a> </li>" +
-      "</ul>  </nav> </body></html>")
 
   val testServiceNavigation = ServiceNavigation(
       navigation = Seq(ServiceNavigationItem(

@@ -1,5 +1,5 @@
 /*
- * Copyright 2026 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,14 @@
 
 package testConstants
 
-import common.enums.IncomeSourceJourney.SelfEmployment
-import common.models.core.*
-import common.models.core.IncomeSourceId.mkIncomeSourceId
-import common.models.incomeSourceDetails.*
-import common.models.incomeSourceDetails.viewModels.{BusinessDetailsViewModel, CeaseBusinessDetailsViewModel, CeasedBusinessDetailsViewModel, ViewBusinessDetailsViewModel}
-import common.models.obligations.{GroupedObligationsModel, ObligationsModel, SingleObligationModel, StatusFulfilled}
+import enums.IncomeSourceJourney.SelfEmployment
+import models.core.*
+import models.core.IncomeSourceId.mkIncomeSourceId
+import models.incomeSourceDetails.{BusinessDetailsModel, LatencyDetails, QuarterTypeElection}
 import testConstants.BaseTestConstants.*
+// import models.incomeSourceDetails.viewmodels.*
 import testConstants.NextUpdatesTestConstants.{fakeNextUpdatesModel, openObligation, overdueObligation}
+import models.{GroupedObligationsModel, ObligationsModel, SingleObligationModel, StatusFulfilled}
 
 import java.time.{LocalDate, Month}
 
@@ -459,63 +459,6 @@ object BusinessDetailsTestConstants {
     address = Some(address),
   )
 
-  val businessDetailsViewModel = BusinessDetailsViewModel(
-    tradingName = Some(testTradeName),
-    tradingStartDate = Some(testStartDate)
-  )
-
-  val businessDetailsViewModel2 = BusinessDetailsViewModel(
-    tradingName = Some(testTradeName2),
-    tradingStartDate = Some(testStartDate2)
-  )
-
-  val ceaseBusinessDetailsViewModel = CeaseBusinessDetailsViewModel(
-    incomeSourceId = mkIncomeSourceId("1234"),
-    tradingName = Some(testTradeName),
-    tradingStartDate = Some(testStartDate)
-  )
-
-  val ceaseBusinessDetailsViewModel2 = CeaseBusinessDetailsViewModel(
-    incomeSourceId = mkIncomeSourceId("1234"),
-    tradingName = Some(testTradeName2),
-    tradingStartDate = Some(testStartDate2)
-  )
-
-  val ceasedUkPropertyDetailsViewModel = CeasedBusinessDetailsViewModel(
-    tradingName = Some(testTradeName),
-    incomeSourceType = SelfEmployment,
-    tradingStartDate = Some(testStartDate),
-    cessationDate = testEndDate
-  )
-
-  val ceasedForeignPropertyDetailsViewModel = CeasedBusinessDetailsViewModel(
-    tradingName = Some(testTradeName),
-    incomeSourceType = SelfEmployment,
-    tradingStartDate = Some(testStartDate),
-    cessationDate = testEndDate
-  )
-
-  val ceasedBusinessDetailsViewModel = CeasedBusinessDetailsViewModel(
-    tradingName = Some(testTradeName),
-    incomeSourceType = SelfEmployment,
-    tradingStartDate = Some(testStartDate),
-    cessationDate = testEndDate
-  )
-
-  val viewBusinessDetailsViewModel = ViewBusinessDetailsViewModel(
-    incomeSourceId = mkIncomeSourceId(testSelfEmploymentId),
-    incomeSource = Some(testIncomeSource),
-    tradingName = testTradeNameOption,
-    tradingStartDate = testStartDateOption
-  )
-
-  val viewBusinessDetailsViewModel2 = ViewBusinessDetailsViewModel(
-    incomeSourceId = mkIncomeSourceId(testSelfEmploymentId),
-    incomeSource = Some(testIncomeSource),
-    tradingName = testTradeNameOption,
-    tradingStartDate = testStartDateOption
-  )
-
   val business2 = BusinessDetailsModel(
     incomeSourceId = testSelfEmploymentId2,
     incomeSource = Some(testIncomeSource),
@@ -614,6 +557,15 @@ object BusinessDetailsTestConstants {
 
   val obligationsDataSuccessModel: GroupedObligationsModel = GroupedObligationsModel(testSelfEmploymentId, List(overdueObligation, openObligation))
   val obligationsAllDeadlinesSuccessNotValidObligationType: ObligationsModel = ObligationsModel(
-    Seq(GroupedObligationsModel(testSelfEmploymentId, List(businessNotValidObligationType))))
+    Seq(GroupedObligationsModel(testSelfEmploymentId, List(businessNotValidObligationType)))
+    )
+
+  val nextUpdatesDataPropertySuccessModel: GroupedObligationsModel = GroupedObligationsModel(
+    testPropertyIncomeId,
+    List(
+      openObligation.copy(periodKey = "#004"),
+      overdueObligation.copy(periodKey = "#005")
+    )
+  )
 
 }

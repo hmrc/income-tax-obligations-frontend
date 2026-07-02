@@ -1,5 +1,5 @@
 /*
- * Copyright 2026 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,16 +16,15 @@
 
 package testConstants
 
-import common.enums.IncomeSourceJourney.{ForeignProperty, IncomeSourceType, SelfEmployment, UkProperty}
-import common.enums.JourneyType.{Add, IncomeSourceJourneyType}
-import common.enums.TriggeredMigration.Channel.HmrcUnconfirmed
-import common.models.UIJourneySessionData
-import common.models.core.{AddressModel, IncomeSourceId}
-import common.models.incomeSourceDetails.*
-import common.models.incomeSourceDetails.viewModels.{CeaseIncomeSourcesViewModel, CheckCeaseIncomeSourceDetailsViewModel}
+import enums.IncomeSourceJourney.{ForeignProperty, IncomeSourceType, SelfEmployment, UkProperty}
+import enums.JourneyType.{Add, IncomeSourceJourneyType}
+import enums.TriggeredMigration.Channel.HmrcUnconfirmed
+import models.core.{AddressModel, IncomeSourceId}
 import testConstants.BaseTestConstants.*
 import testConstants.BusinessDetailsTestConstants.*
 import testConstants.PropertyDetailsTestConstants.*
+import models.incomeSourceDetails.{IncomeSourceDetailsError, IncomeSourceDetailsModel}
+import models.incomeSourceDetails.*
 
 import java.time.LocalDate
 
@@ -112,122 +111,10 @@ object IncomeSourceDetailsTestConstants {
   val foreignPropertyIncomeWithCeasedForiegnPropertyIncome = IncomeSourceDetailsModel(testNino, testMtditid, Some("2018"), Nil, List(foreignPropertyDetails, ceasedForeignPropertyDetailsCessation2023))
   val twoActiveUkPropertyIncomes = IncomeSourceDetailsModel(testNino, testMtditid, Some("2018"), Nil, List(uKPropertyDetails, uKPropertyDetails2))
 
-  val ceaseBusinessDetailsModel = CeaseIncomeSourcesViewModel(
-    soleTraderBusinesses = List(ceaseBusinessDetailsViewModel, ceaseBusinessDetailsViewModel2),
-    ukProperty = Some(ceaseUkPropertyDetailsViewModel),
-    foreignProperty = Some(ceaseForeignPropertyDetailsViewModel),
-    ceasedBusinesses = Nil,
-    displayStartDate = true)
-
-  val checkCeaseBusinessDetailsModel = CheckCeaseIncomeSourceDetailsViewModel(
-    incomeSourceId = IncomeSourceId(testSelfEmploymentId),
-    tradingName = Some(testTradeName),
-    trade = Some(testIncomeSource),
-    address = Some(address),
-    businessEndDate = LocalDate.of(2022, 1, 1),
-    SelfEmployment
-  )
-
-  val checkCeaseUkPropertyDetailsModel = CheckCeaseIncomeSourceDetailsViewModel(
-    incomeSourceId = IncomeSourceId(testSelfEmploymentId),
-    tradingName = None,
-    trade = None,
-    address = None,
-    businessEndDate = LocalDate.of(2022, 1, 1),
-    UkProperty
-  )
-
-  val checkCeaseForeignPropertyDetailsModel = CheckCeaseIncomeSourceDetailsViewModel(
-    incomeSourceId = IncomeSourceId(testSelfEmploymentId),
-    tradingName = None,
-    trade = None,
-    address = None,
-    businessEndDate = LocalDate.of(2022, 1, 1),
-    ForeignProperty
-  )
 
   def getCurrentTaxEndYear(currentDate: LocalDate): Int = {
     if (currentDate.isBefore(LocalDate.of(currentDate.getYear, 4, 6))) currentDate.getYear
     else currentDate.getYear + 1
   }
 
-  val emptyUIJourneySessionData: IncomeSourceJourneyType => UIJourneySessionData = journeyType => {
-    journeyType.operation.operationType match {
-      case "ADD" =>
-        UIJourneySessionData(
-          sessionId = testSessionId,
-          journeyType = journeyType.toString,
-          addIncomeSourceData = Some(AddIncomeSourceData())
-        )
-      case "MANAGE" =>
-        UIJourneySessionData(
-          sessionId = testSessionId,
-          journeyType = journeyType.toString,
-          manageIncomeSourceData = Some(ManageIncomeSourceData())
-        )
-      case "CEASE" =>
-        UIJourneySessionData(
-          sessionId = testSessionId,
-          journeyType = journeyType.toString,
-          ceaseIncomeSourceData = Some(CeaseIncomeSourceData())
-        )
-    }
-  }
-
-  def notCompletedUIJourneySessionData(journeyType: IncomeSourceJourneyType): UIJourneySessionData = {
-    journeyType.operation.operationType match {
-      case "ADD" =>
-        UIJourneySessionData(
-          sessionId = testSessionId,
-          journeyType = journeyType.toString,
-          addIncomeSourceData = Some(AddIncomeSourceData(
-            businessName = Some("A Business Name"),
-            businessTrade = Some("A Trade"),
-            dateStarted = Some(LocalDate.of(2022, 1, 1)),
-            accountingPeriodStartDate = Some(LocalDate.of(2022, 4, 5)),
-            accountingPeriodEndDate = Some(LocalDate.of(2023, 4, 6)),
-            incomeSourceId = Some(testSelfEmploymentId),
-            address = Some(Address(Seq("line1", "line2"), Some("N1 1EE"), Some(Country(Some("GB"), Some("United Kingdom"))))),
-            reportingMethodTaxYear1 = None,
-            reportingMethodTaxYear2 = None,
-            incomeSourceCreatedJourneyComplete = None
-          ))
-        )
-      case "MANAGE" =>
-        UIJourneySessionData(
-          sessionId = testSessionId,
-          journeyType = journeyType.toString,
-          manageIncomeSourceData = Some(ManageIncomeSourceData(
-            incomeSourceId = Some(testSelfEmploymentId),
-            journeyIsComplete = None
-          ))
-        )
-      case "CEASE" =>
-        UIJourneySessionData(
-          sessionId = testSessionId,
-          journeyType = journeyType.toString,
-          ceaseIncomeSourceData = Some(CeaseIncomeSourceData(
-            incomeSourceId = if (journeyType.businessType == SelfEmployment) Some(testSelfEmploymentId) else None,
-            endDate = Some(LocalDate.of(2022, 10, 10)),
-            ceaseIncomeSourceDeclare = Some("true"),
-            journeyIsComplete = None
-          )))
-    }
-  }
-
-  val addedIncomeSourceUIJourneySessionData: IncomeSourceType => UIJourneySessionData = (incomeSourceType: IncomeSourceType) =>
-    UIJourneySessionData(testSessionId, IncomeSourceJourneyType(Add, incomeSourceType).toString,
-      addIncomeSourceData = Some(AddIncomeSourceData(incomeSourceAdded = Some(true))))
-
-  val completedUIJourneySessionData: IncomeSourceJourneyType => UIJourneySessionData = (journeyType: IncomeSourceJourneyType) => {
-    journeyType.operation.operationType match {
-      case "ADD" => UIJourneySessionData(testSessionId, journeyType.toString,
-        addIncomeSourceData = Some(notCompletedUIJourneySessionData(journeyType).addIncomeSourceData.get.copy(incomeSourceCreatedJourneyComplete = Some(true))))
-      case "MANAGE" => UIJourneySessionData(testSessionId, journeyType.toString,
-        manageIncomeSourceData = Some(ManageIncomeSourceData(incomeSourceId = Some(testSelfEmploymentId),
-          taxYear = Some(2023), reportingMethod = Some("annual"), journeyIsComplete = Some(true))))
-      case "CEASE" => UIJourneySessionData(testSessionId, journeyType.toString,
-        ceaseIncomeSourceData = Some(CeaseIncomeSourceData(journeyIsComplete = Some(true))))
-    }
-  }
 }

@@ -16,8 +16,8 @@
 
 package testConstants
 
-import common.models.incomeSourceDetails.viewModels.{DatesModel, ObligationsViewModel}
-import common.models.obligations.{GroupedObligationsModel, ObligationsModel, SingleObligationModel, StatusFulfilled}
+import models.incomeSourceDetails.viewmodels.{DatesModel, ObligationsViewModel}
+import models.{GroupedObligationsModel, ObligationsModel, SingleObligationModel, StatusFulfilled}
 
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

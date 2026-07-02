@@ -16,7 +16,7 @@
 
 package testConstants
 
-import common.models.citizenDetails.{CitizenDetailsErrorModel, CitizenDetailsModel}
+import models.citizenDetails.{CitizenDetailsErrorModel, CitizenDetailsModel}
 import play.api.libs.json.{JsValue, Json}
 import testConstants.BaseTestConstants.*
 
