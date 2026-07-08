@@ -41,7 +41,6 @@ import play.api.libs.json.Json
 import play.mvc.Http.Status
 import testConstants.BaseTestConstants.*
 import testUtils.TestSupport
-import connectors.ObligationsConnector
 import models.{ObligationsErrorModel, ObligationsModel, ObligationsResponseModel}
 import models.audit.NextUpdatesResponseAuditModel
 import uk.gov.hmrc.http.HttpResponse

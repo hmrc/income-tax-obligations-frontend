@@ -20,7 +20,6 @@ import utils.audit.Utilities.userAuditDetails
 import auth.MtdItUser
 import enums.AuditType.ObligationsPageView
 import enums.TransactionName
-import models.audit.ExtendedAuditModel
 import models.incomeSourceDetails.{BusinessDetailsModel, PropertyDetailsModel}
 import play.api.libs.json.{JsValue, Json}
 

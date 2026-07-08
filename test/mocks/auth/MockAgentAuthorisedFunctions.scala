@@ -19,7 +19,7 @@ package mocks.auth
 import auth.actions.AuthActionsTestData.delegatedEnrolmentPredicate
 import org.mockito.Mockito.*
 import auth.FrontendAuthorisedFunctions
-import org.scalatest.{BeforeAndAfterEach, Suite}
+import org.scalatest.BeforeAndAfterEach
 import uk.gov.hmrc.auth.core.*
 import uk.gov.hmrc.auth.core.authorise.{EmptyPredicate, Predicate}
 import uk.gov.hmrc.auth.core.retrieve.*

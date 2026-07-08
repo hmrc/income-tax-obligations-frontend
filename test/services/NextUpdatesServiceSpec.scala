@@ -25,7 +25,6 @@ import services.reportingObligations.optOut.OptOutTestSupport
 import testConstants.NextUpdatesTestConstants.*
 import play.api.http.Status.INTERNAL_SERVER_ERROR
 import testConstants.BusinessDetailsTestConstants.obligationsDataSuccessModel as _
-import models.{GroupedObligationsModel, ObligationWithIncomeType, ObligationsErrorModel, ObligationsModel, SingleObligationModel, StatusFulfilled}
 
 import java.time.LocalDate
 

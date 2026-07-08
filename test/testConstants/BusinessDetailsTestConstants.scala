@@ -16,9 +16,7 @@
 
 package testConstants
 
-import enums.IncomeSourceJourney.SelfEmployment
 import models.core.*
-import models.core.IncomeSourceId.mkIncomeSourceId
 import models.incomeSourceDetails.{BusinessDetailsModel, LatencyDetails, QuarterTypeElection}
 import testConstants.BaseTestConstants.*
 // import models.incomeSourceDetails.viewmodels.*

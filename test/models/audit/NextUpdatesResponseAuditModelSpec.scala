@@ -24,7 +24,6 @@ import testConstants.NextUpdatesTestConstants.*
 import play.api.libs.json.Json
 import testConstants.BaseTestConstants.*
 import testUtils.TestSupport
-import models.audit.NextUpdatesResponseAuditModel
 
 class NextUpdatesResponseAuditModelSpec extends TestSupport {
 
