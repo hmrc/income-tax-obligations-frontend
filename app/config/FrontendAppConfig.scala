@@ -28,13 +28,13 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
 
   lazy val hasEnabledTestOnlyRoutes: Boolean = config.get[String]("play.http.router") == "testOnlyDoNotUseInAppConf.Routes"
 
-  //App
+  // App
   lazy val baseUrl: String = "/manage-self-assessment/obligations"
   lazy val agentBaseUrl: String = s"$baseUrl/agents"
   lazy val itvcFrontendEnvironment: String = servicesConfig.getString("base.url")
   lazy val appName: String = servicesConfig.getString("appName")
 
-  //Feedback Config
+  // Feedback Config
   lazy val contactFrontendBaseUrl: String = servicesConfig.baseUrl("contact-frontend") + "/contact"
   lazy val contactFormServiceIdentifier: String = "ITVC" // change to obligations? 
   lazy val reportAProblemNonJSUrl: String = s"$contactFrontendBaseUrl/problem_reports_nonjs?service=$contactFormServiceIdentifier"
