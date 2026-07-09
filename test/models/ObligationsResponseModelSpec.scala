@@ -26,7 +26,6 @@ import BaseTestConstants.*
 import models.incomeSourceDetails.{QuarterTypeCalendar, QuarterTypeStandard}
 import testUtils.TestSupport
 import testConstants.BusinessDetailsTestConstants.obligationsAllDeadlinesSuccessNotValidObligationType
-import models.{GroupedObligationsModel, ObligationWithIncomeType, ObligationsErrorModel, SingleObligationModel, StatusFulfilled}
 
 class ObligationsResponseModelSpec extends TestSupport with Matchers with ImplicitDateFormatter {
 

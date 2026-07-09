@@ -22,7 +22,6 @@ import models.*
 import services.NextUpdatesService.{QuarterlyUpdatesCountForTaxYear, noQuarterlyUpdates}
 import play.api.Logger
 import connectors.ObligationsConnector
-import models.{ObligationWithIncomeType, ObligationsErrorModel, ObligationsModel, ObligationsResponseModel}
 import uk.gov.hmrc.http.HeaderCarrier
 
 import java.time.LocalDate

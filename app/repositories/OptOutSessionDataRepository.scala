@@ -26,7 +26,6 @@ import services.reportingObligations.optOut.OptOutProposition.createOptOutPropos
 import play.api.Logger
 import play.api.libs.json.{Json, OFormat}
 import models.UIJourneySessionData
-import repositories.UIJourneySessionDataRepository
 import uk.gov.hmrc.http.HeaderCarrier
 
 import javax.inject.Inject

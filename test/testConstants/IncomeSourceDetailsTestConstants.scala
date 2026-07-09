@@ -16,10 +16,8 @@
 
 package testConstants
 
-import enums.IncomeSourceJourney.{ForeignProperty, IncomeSourceType, SelfEmployment, UkProperty}
-import enums.JourneyType.{Add, IncomeSourceJourneyType}
 import enums.TriggeredMigration.Channel.HmrcUnconfirmed
-import models.core.{AddressModel, IncomeSourceId}
+import models.core.AddressModel
 import testConstants.BaseTestConstants.*
 import testConstants.BusinessDetailsTestConstants.*
 import testConstants.PropertyDetailsTestConstants.*
