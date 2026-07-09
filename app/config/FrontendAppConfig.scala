@@ -28,14 +28,14 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
 
   lazy val hasEnabledTestOnlyRoutes: Boolean = config.get[String]("play.http.router") == "testOnlyDoNotUseInAppConf.Routes"
 
-  // App
+  //App
   lazy val baseUrl: String = "/manage-self-assessment/obligations"
   lazy val agentBaseUrl: String = s"$baseUrl/agents"
   lazy val itvcFrontendEnvironment: String = servicesConfig.getString("base.url")
   lazy val appName: String = servicesConfig.getString("appName")
 
-  // Feedback Config
-  lazy val contactFrontendBaseUrl: String = servicesConfig.baseUrl("contact-frontend") + "/contact"
+  //Feedback Config
+  lazy val contactFrontendBaseUrl: String = servicesConfig.getString("urls.contact-frontend") + "/contact"
   lazy val contactFormServiceIdentifier: String = "ITVC" // change to obligations? 
   lazy val reportAProblemNonJSUrl: String = s"$contactFrontendBaseUrl/problem_reports_nonjs?service=$contactFormServiceIdentifier"
   lazy val betaFeedbackUrl = s"$baseUrl/feedback"
@@ -48,13 +48,13 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
   lazy val incomeTaxCalculationBaseUrl: String = servicesConfig.baseUrl("income-tax-calculation") + "/income-tax-calculation"
   
   //GG Sign In via BAS Gateway
-  private lazy val ggBaseUrl: String = servicesConfig.baseUrl("government-gateway") + "/bas-gateway"
+  private lazy val ggBaseUrl: String = servicesConfig.getString("urls.government-gateway") + "/bas-gateway"
   lazy val signInUrl: String = controllers.routes.SignInController.signIn().url
   lazy val ggSignInUrl: String = ggBaseUrl + "/sign-in"
   lazy val homePageUrl: String = individualHomeUrl
 
   //Sign out with redirect to feedback frontend
-  private lazy val exitSurveyBaseUrl: String = servicesConfig.baseUrl("feedback-frontend") + "/feedback"
+  private lazy val exitSurveyBaseUrl: String = servicesConfig.getString("urls.feedback-frontend") + "/feedback"
   private def exitSurveyUrl(identifier: String): String = s"$exitSurveyBaseUrl/$identifier"
   def ggSignOutUrl(identifier: String): String = ggBaseUrl + s"/sign-out-without-state?continue=${exitSurveyUrl(identifier)}"
 
@@ -72,13 +72,13 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
   lazy val incomeTaxSessionDataUrl: String = servicesConfig.baseUrl("income-tax-session-data")
 
   // API timeout
-  lazy val agentServicesAccountFrontendBaseUrl: String = servicesConfig.baseUrl("agent-services-account-frontend") + "/agent-services-account"
+  lazy val agentServicesAccountFrontendBaseUrl: String = servicesConfig.getString("urls.agent-services-account-frontend") + "/agent-services-account"
 
   // Service Navigation Links
-  private lazy val ptaFrontendBaseUrl: String = servicesConfig.baseUrl("personal-tax-account") + "/personal-account"
-  private lazy val btaFrontendBaseUrl: String = servicesConfig.baseUrl("business-tax-account") + "/business-account"
-  private lazy val helpAndContactBaseUrl: String = servicesConfig.baseUrl("help-and-contact-frontend") + "/business-account/help"
-  private lazy val trackingBaseUrl: String = servicesConfig.baseUrl("tracking-frontend") + "/track"
+  private lazy val ptaFrontendBaseUrl: String = servicesConfig.getString("urls.personal-tax-account") + "/personal-account"
+  private lazy val btaFrontendBaseUrl: String = servicesConfig.getString("urls.business-tax-account") + "/business-account"
+  private lazy val helpAndContactBaseUrl: String = servicesConfig.getString("urls.help-and-contact-frontend") + "/business-account/help"
+  private lazy val trackingBaseUrl: String = servicesConfig.getString("urls.tracking-frontend") + "/track"
 
   lazy val businessTaxAccountManageAccountUrl: String = s"$btaFrontendBaseUrl/manage-account"
   lazy val businessTaxAccountMessagesUrl: String = s"$btaFrontendBaseUrl/messages"
@@ -97,8 +97,8 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
 
   //Auth variables
   lazy val requiredConfidenceLevel: Int = servicesConfig.getInt("auth.confidenceLevel")
-  lazy val identityVerificationFrontendBaseUrl = servicesConfig.baseUrl("identity-verification-frontend") + "/iv-stub"
-  lazy val relativeIVUpliftParams = servicesConfig.getBoolean("microservice.services.identity-verification-frontend.use-relative-params")
+  lazy val identityVerificationFrontendBaseUrl = servicesConfig.getString("urls.identity-verification-frontend") + "/iv-stub"
+  lazy val relativeIVUpliftParams = servicesConfig.getBoolean("identity-verification-frontend.use-relative-params")
 
   def incomeSourceOverrides(): Option[Seq[String]] = config.getOptional[Seq[String]]("afterIncomeSourceCreated")
 
