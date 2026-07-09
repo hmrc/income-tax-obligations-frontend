@@ -18,11 +18,9 @@ package helpers.servicemocks
 
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
 import helpers.WiremockHelper
-import models.core.{Nino, NinoResponseError, NinoResponseSuccess}
 import models.incomeSourceDetails.IncomeSourceDetailsResponse
 import play.api.http.Status
-import play.api.http.Status.INTERNAL_SERVER_ERROR
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.Json
 import models.ObligationsModel
 
 import java.time.LocalDate
@@ -66,7 +64,6 @@ object  IncomeTaxViewChangeStub { // scalastyle:off number.of.methods
   //NextUpdates Stubs
   //=====================
   private def nextUpdatesUrl(nino: String): String = s"/income-tax-obligations/$nino/open-obligations"
-  private def nextUpdatesFulfilledUrl(nino: String): String = s"/income-tax-obligations/$nino/fulfilled-obligations"
 
   def stubGetNextUpdates(nino: String, deadlines: ObligationsModel): Unit =
     WiremockHelper.stubGet(nextUpdatesUrl(nino), Status.OK, Json.toJson(deadlines).toString())

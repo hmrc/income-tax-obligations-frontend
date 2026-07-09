@@ -16,8 +16,6 @@
 
 package helpers
 
-import helpers.WiremockHelper
-
 object ITSAStatusUpdateConnectorStub {
   def stubItsaStatusUpdate(taxableEntityId: String, status: Int, responseBody: String, headers: Map[String, String] = Map()): Unit =
     WiremockHelper.stubPutWithHeaders(s"/income-tax-obligations/itsa-status/update/$taxableEntityId", status = status, responseBody = responseBody, headers)

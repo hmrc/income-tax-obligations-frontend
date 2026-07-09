@@ -54,7 +54,7 @@ class ITSAStatusConnectorSpec extends TestSupport with MockHttpV2 with MockAudit
     val baseUrl = "http://localhost:9999"
     def getAppConfig: FrontendAppConfig =
       new FrontendAppConfig(app.injector.instanceOf[ServicesConfig], app.injector.instanceOf[Configuration]) {
-        override lazy val incomeTaxObligationsService: String = "http://localhost:9999"
+        override lazy val incomeTaxObligationsBaseUrl: String = "http://localhost:9999" + "/income-tax-obligations"
       }
 
     val connector = new ITSAStatusConnector(mockHttpClientV2, getAppConfig)

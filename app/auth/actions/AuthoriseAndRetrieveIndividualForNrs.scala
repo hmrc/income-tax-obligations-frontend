@@ -84,7 +84,7 @@ class AuthoriseAndRetrieveIndividualForNrs @Inject()(val authorisedFunctions: Fr
     @unused val origin = request.getQueryString(ORIGIN)
     val completionUrl: String = s"$host${appRoutes.UpliftSuccessController.success().url}"
     val failureUrl: String = s"$host${errorRoutes.UpliftFailedController.show().url}"
-    s"${appConfig.ivUrl}/uplift?origin=ITVC&confidenceLevel=$requiredConfidenceLevel&completionURL=${URLEncoder.encode(completionUrl, "UTF-8")}&failureURL=${URLEncoder.encode(failureUrl, "UTF-8")}"
+    s"${appConfig.identityVerificationFrontendBaseUrl}/uplift?origin=ITVC&confidenceLevel=$requiredConfidenceLevel&completionURL=${URLEncoder.encode(completionUrl, "UTF-8")}&failureURL=${URLEncoder.encode(failureUrl, "UTF-8")}"
   }
 
   private def redirectIfAgentNrs[A]()(

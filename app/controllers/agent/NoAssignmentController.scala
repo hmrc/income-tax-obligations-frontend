@@ -32,7 +32,7 @@ class NoAssignmentController @Inject()(val authActions: AuthActions,
                                        config: FrontendAppConfig)
                                       (implicit mcc: MessagesControllerComponents)
   extends FrontendController(mcc) with I18nSupport {
-  val redirectUrl = s"${config.agentServicesAccountFrontend}/agent-services-account/no-assignment"
+  val redirectUrl = s"${config.agentServicesAccountFrontendBaseUrl}/no-assignment"
   def show: Action[AnyContent] = authActions.asAgent(){ implicit user =>
     Ok(view(redirectUrl))
   }

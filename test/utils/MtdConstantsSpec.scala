@@ -20,7 +20,6 @@ import mocks.services.MockDateService
 import services.DateService
 import testUtils.TestSupport
 import org.mockito.Mockito.when
-import utils.MtdConstants
 
 import java.time.LocalDate
 

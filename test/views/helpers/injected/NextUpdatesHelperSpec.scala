@@ -26,7 +26,6 @@ import play.twirl.api.HtmlFormat
 import testConstants.BaseTestConstants.testMtdItUser
 import testUtils.TestSupport
 import testConstants.BusinessDetailsTestConstants.{business1, testTradeName}
-import models.{GroupedObligationsModel, ObligationWithIncomeType, ObligationsModel}
 
 import java.time.LocalDate
 

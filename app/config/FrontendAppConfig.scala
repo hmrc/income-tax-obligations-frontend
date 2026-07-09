@@ -24,7 +24,7 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import javax.inject.Singleton
 
 @Singleton
-class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config: Configuration) {
+class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config: Configuration) extends DynamicRoutes {
 
   lazy val hasEnabledTestOnlyRoutes: Boolean = config.get[String]("play.http.router") == "testOnlyDoNotUseInAppConf.Routes"
 
@@ -35,126 +35,59 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
   lazy val appName: String = servicesConfig.getString("appName")
 
   //Feedback Config
-  private lazy val contactHost: String = servicesConfig.getString("contact-frontend.host")
-  private lazy val contactFrontendService: String = servicesConfig.baseUrl("contact-frontend")
-  lazy val contactFormServiceIdentifier: String = "ITVC"
-  lazy val contactFrontendBaseUrl: String = s"$contactFrontendService"
-  lazy val reportAProblemNonJSUrl: String = s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
+  lazy val contactFrontendBaseUrl: String = servicesConfig.baseUrl("contact-frontend") + "/contact"
+  lazy val contactFormServiceIdentifier: String = "ITVC" // change to obligations? 
+  lazy val reportAProblemNonJSUrl: String = s"$contactFrontendBaseUrl/problem_reports_nonjs?service=$contactFormServiceIdentifier"
   lazy val betaFeedbackUrl = s"$baseUrl/feedback"
   lazy val agentBetaFeedbackUrl = s"$agentBaseUrl/feedback"
-  lazy val noIncomeSourcesContactUrl: String = s"$contactHost/contact/report-technical-problem?service=$contactFormServiceIdentifier"
+  lazy val noIncomeSourcesContactUrl: String = s"$contactFrontendBaseUrl/report-technical-problem?service=$contactFormServiceIdentifier"
 
-  //Income tax obligations service
-  lazy val incomeTaxObligationsService: String = servicesConfig.baseUrl("income-tax-obligations")
-
-  //Income tax business details service
-  lazy val incomeTaxBusinessDetailsBaseUrl: String = servicesConfig.baseUrl("income-tax-business-details")
-
-  //Income tax calculation service
-  lazy val incomeTaxCalculationService: String = servicesConfig.baseUrl("income-tax-calculation")
+  //Income tax backend service urls
+  lazy val incomeTaxObligationsBaseUrl: String = servicesConfig.baseUrl("income-tax-obligations") + "/income-tax-obligations"
+  lazy val incomeTaxBusinessDetailsBaseUrl: String = servicesConfig.baseUrl("income-tax-business-details") + "/income-tax-business-details"
+  lazy val incomeTaxCalculationBaseUrl: String = servicesConfig.baseUrl("income-tax-calculation") + "/income-tax-calculation"
   
   //GG Sign In via BAS Gateway
-  lazy val signInUrl: String = servicesConfig.getString("base.sign-in")
-  lazy val ggSignInUrl: String = servicesConfig.getString("government-gateway.sign-in.url")
+  private lazy val ggBaseUrl: String = servicesConfig.baseUrl("government-gateway") + "/bas-gateway"
+  lazy val signInUrl: String = controllers.routes.SignInController.signIn().url
+  lazy val ggSignInUrl: String = ggBaseUrl + "/sign-in"
   lazy val homePageUrl: String = individualHomeUrl
 
-  //Exit Survey
-  private lazy val exitSurveyBaseUrl: String = servicesConfig.getString("feedback-frontend.host") + servicesConfig.getString("feedback-frontend.url")
-  
+  //Sign out with redirect to feedback frontend
+  private lazy val exitSurveyBaseUrl: String = servicesConfig.baseUrl("feedback-frontend") + "/feedback"
   private def exitSurveyUrl(identifier: String): String = s"$exitSurveyBaseUrl/$identifier"
-
-  //Sign out
-  private lazy val ggUrl: String = servicesConfig.getString("government-gateway.url")
-
-  def ggSignOutUrl(identifier: String): String = s"$ggUrl/bas-gateway/sign-out-without-state?continue=${exitSurveyUrl(identifier)}"
-
-  //Business Tax Account
-  private lazy val businessTaxAccount: String = servicesConfig.getString("business-tax-account.url")
-  lazy val btaManageAccountUrl: String = s"$businessTaxAccount/manage-account"
-  lazy val btaMessagesUrl: String = s"$businessTaxAccount/messages"
-
-  // NRS
-  lazy val nrsBaseUrl: String = servicesConfig.baseUrl("non-repudiation")
-  lazy val nrsApiKey: String = servicesConfig.getString("microservice.services.non-repudiation.xApiKey")
-  lazy val nrsRetries: Int = config.get[Int]("microservice.services.non-repudiation.numberOfRetries")
+  def ggSignOutUrl(identifier: String): String = ggBaseUrl + s"/sign-out-without-state?continue=${exitSurveyUrl(identifier)}"
 
   //Agent Services Account
-  lazy val setUpAgentServicesAccountUrl: String = servicesConfig.getString("set-up-agent-services-account.url")
+  lazy val setUpAgentServicesAccountUrl: String = servicesConfig.getString("gov-links.set-up-agent-services-account.url")
 
   //Subscription Service
-  lazy val signUpUrl: String = servicesConfig.getString("mtd-subscription-service.url")
+  lazy val signUpUrl: String = servicesConfig.getString("gov-links.mtd-subscription-service.url")
 
   lazy val citizenDetailsUrl: String = servicesConfig.baseUrl("citizen-details")
 
-  lazy val paymentsUrl: String = servicesConfig.baseUrl("pay-api")
-
-  lazy val setUpAPaymentPlanUrl: String = servicesConfig.baseUrl("set-up-a-payment-plan")
-
   lazy val enterSurveyUrl: String = servicesConfig.getString("enter-survey.url")
-
-  lazy val paymentHistoryLimit: Int = config.get[Int]("payment-history.number-of-years")
-
-  lazy val repaymentsUrl: String = servicesConfig.baseUrl("repayment-api")
-
-  lazy val hipRepaymentsUrl: String = servicesConfig.baseUrl("hip-repayment-api")
-
-  //Payment Redirect route
-  lazy val paymentRedirectUrl: String = s"$itvcFrontendEnvironment/$baseUrl/what-you-owe"
-  //Payment Redirect route
-  lazy val agentPaymentRedirectUrl: String = s"$itvcFrontendEnvironment/$agentBaseUrl/payments-owed"
-
-
-  // Submission service
-  // This URL has a set year and environment. Please use submissionFrontendTaxOverviewUrl instead.
-  lazy val submissionFrontendTaxOverviewUrl: Int => String = taxYear =>
-    servicesConfig.getString("income-tax-submission-frontend.host") + s"/update-and-submit-income-tax-return/$taxYear/view"
-
-  lazy val submissionFrontendFinalDeclarationUrl: Int => String = taxYear =>
-    servicesConfig.getString("income-tax-submission-frontend.host") + s"/update-and-submit-income-tax-return/$taxYear/declaration"
-
-  lazy val submissionFrontendTaxYearsPage: Int => String = taxYear =>
-    servicesConfig.getString("income-tax-submission-frontend.host") + s"/update-and-submit-income-tax-return/$taxYear/start"
-
-  // Disagree with a tax decision
-  lazy val taxAppealsUrl: String = servicesConfig.getString("tax-appeals.url")
 
   // income-tax-session-data url
   lazy val incomeTaxSessionDataUrl: String = servicesConfig.baseUrl("income-tax-session-data")
 
-  lazy val penaltiesBackendBase: String = servicesConfig.baseUrl("penalties")
-
-  //penalties frontend
-  lazy val incomeTaxPenaltiesFrontend: String = servicesConfig.getString("income-tax-penalties-frontend.homeUrl")
-  lazy val incomeTaxPenaltiesFrontendLPP1Calculation: String => String = chargeRef => servicesConfig.getString("income-tax-penalties-frontend.homeUrl") + s"/first-lpp-calculation?penaltyId=$chargeRef"
-  lazy val incomeTaxPenaltiesFrontendLPP1CalculationAgent: String => String = chargeRef => servicesConfig.getString("income-tax-penalties-frontend.homeUrl") + s"/agent-first-lpp-calculation?penaltyId=$chargeRef"
-  lazy val incomeTaxPenaltiesFrontendLPP2Calculation: String => String = chargeRef => servicesConfig.getString("income-tax-penalties-frontend.homeUrl") + s"/second-lpp-calculation?penaltyId=$chargeRef"
-  lazy val incomeTaxPenaltiesFrontendLPP2CalculationAgent: String => String = chargeRef => servicesConfig.getString("income-tax-penalties-frontend.homeUrl") + s"/agent-second-lpp-calculation?penaltyId=$chargeRef"
-
-  lazy val incomeTaxVcFsAndStubUrl: String = servicesConfig.getString("income-tax-vc-fs-and-stub.url")
-
   // API timeout
-
-  lazy val claimToAdjustTimeout: Int = servicesConfig.getInt("claim-to-adjust.timeout")
-
-  // enrolment-store-proxy url
-  lazy val enrolmentStoreProxyUrl: String = servicesConfig.baseUrl("enrolment-store-proxy")
-
-  lazy val agentServicesAccountFrontend: String = servicesConfig.baseUrl("agent-services-account-frontend")
+  lazy val agentServicesAccountFrontendBaseUrl: String = servicesConfig.baseUrl("agent-services-account-frontend") + "/agent-services-account"
 
   // Service Navigation Links
-  lazy val ptaFrontendBase: String = servicesConfig.getString("personal-tax-account.url")
-  lazy val btaFrontendBase: String = servicesConfig.getString("business-tax-account.url")
-  lazy val helpAndContactBase: String = servicesConfig.getString("help-and-contact-frontend.url")
-  lazy val trackingBase: String = servicesConfig.getString("tracking-frontend.url")
+  private lazy val ptaFrontendBaseUrl: String = servicesConfig.baseUrl("personal-tax-account") + "/personal-account"
+  private lazy val btaFrontendBaseUrl: String = servicesConfig.baseUrl("business-tax-account") + "/business-account"
+  private lazy val helpAndContactBaseUrl: String = servicesConfig.baseUrl("help-and-contact-frontend") + "/business-account/help"
+  private lazy val trackingBaseUrl: String = servicesConfig.baseUrl("tracking-frontend") + "/track"
 
-  lazy val businessTaxAccountManageAccountUrl: String = s"$btaFrontendBase/manage-account"
-  lazy val businessTaxAccountMessagesUrl: String = s"$btaFrontendBase/messages"
-  lazy val businessTaxAccountHelpUrl: String = s"$helpAndContactBase/business-account/help"
+  lazy val businessTaxAccountManageAccountUrl: String = s"$btaFrontendBaseUrl/manage-account"
+  lazy val businessTaxAccountMessagesUrl: String = s"$btaFrontendBaseUrl/messages"
+  lazy val businessTaxAccountHelpUrl: String = helpAndContactBaseUrl
 
-  lazy val personalTaxAccountMessagesUrl: String = s"$ptaFrontendBase/messages"
-  lazy val personalTaxAccountCheckProgressUrl: String = s"$trackingBase/track"
-  lazy val personalTaxAccountProfileUrl: String = s"$ptaFrontendBase/profile-and-settings"
-  lazy val personalTaxAccountBtaUrl: String = s"$btaFrontendBase"
+  lazy val personalTaxAccountMessagesUrl: String = s"$ptaFrontendBaseUrl/messages"
+  lazy val personalTaxAccountCheckProgressUrl: String = trackingBaseUrl
+  lazy val personalTaxAccountProfileUrl: String = s"$ptaFrontendBaseUrl/profile-and-settings"
+  lazy val personalTaxAccountBtaUrl: String = btaFrontendBaseUrl
 
   //Translation
   def languageMap: Map[String, Lang] = Map(
@@ -164,19 +97,14 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
 
   //Auth variables
   lazy val requiredConfidenceLevel: Int = servicesConfig.getInt("auth.confidenceLevel")
-
-  lazy val ivUrl = servicesConfig.getString("identity-verification-frontend.host")
-  lazy val relativeIVUpliftParams = servicesConfig.getBoolean("identity-verification-frontend.use-relative-params")
+  lazy val identityVerificationFrontendBaseUrl = servicesConfig.baseUrl("identity-verification-frontend") + "/iv-stub"
+  lazy val relativeIVUpliftParams = servicesConfig.getBoolean("microservice.services.identity-verification-frontend.use-relative-params")
 
   def incomeSourceOverrides(): Option[Seq[String]] = config.getOptional[Seq[String]]("afterIncomeSourceCreated")
-
-  def poaAdjustmentOverrides(): Option[Seq[String]] = config.getOptional[Seq[String]]("afterPoaAmountAdjusted")
 
   def triggeredMigrationOverrides(): Option[Seq[String]] = config.getOptional[Seq[String]]("afterMigration")
 
   val cacheTtl: Int = config.get[Int]("mongodb.timeToLiveInSeconds")
-
-  val encryptionIsEnabled: Boolean = config.get[Boolean]("encryption.isEnabled")
 
   lazy val readFeatureSwitchesFromMongo: Boolean = servicesConfig.getBoolean("feature-switches.read-from-mongo")
   
@@ -185,8 +113,6 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
   lazy val timeMachineAddDays: Int = servicesConfig.getInt("time-machine.add-days")
 
   lazy val isSessionDataStorageEnabled: Boolean = servicesConfig.getBoolean("feature-switch.enable-session-data-storage")
-
-  lazy val isHipRepaymentApiEnabled: Boolean = servicesConfig.getBoolean("feature-switch.enable-hip-repayment-api")
 
   //External-Urls
   def logInFileSelfAssessmentTaxReturnLink(implicit messages: Messages): String =
@@ -204,34 +130,9 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
       case _ => "https://www.gov.uk/self-assessment-tax-returns"
     }
 
-  def findHmrcContactsSALink(): String =
-    "https://www.gov.uk/find-hmrc-contacts/self-assessment-general-enquiries"
-
-
   def compatibleSoftwareLink(implicit messages: Messages): String =
-    messages.lang.code match {
-      case "en" => "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
-      case "cy" => "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax.cy"
-      case _ => "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
-    }
-
-  def mtdIncomeTaxLink(implicit messages: Messages): String =
-    messages.lang.code match {
-      case "cy" => "https://www.gov.uk/guidance/defnyddio-r-cynllun-troi-treth-yn-ddigidol-ar-gyfer-treth-incwm"
-      case _ => "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax"
-    }
-
-  def paySelfAssessmentBillLink(implicit messages: Messages): String =
-    messages.lang.code match {
-      case "cy" => "https://www.gov.uk/taluch-bil-treth-hunanasesiad"
-      case _ => "https://www.gov.uk/pay-self-assessment-tax-bill"
-    }
-
-  def strugglingToPayTaxLink(implicit messages: Messages): String =
-    messages.lang.code match {
-      case "cy" => "https://www.gov.uk/anawsterau-talu-cthem"
-      case _ => "https://www.gov.uk/difficulties-paying-hmrc"
-    }
+    val link = servicesConfig.getString("gov-links.compatible-software.url")
+    if messages.lang.code == "cy" then link + ".cy" else link
 
   lazy val preThreshold2027 = servicesConfig.getString("thresholds.prethreshold2027")
   lazy val threshold2027 = servicesConfig.getString("thresholds.threshold2027")
@@ -239,38 +140,4 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
 
   lazy val dynamicStubUrl: String = servicesConfig.baseUrl("itvc-dynamic-stub")
 
-  
-
-  // needed for refactor (can be removed from config once refactoring is complete)
-  lazy val viewChangeBaseUrl = readUrl("income-tax-view-change-frontend")
-  
-  lazy val individualHomeUrl: String = viewChangeBaseUrl + "/"
-  def individualHomeUrl(origin: Option[String] = None): String = individualHomeUrl + s"?origin=$origin"
-  lazy val agentHomeUrl: String = viewChangeBaseUrl + "/agents/client-income-tax"
-  def homePageUrl(isAgent: Boolean): String = if isAgent then agentHomeUrl else individualHomeUrl
-
-  lazy val enterClientsUTRUrl: String = viewChangeBaseUrl + "/agents/client-utr"
-  lazy val confirmClientUTRUrl: String = viewChangeBaseUrl + "/agents/confirm-client-details"
-
-  def nextUpdatesIndividualUrl(origin: Option[String] = None): String = controllers.routes.NextUpdatesController.show(origin).url
-  lazy val nextUpdatesAgentUrl: String = controllers.routes.NextUpdatesController.showAgent().url
-
-  
-  // TODO eventually will be income-tax-returns-frontend
-  lazy val returnsBaseUrl = readUrl("income-tax-view-change-frontend")
-  
-  def taxYearsUrl(isAgent: Boolean): String = if isAgent 
-    then returnsBaseUrl + "/agents/tax-years" 
-    else returnsBaseUrl + "/tax-years"
-
-  // TODO eventually will be income-tax-business-details-frontend
-  lazy val businessBaseUrl = readUrl("income-tax-view-change-frontend")
-  
-  def manageYourBusinessUrl(isAgent: Boolean): String = if isAgent 
-    then businessBaseUrl + "/agents/manage-your-businesses"
-    else businessBaseUrl + "/manage-your-businesses"
-
-  private def readUrl(serviceName: String): String = 
-    val contextPath = servicesConfig.getString(s"microservice.services.$serviceName.url")
-    s"${servicesConfig.baseUrl(serviceName)}$contextPath"
 }

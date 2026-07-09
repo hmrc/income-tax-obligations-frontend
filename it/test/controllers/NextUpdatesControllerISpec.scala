@@ -17,7 +17,6 @@
 package controllers
 
 import auth.MtdItUser
-import controllers.ControllerISpecHelper
 import enums.MTDIndividual
 import helpers.servicemocks.{AuditStub, ITSAStatusDetailsStub, MTDIndividualAuthStub}
 import helpers.servicemocks.*

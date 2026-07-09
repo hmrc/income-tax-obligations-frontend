@@ -50,7 +50,7 @@ class QuarterlyUpdatesCountSpec extends UnitSpec
   implicit override val dateService: DateService = mockDateService
 
   override val appConfig: FrontendAppConfig = new FrontendAppConfig(app.injector.instanceOf[ServicesConfig], app.injector.instanceOf[Configuration]) {
-    override lazy val incomeTaxObligationsService: String = "http://localhost:9999"
+    override lazy val incomeTaxObligationsBaseUrl: String = "http://localhost:9999" + "/income-tax-obligations"
   }
 
   val obligationsConnector: ObligationsConnector = new ObligationsConnector(mockHttpClientV2, mockAuditingService, appConfig)

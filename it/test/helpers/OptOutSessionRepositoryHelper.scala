@@ -17,7 +17,6 @@
 package helpers
 
 import enums.JourneyType.OptOutJourney
-import helpers.CustomMatchers
 import models.incomeSourceDetails.TaxYear
 import models.itsaStatus.ITSAStatus.ITSAStatus
 import models.reportingObligations.optOut.OptOutSessionData

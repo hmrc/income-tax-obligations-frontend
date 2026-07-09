@@ -38,7 +38,7 @@ class FeedbackConnector @Inject()(val http: HttpClientV2,
                                  )(implicit val ec: ExecutionContext) extends RawResponseReads with HeaderNames {
 
   val feedbackServiceSubmitUrl: URL =
-    new URI(s"${config.contactFrontendBaseUrl}/contact/beta-feedback/submit?service=${urlEncode(config.contactFormServiceIdentifier)}").toURL
+    new URI(s"${config.contactFrontendBaseUrl}/beta-feedback/submit?service=${urlEncode(config.contactFormServiceIdentifier)}").toURL
 
   implicit val readForm: HttpReads[HttpResponse] = (method: String, url: String, response: HttpResponse) => response
 
