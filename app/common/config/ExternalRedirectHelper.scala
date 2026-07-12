@@ -32,12 +32,11 @@ trait ExternalRedirectHelper {
     hubBaseUrl
 
   lazy val individualHomeUrlWithOrigin: Option[String] => String = origin =>
-    s"$hubBaseUrl?origin=$origin"
+    origin.fold(hubBaseUrl)(o =>s"$hubBaseUrl?origin=$o")
 
   lazy val homePageUrl: String = {
     individualHomeUrl
   }
-
 
   lazy val agentHomeUrl: String =
     hubAgentBaseUrl
