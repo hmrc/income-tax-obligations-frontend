@@ -1,0 +1,146 @@
+/*
+ * Copyright 2023 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package common.config
+
+import com.google.inject.Inject
+import play.api.Configuration
+import play.api.i18n.{Lang, Messages}
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+
+import javax.inject.Singleton
+
+@Singleton
+class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config: Configuration) extends ExternalRedirectHelper {
+
+  lazy val hasEnabledTestOnlyRoutes: Boolean = config.get[String]("play.http.router") == "testOnlyDoNotUseInAppConf.Routes"
+
+  //App
+  lazy val basePath: String = servicesConfig.getString("base.context-root")
+  lazy val agentBasePath: String = s"$basePath/agents"
+  lazy val baseUrl: String = servicesConfig.getString("base.url")
+  lazy val appName: String = servicesConfig.getString("appName")
+
+  //Feedback Config
+  private lazy val contactHost: String = servicesConfig.getString("contact-frontend.host")
+  private lazy val contactFrontendService: String = servicesConfig.baseUrl("contact-frontend")
+  lazy val contactFormServiceIdentifier: String = "ITVC"
+  lazy val contactFrontendBaseUrl: String = s"$contactFrontendService"
+  lazy val reportAProblemNonJSUrl: String = s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
+  lazy val betaFeedbackUrl = s"$basePath/feedback"
+  lazy val agentBetaFeedbackUrl = s"$agentBasePath/feedback"
+  lazy val noIncomeSourcesContactUrl: String = s"$contactHost/contact/report-technical-problem?service=$contactFormServiceIdentifier"
+
+  //Income tax obligations service
+  lazy val incomeTaxObligationsService: String = servicesConfig.baseUrl("income-tax-obligations")
+
+  //Income tax business details service
+  lazy val incomeTaxBusinessDetailsBaseUrl: String = servicesConfig.baseUrl("income-tax-business-details")
+
+  //Income tax calculation service
+  lazy val incomeTaxCalculationService: String = servicesConfig.baseUrl("income-tax-calculation")
+
+  //GG Sign In via BAS Gateway
+  lazy val signInUrl: String = servicesConfig.getString("base.sign-in")
+  lazy val ggSignInUrl: String = servicesConfig.getString("government-gateway.sign-in.url")
+
+  //Exit Survey
+  lazy val exitSurveyBaseUrl: String = servicesConfig.getString("feedback-frontend.host") + servicesConfig.getString("feedback-frontend.url")
+
+  def exitSurveyUrl(identifier: String): String = s"$exitSurveyBaseUrl/$identifier"
+
+  //Sign out
+  lazy val ggUrl: String = servicesConfig.getString("government-gateway.url")
+
+  def ggSignOutUrl(identifier: String): String = s"$ggUrl/bas-gateway/sign-out-without-state?continue=${exitSurveyUrl(identifier)}"
+  
+  //Agent Services Account
+  lazy val setUpAgentServicesAccountUrl: String = servicesConfig.getString("set-up-agent-services-account.url")
+
+  //Subscription Service
+  lazy val signUpUrl: String = servicesConfig.getString("mtd-subscription-service.url")
+
+  lazy val citizenDetailsUrl: String = servicesConfig.baseUrl("citizen-details")
+  
+  lazy val enterSurveyUrl: String = servicesConfig.getString("enter-survey.url")
+  
+  // income-tax-session-data url
+  lazy val incomeTaxSessionDataUrl: String = servicesConfig.baseUrl("income-tax-session-data")
+  
+  lazy val agentServicesAccountFrontend: String = servicesConfig.baseUrl("agent-services-account-frontend")
+
+  // Service Navigation Links
+  lazy val ptaFrontendBase: String = servicesConfig.getString("personal-tax-account.url")
+  lazy val btaFrontendBase: String = servicesConfig.getString("business-tax-account.url")
+  lazy val helpAndContactBase: String = servicesConfig.getString("help-and-contact-frontend.url")
+  lazy val trackingBase: String = servicesConfig.getString("tracking-frontend.url")
+
+  lazy val businessTaxAccountManageAccountUrl: String = s"$btaFrontendBase/manage-account"
+  lazy val businessTaxAccountMessagesUrl: String = s"$btaFrontendBase/messages"
+  lazy val businessTaxAccountHelpUrl: String = s"$helpAndContactBase/business-account/help"
+
+  lazy val personalTaxAccountMessagesUrl: String = s"$ptaFrontendBase/messages"
+  lazy val personalTaxAccountCheckProgressUrl: String = s"$trackingBase/track"
+  lazy val personalTaxAccountProfileUrl: String = s"$ptaFrontendBase/profile-and-settings"
+  lazy val personalTaxAccountBtaUrl: String = s"$btaFrontendBase"
+
+  //Translation
+  def languageMap: Map[String, Lang] = Map(
+    "english" -> Lang("en"),
+    "cymraeg" -> Lang("cy")
+  )
+
+  //Auth variables
+  lazy val requiredConfidenceLevel: Int = servicesConfig.getInt("auth.confidenceLevel")
+
+  lazy val ivUrl = servicesConfig.getString("identity-verification-frontend.host")
+  lazy val relativeIVUpliftParams = servicesConfig.getBoolean("identity-verification-frontend.use-relative-params")
+
+  def incomeSourceOverrides(): Option[Seq[String]] = config.getOptional[Seq[String]]("afterIncomeSourceCreated")
+  
+  def triggeredMigrationOverrides(): Option[Seq[String]] = config.getOptional[Seq[String]]("afterMigration")
+
+  val cacheTtl: Int = config.get[Int]("mongodb.timeToLiveInSeconds")
+  
+  lazy val readFeatureSwitchesFromMongo: Boolean = servicesConfig.getBoolean("feature-switches.read-from-mongo")
+  
+  lazy val isTimeMachineEnabled: Boolean = servicesConfig.getBoolean("feature-switch.enable-time-machine")
+  lazy val timeMachineAddYears: Int = servicesConfig.getInt("time-machine.add-years")
+  lazy val timeMachineAddDays: Int = servicesConfig.getInt("time-machine.add-days")
+
+  lazy val isSessionDataStorageEnabled: Boolean = servicesConfig.getBoolean("feature-switch.enable-session-data-storage")
+  
+  //External-Urls
+  def logInFileSelfAssessmentTaxReturnLink(implicit messages: Messages): String =
+    messages.lang.code match {
+      case "en" => "https://www.gov.uk/log-in-file-self-assessment-tax-return"
+      case "cy" => "https://www.gov.uk/cyflwyno-ch-ffurflen-dreth-hunanasesiad-ar-lein"
+      case _ => "https://www.gov.uk/log-in-file-self-assessment-tax-return"
+    }
+    
+  def compatibleSoftwareLink(implicit messages: Messages): String =
+    messages.lang.code match {
+      case "en" => "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+      case "cy" => "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax.cy"
+      case _ => "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
+    }
+
+  lazy val preThreshold2027 = servicesConfig.getString("thresholds.prethreshold2027")
+  lazy val threshold2027 = servicesConfig.getString("thresholds.threshold2027")
+  lazy val threshold2028 = servicesConfig.getString("thresholds.threshold2028")
+
+  lazy val dynamicStubUrl: String = servicesConfig.baseUrl("itvc-dynamic-stub")
+}
