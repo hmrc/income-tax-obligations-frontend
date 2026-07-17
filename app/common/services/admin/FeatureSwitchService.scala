@@ -35,8 +35,11 @@ class FeatureSwitchService @Inject()(val featureSwitchConnector: FeatureSwitchCo
 
     def enrich(mongoSwitches: List[FeatureSwitch]) = {
       Logger("application").debug(s"reading FSS: $mongoSwitches")
+      val filteredMongoSwitches = mongoSwitches.filter(featureSwitch =>
+        FeatureSwitchName.allFeatureSwitches.contains(featureSwitch.name)
+      )
       FeatureSwitchName.allFeatureSwitches
-        .foldLeft(mongoSwitches) { (featureSwitches, missingSwitch) =>
+        .foldLeft(filteredMongoSwitches) { (featureSwitches, missingSwitch) =>
           if (featureSwitches.map(_.name).contains(missingSwitch))
             featureSwitches
           else
@@ -51,25 +54,4 @@ class FeatureSwitchService @Inject()(val featureSwitchConnector: FeatureSwitchCo
       Future.successful(enrich(getFSList))
     }
   }
-
-  def set(featureSwitchName: FeatureSwitchName, enabled: Boolean)(implicit hc: HeaderCarrier): Future[Boolean] = {
-    Logger("application").info(s"Setting feature switch ${featureSwitchName.name} to ${enabled.toString}")
-    if (appConfig.readFeatureSwitchesFromMongo) {
-      featureSwitchConnector.setSwitch(featureSwitchName, enabled)
-    } else {
-      Logger("application").error("Cannot set feature switch when read-from-mongo is disabled")
-      Future(false)
-    }
-  }
-
-  def setAll(featureSwitches: Map[FeatureSwitchName, Boolean])(implicit hc: HeaderCarrier): Future[Unit] = {
-    Logger("application").info(s"Setting all feature switches. FS values: $featureSwitches")
-    if (appConfig.readFeatureSwitchesFromMongo) {
-      featureSwitchConnector.setSwitches(featureSwitches).map(_ => ())
-    } else {
-      Logger("application").error("Cannot set feature switches when read-from-mongo is disabled")
-      Future.successful((): Unit)
-    }
-  }
-
 }

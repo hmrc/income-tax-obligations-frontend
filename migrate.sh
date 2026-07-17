@@ -11,6 +11,9 @@ cp app/shared/models/UIJourneySessionData.scala tmp/.
 cp app/common/models/obligations/ObligationsResponseModel.scala tmp/.
 cp app/common/models/incomeSourceDetails/IncomeSourceDetailsResponse.scala tmp/.
 cp -r app/shared/enums/journeyType tmp/.
+cp app/common/connectors/FeatureSwitchConnector.scala tmp/.
+cp cp app/common/models/admin/FeatureSwitchName.scala tmp/.
+cp app/common/services/admin/FeatureSwitchService.scala tmp/.
 
 echo "Removing main code from the app folder"
 rm -rf app/common
@@ -31,6 +34,9 @@ cp tmp/UIJourneySessionData.scala app/shared/models/.
 cp tmp/ObligationsResponseModel.scala app/common/models/obligations/.
 cp tmp/IncomeSourceDetailsResponse.scala app/common/models/incomeSourceDetails/.
 cp -r tmp/journeyType app/shared/enums/.
+cp tmp/FeatureSwitchConnector.scala app/common/connectors/.
+cp tmp/FeatureSwitchName.scala app/common/models/admin/.
+cp tmp/FeatureSwitchService.scala app/common/services/admin/.
 
 echo "Removing unused files"
 rm app/shared/implicits/ImplicitCurrencyFormatter.scala
@@ -47,6 +53,10 @@ echo "Copying files to tmp folder which we don't want to overwrite"
 cp test/common/models/liabilityCalculation/LiabilityCalculationResponseModelSpec.scala tmp/.
 cp test/obligations/models/ObligationsResponseModelSpec.scala tmp/.
 cp test/common/models/IncomeSourceDetailsModelSpec.scala tmp/.
+cp test/common/config/featureswitch/FeatureSwitchingSpec.scala tmp/.
+cp test/common/admin/FeatureSwitchNameSpec.scala tmp/.
+cp test/common/services/admin/FeatureSwitchServiceSpec.scala tmp/.
+cp test/common/mocks/connectors/MockFeatureSwitchConnector.scala tmp/.
 
 echo "Removing current unit tests"
 
@@ -66,6 +76,10 @@ echo "Copying files back from tmp folder to test folder"
 cp tmp/LiabilityCalculationResponseModelSpec.scala test/common/models/liabilityCalculation/.
 cp tmp/ObligationsResponseModelSpec.scala test/obligations/models/.
 cp tmp/IncomeSourceDetailsModelSpec.scala test/common/models/.
+cp tmp/FeatureSwitchingSpec.scala test/common/config/featureswitch/.
+cp tmp/FeatureSwitchNameSpec.scala test/common/admin/.
+cp tmp/FeatureSwitchServiceSpec.scala test/common/services/admin/.
+cp tmp/MockFeatureSwitchConnector.scala test/common/mocks/connectors/.
 
 echo "Removing unused files"
 rm test/common/models/liabilityCalculation/MetadataSpec.scala

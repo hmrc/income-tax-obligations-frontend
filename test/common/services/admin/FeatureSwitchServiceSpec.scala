@@ -20,19 +20,17 @@ import common.config.FrontendAppConfig
 import common.mocks.connectors.MockFeatureSwitchConnector
 import common.models.admin.{FeatureSwitch, FeatureSwitchName}
 import common.testUtils.TestSupport
-import org.mockito.ArgumentMatchers
-import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{verify, when}
+import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar.mock
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
 
 class FeatureSwitchServiceSpec extends TestSupport with MockFeatureSwitchConnector {
 
   val mockFrontendAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
 
-  val exampleFSName: FeatureSwitchName = FeatureSwitchName.get("payment-history-refunds").get
-  val anotherFSName: FeatureSwitchName = FeatureSwitchName.get("charge-history").get
+  val exampleFSName: FeatureSwitchName = FeatureSwitchName.get("opt-out").get
+  val anotherFSName: FeatureSwitchName = FeatureSwitchName.get("sign-up").get
 
   object TestFSService extends FeatureSwitchService(
     mockFeatureSwitchConnector,
@@ -76,50 +74,6 @@ class FeatureSwitchServiceSpec extends TestSupport with MockFeatureSwitchConnect
         val result = TestFSService.getAll()
         result.futureValue should contain(FeatureSwitch(exampleFSName, isEnabled = true))
         result.futureValue should contain(FeatureSwitch(anotherFSName, isEnabled = false))
-      }
-    }
-  }
-
-  "FeatureSwitchService.set" should {
-    "return true if FS successfully set" when {
-      "read FS from mongo FS is enabled" in {
-        when(mockFrontendAppConfig.readFeatureSwitchesFromMongo) thenReturn true
-        mockConnectorSetFeatureSwitch(true)
-
-        val result = TestFSService.set(exampleFSName, true)
-        result.futureValue shouldBe true
-      }
-    }
-    "return false if FS not set" when {
-      "read FS from mongo FS is enabled" in {
-        when(mockFrontendAppConfig.readFeatureSwitchesFromMongo) thenReturn true
-        mockConnectorSetFeatureSwitch(false)
-
-        val result = TestFSService.set(exampleFSName, true)
-        result.futureValue shouldBe false
-      }
-      "read FS from mongo FS is disabled" in {
-        when(mockFrontendAppConfig.readFeatureSwitchesFromMongo) thenReturn false
-
-        val result = TestFSService.set(exampleFSName, false)
-        result.futureValue shouldBe false
-      }
-    }
-  }
-
-  "FeatureSwitchService.setAll" should {
-    "call the repository" when {
-      "read FS from mongo FS is enabled" in {
-        when(mockFrontendAppConfig.readFeatureSwitchesFromMongo) thenReturn true
-
-        val fsMap = Map(exampleFSName -> true, anotherFSName -> false)
-
-        when(mockFeatureSwitchConnector.setSwitches(ArgumentMatchers.eq(fsMap))(any()))
-          .thenReturn(Future.successful(true))
-
-        TestFSService.setAll(fsMap)
-
-        verify(mockFeatureSwitchConnector).setSwitches(ArgumentMatchers.eq(fsMap))(any())
       }
     }
   }
