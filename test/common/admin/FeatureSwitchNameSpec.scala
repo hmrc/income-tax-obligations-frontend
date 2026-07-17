@@ -16,7 +16,7 @@
 
 package common.admin
 
-import common.models.admin.{FeatureSwitchName, ITSASubmissionIntegration, InvalidFS, ChargeHistory}
+import common.models.admin.*
 import org.scalatestplus.play.PlaySpec
 import play.api.libs.json.{JsString, Json}
 
@@ -24,13 +24,13 @@ class FeatureSwitchNameSpec extends PlaySpec{
 
   "FeatureSwitchName.reads" should {
     "deserialize a valid FeatureSwitchName from JSON string" in {
-      val json = JsString(ITSASubmissionIntegration.name)
-      json.as[FeatureSwitchName] mustBe ITSASubmissionIntegration
+      val json = JsString(OptOutFs.name)
+      json.as[FeatureSwitchName] mustBe OptOutFs
     }
 
     "deserialize another valid FeatureSwitchName" in {
-      val json = JsString(ChargeHistory.name)
-      json.as[FeatureSwitchName] mustBe ChargeHistory
+      val json = JsString(SignUpFs.name)
+      json.as[FeatureSwitchName] mustBe SignUpFs
     }
 
     "deserialize all known FeatureSwitchNames successfully (round-trip test)" in {
@@ -42,7 +42,7 @@ class FeatureSwitchNameSpec extends PlaySpec{
 
     "return InvalidFS for an unknown feature switch" in {
       val json = JsString("NotARealFeatureSwitch")
-      json.as[FeatureSwitchName] mustBe InvalidFS
+      json.as[FeatureSwitchName] mustBe NotRequiredFS
     }
   }
 
