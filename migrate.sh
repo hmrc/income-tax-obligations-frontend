@@ -77,7 +77,7 @@ cp tmp/LiabilityCalculationResponseModelSpec.scala test/common/models/liabilityC
 cp tmp/ObligationsResponseModelSpec.scala test/obligations/models/.
 cp tmp/IncomeSourceDetailsModelSpec.scala test/common/models/.
 cp tmp/FeatureSwitchingSpec.scala test/common/config/featureswitch/.
-cp tmp/FeatureSwitchNameSpec.scala test/common/admin/featureswitch/.
+cp tmp/FeatureSwitchNameSpec.scala test/common/admin/.
 cp tmp/FeatureSwitchServiceSpec.scala test/common/services/admin/.
 cp tmp/MockFeatureSwitchConnector.scala test/common/mocks/connectors/.
 
