@@ -27,6 +27,7 @@ import common.models.itsaStatus.ITSAStatus.Voluntary
 import common.models.itsaStatus.{ITSAStatusResponseError, ITSAStatusResponseModel, StatusDetail}
 import common.models.itsaStatus.StatusReason.MtdItsaOptOut
 import common.testUtils.TestSupport
+import obligations.controllers.reportingObligations.signUp.routes as signUpRoutes
 import org.jsoup.Jsoup
 import org.mockito.ArgumentMatchers.{any, anyBoolean}
 import org.mockito.Mockito.{never, reset, verify, when}
@@ -109,7 +110,7 @@ class ItsaStatusRetrievalActionSpec extends TestSupport with ScalaFutures {
         val result = action.refine(mtdUser).futureValue
 
         result.left.value.header.status shouldBe SEE_OTHER
-        result.left.value.header.headers("LOCATION") shouldBe appConfig.obligationsWaitToSignUpAgentUrl(false)
+        result.left.value.header.headers("LOCATION") shouldBe signUpRoutes.YouMustWaitToSignUpController.show(true).url
       }
 
       "redirect to YouMustWaitToSignUp page when only next-year ITSA status exists - Individual" in {
@@ -137,7 +138,7 @@ class ItsaStatusRetrievalActionSpec extends TestSupport with ScalaFutures {
         val result = action.refine(mtdUser).futureValue
 
         result.left.value.header.status shouldBe SEE_OTHER
-        result.left.value.header.headers("LOCATION") shouldBe appConfig.obligationsWaitToSignUpIndividualUrl(false)
+        result.left.value.header.headers("LOCATION") shouldBe signUpRoutes.YouMustWaitToSignUpController.show(false).url
       }
 
       "redirect to YouMustWaitToSignUp page when only next-year ITSA status exists - SupportingAgent" in {
@@ -165,7 +166,7 @@ class ItsaStatusRetrievalActionSpec extends TestSupport with ScalaFutures {
         val result = action.refine(mtdUser).futureValue
 
         result.left.value.header.status shouldBe SEE_OTHER
-        result.left.value.header.headers("LOCATION") shouldBe appConfig.obligationsWaitToSignUpAgentUrl(false)
+        result.left.value.header.headers("LOCATION") shouldBe signUpRoutes.YouMustWaitToSignUpController.show(true).url
       }
 
       "return an MtdItUser when valid ITSA status exists for current and future years" in {
@@ -292,7 +293,7 @@ class ItsaStatusRetrievalActionSpec extends TestSupport with ScalaFutures {
         val result = action.refine(mtdUser).futureValue
 
         result.left.value.header.status shouldBe SEE_OTHER
-        result.left.value.header.headers("LOCATION") shouldBe appConfig.obligationsWaitToSignUpIndividualUrl(false)
+        result.left.value.header.headers("LOCATION") shouldBe signUpRoutes.YouMustWaitToSignUpController.show(false).url
       }
 
 

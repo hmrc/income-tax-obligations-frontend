@@ -23,9 +23,11 @@ import common.connectors.ITSAStatusConnector
 import common.controllers.BaseController
 import common.models.admin.`CY+1YouMustWaitToSignUpPageEnabled`
 import common.services.DateServiceInterface
+import obligations.controllers.reportingObligations.signUp.routes as signUpRoutes
 import play.api.Logger
 import play.api.mvc.{ActionRefiner, MessagesControllerComponents, Result}
 import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Individual, Organisation}
+
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -68,12 +70,7 @@ class ItsaStatusRetrievalAction @Inject()(
   override def refine[A](request: MtdItUser[A]): Future[Either[Result, MtdItUser[A]]] = {
 
     implicit val req: MtdItUser[A] = request
-    
-    //ToDo add logic to check if new obligations feature switch enabled once built
-    lazy val newObligationsEnabled: Boolean =
-      //isEnabled(`NEW-OBLIGATIONS-FEATURE-SWITCH`)
-      false
-    
+
     lazy val authAction: Future[Either[Result, MtdItUser[A]]] =
       itsaStatusConnector.getITSAStatusDetail(
         nino = req.nino,
@@ -85,13 +82,13 @@ class ItsaStatusRetrievalAction @Inject()(
           req.authUserDetails.affinityGroup match {
             case Some(Individual) =>
               Logger(getClass).info(s"[ItsaStatusRetrievalAction][refine] Redirecting user to Non-Agent/Individual's YouMustWaitToSignUp page")
-              Left(Redirect(appConfig.obligationsWaitToSignUpIndividualUrl(newObligationsEnabled)))
+              Left(Redirect(signUpRoutes.YouMustWaitToSignUpController.show(false).url))
             case Some(Organisation) =>
               Logger(getClass).info(s"[ItsaStatusRetrievalAction][refine] Redirecting user to Non-Agent/Organisation's YouMustWaitToSignUp page")
-              Left(Redirect(appConfig.obligationsWaitToSignUpIndividualUrl(newObligationsEnabled)))
+              Left(Redirect(signUpRoutes.YouMustWaitToSignUpController.show(false).url))
             case Some(Agent) =>
               Logger(getClass).info(s"[ItsaStatusRetrievalAction][refine] Redirecting user to Agent YouMustWaitToSignUp page")
-              Left(Redirect(appConfig.obligationsWaitToSignUpAgentUrl(newObligationsEnabled)))
+              Left(Redirect(signUpRoutes.YouMustWaitToSignUpController.show(true).url))
             case _ =>
               Logger(getClass).error(s"[ItsaStatusRetrievalAction][refine] Unsuccessful income source and itsa details retrieved or unknown error, redirecting to internal server error page for user")
               Left(internalServerErrorFor(req, "affinity-group", None))

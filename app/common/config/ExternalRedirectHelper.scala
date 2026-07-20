@@ -16,7 +16,6 @@
 
 package common.config
 
-import obligations.controllers.reportingObligations.signUp.routes as signUpRoutes
 import play.api.Configuration
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
@@ -43,14 +42,6 @@ trait ExternalRedirectHelper {
     s"$hubAgentBaseUrl/client-utr"
   lazy val confirmClientUTRUrl: String =
     s"$hubAgentBaseUrl/confirm-client-details"
-  
-  //Obligation routes
-  
-  lazy val obligationsWaitToSignUpIndividualUrl: Boolean => String = _ =>
-    signUpRoutes.YouMustWaitToSignUpController.show(false).url
-
-  lazy val obligationsWaitToSignUpAgentUrl: Boolean => String = _ =>
-    signUpRoutes.YouMustWaitToSignUpController.show(true).url
   
   //Business Details routes
   lazy val businessDetailsBaseUrl: String = servicesConfig.getString("income-tax-business-details-frontend.baseUrl")
