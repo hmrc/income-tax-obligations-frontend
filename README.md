@@ -1,7 +1,79 @@
 
 # income-tax-obligations-frontend
 
-This is a placeholder README.md for a new repository
+This is the repository for the Income Tax View and Change frontend.
+
+Backends:
+https://github.com/hmrc/income-tax-obligations
+https://github.com/hmrc/income-tax-calculation
+https://github.com/hmrc/income-tax-business-details
+https://github.com/hmrc/income-tax-financial-details
+
+Stub: https://github.com/hmrc/income-tax-vc-fs-and-stub
+
+Feature switch info: https://confluence.tools.tax.service.gov.uk/pages/viewpage.action?spaceKey=MISUV&title=Feature+Switches+State
+
+Requirements
+------------
+
+This service is written in [Scala](http://www.scala-lang.org/) and [Play](http://playframework.com/), so needs at least a [JRE] to run.
+
+## Compiling the application
+To simply compile application across all three code domains: code, unit tests and integration tests
+run following command:
+
+```
+sbt compileAll
+```
+
+## Run the application
+
+To start all Service Manager services from the latest RELEASE version instead of snapshot execute the following:
+
+```
+sm2 --start ITVC_TEST --appendArgs '{"CITIZEN_DETAILS":["-Dmongodb.cid-sautr-cache.enabled=false"]}'
+```
+
+### To run the application locally execute the following:
+
+```
+sbt 'run 9075'
+```
+
+### To run the application locally execute in test mode the following:
+
+```
+sbt "run 9075 -Dplay.http.router=testOnlyDoNotUseInAppConf.Routes"
+```
+
+## Test the application
+
+To test the application execute:
+
+```
+sbt clean coverage test it/test coverageOff coverageReport
+```
+
+## How to run sbt-scoverage plugin for the application
+
+To generate scoverage report for the unit tests execute:
+
+```
+sbt clean coverage test coverageOff coverageReport
+```
+
+To generate scoverage report for the integration tests execute:
+
+```
+sbt clean coverage it/test coverageOff coverageReport
+```
+
+To generate aggregated scoverage report for the unit and integration tests in one go execute:
+
+```
+sbt clean coverage test it/test coverageOff coverageReport
+```
+
 
 ### License
 
