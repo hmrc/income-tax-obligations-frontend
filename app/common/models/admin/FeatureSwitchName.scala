@@ -49,6 +49,8 @@ object FeatureSwitchName {
       JsSuccess(ObligationsFrontend)
     case JsString(BusinessDetailsFrontend.name) =>
       JsSuccess(BusinessDetailsFrontend)
+    case JsString(TriggeredMigration.name) =>
+      JsSuccess(TriggeredMigration)
     case JsString(FinancialsFrontend.name) =>
       JsSuccess(FinancialsFrontend)
     case notRequiredFS =>
@@ -81,6 +83,7 @@ object FeatureSwitchName {
       NoIncomeSourcesRedirect,
       ObligationsFrontend,
       BusinessDetailsFrontend,
+      TriggeredMigration,
       FinancialsFrontend
     )
 
@@ -111,6 +114,12 @@ case object BusinessDetailsFrontend extends FeatureSwitchName {
   override val name: String = "business-details-frontend"
   override val toString: String = "Business Details Frontend"
 }
+
+case object TriggeredMigration extends FeatureSwitchName {
+  override val name: String = "triggered-migration"
+  override def toString: String = "Triggered Migration"
+}
+
 case object NotRequiredFS extends FeatureSwitchName {
   override val name: String = "not-required-FS"
   override val toString: String = "Not required feature Switch"

@@ -47,6 +47,16 @@ trait ExternalRedirectHelper {
   lazy val businessDetailsBaseUrl: String = servicesConfig.getString("income-tax-business-details-frontend.baseUrl")
   lazy val businessDetailsAgentBaseUrl: String = s"$businessDetailsBaseUrl/agents"
 
+  def triggeredMigrationCheckHMRCRecordsUrl(isAgent: Boolean, businessDetailsFrontendEnabled: Boolean): String = {
+    if (businessDetailsFrontendEnabled) {
+      val baseUri = if (isAgent) businessDetailsAgentBaseUrl else businessDetailsBaseUrl
+      s"$baseUri/check-your-active-businesses/hmrc-record"
+    } else {
+      val baseUri = if (isAgent) hubAgentBaseUrl else hubBaseUrl
+      s"$baseUri/check-your-active-businesses/hmrc-record"
+    }
+  }
+
   lazy val businessDetailsManageBusinessesIndividualUrl: Boolean => String = businessDetailsFrontendEnabled =>
     if (businessDetailsFrontendEnabled)
       s"$businessDetailsBaseUrl/manage-your-businesses"

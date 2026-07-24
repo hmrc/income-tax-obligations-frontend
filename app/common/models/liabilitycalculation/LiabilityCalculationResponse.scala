@@ -16,7 +16,9 @@
 
 package common.models.liabilitycalculation
 
+import common.enums.TaxYearSummary.CalculationType.crystallisedTypes
 import play.api.libs.json.*
+
 import java.time.LocalDate
 
 sealed trait LiabilityCalculationResponseModel
@@ -45,7 +47,11 @@ case class Metadata(
                      calculationReason: Option[String] = None,
                      periodFrom: Option[LocalDate] = None,
                      periodTo: Option[LocalDate] = None
-                   )
+                   ) {
+  
+  def isCalculationCrystallised: Boolean = crystallisedTypes.map(_.value).contains(calculationType)
+
+}
 
 object Metadata {
   implicit val format: OFormat[Metadata] = Json.format[Metadata]
