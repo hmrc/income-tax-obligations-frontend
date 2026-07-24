@@ -45,8 +45,6 @@ object FeatureSwitchName {
       JsSuccess(`CY+1YouMustWaitToSignUpPageEnabled`)
     case JsString(NoIncomeSourcesRedirect.name) =>
       JsSuccess(NoIncomeSourcesRedirect)
-    case JsString(ObligationsFrontend.name) =>
-      JsSuccess(ObligationsFrontend)
     case JsString(BusinessDetailsFrontend.name) =>
       JsSuccess(BusinessDetailsFrontend)
     case JsString(TriggeredMigration.name) =>
@@ -81,7 +79,6 @@ object FeatureSwitchName {
       SignUpFs,
       `CY+1YouMustWaitToSignUpPageEnabled`,
       NoIncomeSourcesRedirect,
-      ObligationsFrontend,
       BusinessDetailsFrontend,
       TriggeredMigration,
       FinancialsFrontend
@@ -128,10 +125,4 @@ case object NotRequiredFS extends FeatureSwitchName {
 case object FinancialsFrontend extends FeatureSwitchName {
   override val name: String = "financials-frontend"
   override val toString: String = "Financials Frontend"
-}
-
-case object ObligationsFrontend extends FeatureSwitchName {
-  override val name: String = "obligations-frontend"
-
-  override def toString: String = "Obligations Frontend"
 }
