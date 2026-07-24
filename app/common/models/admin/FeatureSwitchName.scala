@@ -41,8 +41,6 @@ object FeatureSwitchName {
       JsSuccess(OptOutFs)
     case JsString(SignUpFs.name) =>
       JsSuccess(SignUpFs)
-    case JsString(`CY+1YouMustWaitToSignUpPageEnabled`.name) =>
-      JsSuccess(`CY+1YouMustWaitToSignUpPageEnabled`)
     case JsString(NoIncomeSourcesRedirect.name) =>
       JsSuccess(NoIncomeSourcesRedirect)
     case JsString(BusinessDetailsFrontend.name) =>
@@ -77,7 +75,6 @@ object FeatureSwitchName {
     Set(
       OptOutFs,
       SignUpFs,
-      `CY+1YouMustWaitToSignUpPageEnabled`,
       NoIncomeSourcesRedirect,
       BusinessDetailsFrontend,
       TriggeredMigration,
@@ -95,11 +92,6 @@ case object OptOutFs extends FeatureSwitchName {
 case object SignUpFs extends FeatureSwitchName {
   override val name = "sign-up"
   override val toString = "Sign Up"
-}
-
-case object `CY+1YouMustWaitToSignUpPageEnabled` extends FeatureSwitchName {
-  override val name: String = "cy-plus-one-you-must-wait-to-sign-up-page-enabled"
-  override val toString: String = "CY+1 You Must Wait To Sign Up Page Enabled"
 }
 
 case object NoIncomeSourcesRedirect extends FeatureSwitchName {
