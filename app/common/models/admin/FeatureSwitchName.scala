@@ -41,14 +41,12 @@ object FeatureSwitchName {
       JsSuccess(OptOutFs)
     case JsString(SignUpFs.name) =>
       JsSuccess(SignUpFs)
-    case JsString(`CY+1YouMustWaitToSignUpPageEnabled`.name) =>
-      JsSuccess(`CY+1YouMustWaitToSignUpPageEnabled`)
     case JsString(NoIncomeSourcesRedirect.name) =>
       JsSuccess(NoIncomeSourcesRedirect)
-    case JsString(ObligationsFrontend.name) =>
-      JsSuccess(ObligationsFrontend)
     case JsString(BusinessDetailsFrontend.name) =>
       JsSuccess(BusinessDetailsFrontend)
+    case JsString(TriggeredMigration.name) =>
+      JsSuccess(TriggeredMigration)
     case JsString(FinancialsFrontend.name) =>
       JsSuccess(FinancialsFrontend)
     case notRequiredFS =>
@@ -77,10 +75,9 @@ object FeatureSwitchName {
     Set(
       OptOutFs,
       SignUpFs,
-      `CY+1YouMustWaitToSignUpPageEnabled`,
       NoIncomeSourcesRedirect,
-      ObligationsFrontend,
       BusinessDetailsFrontend,
+      TriggeredMigration,
       FinancialsFrontend
     )
 
@@ -97,11 +94,6 @@ case object SignUpFs extends FeatureSwitchName {
   override val toString = "Sign Up"
 }
 
-case object `CY+1YouMustWaitToSignUpPageEnabled` extends FeatureSwitchName {
-  override val name: String = "cy-plus-one-you-must-wait-to-sign-up-page-enabled"
-  override val toString: String = "CY+1 You Must Wait To Sign Up Page Enabled"
-}
-
 case object NoIncomeSourcesRedirect extends FeatureSwitchName {
   override val name: String = "no-income-sources-redirect"
   override val toString: String = "No Income Sources Redirect"
@@ -111,6 +103,12 @@ case object BusinessDetailsFrontend extends FeatureSwitchName {
   override val name: String = "business-details-frontend"
   override val toString: String = "Business Details Frontend"
 }
+
+case object TriggeredMigration extends FeatureSwitchName {
+  override val name: String = "triggered-migration"
+  override def toString: String = "Triggered Migration"
+}
+
 case object NotRequiredFS extends FeatureSwitchName {
   override val name: String = "not-required-FS"
   override val toString: String = "Not required feature Switch"
@@ -119,10 +117,4 @@ case object NotRequiredFS extends FeatureSwitchName {
 case object FinancialsFrontend extends FeatureSwitchName {
   override val name: String = "financials-frontend"
   override val toString: String = "Financials Frontend"
-}
-
-case object ObligationsFrontend extends FeatureSwitchName {
-  override val name: String = "obligations-frontend"
-
-  override def toString: String = "Obligations Frontend"
 }

@@ -16,7 +16,8 @@
 
 package common.models.incomeSourceDetails
 
-import play.api.Logging
+import common.enums.TriggeredMigration.Channel.{CustomerLed, HmrcConfirmed}
+import play.api.{Logger, Logging}
 import play.api.libs.json.{Format, JsValue, Json, OFormat}
 
 sealed trait IncomeSourceDetailsResponse {
@@ -48,6 +49,20 @@ case class IncomeSourceDetailsModel(
   
   def isAnyOfActiveBusinessesLatent: Boolean = businesses.filterNot(_.isCeased).exists(_.latencyDetails.nonEmpty) ||
     properties.filterNot(_.isCeased).exists(_.latencyDetails.nonEmpty)
+
+  def isConfirmedUser: Boolean = {
+    Set(CustomerLed.getValue, HmrcConfirmed.getValue).contains(channel)
+  }
+
+
+
+  def startingTaxYear: Option[Int] = {
+    Logger("application").debug(s"[IncomeSourceDetailsModel][startingTaxYear] Businesses firstAccountingPeriodEndDate:${businesses.flatMap(_.firstAccountingPeriodEndDate)}, properties firstAccountingPeriodEndDate: ${properties.flatMap(_.firstAccountingPeriodEndDate)}")
+    (businesses.flatMap(_.firstAccountingPeriodEndDate) ++ properties.flatMap(_.firstAccountingPeriodEndDate))
+      .map(_.getYear).sortWith(_ < _).headOption
+  }
+  
+  
 }
 
 case class IncomeSourceDetailsError(status: Int, reason: String) extends IncomeSourceDetailsResponse {

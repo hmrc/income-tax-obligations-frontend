@@ -14,7 +14,6 @@ cp -r app/shared/enums/journeyType tmp/.
 cp app/common/connectors/FeatureSwitchConnector.scala tmp/.
 cp cp app/common/models/admin/FeatureSwitchName.scala tmp/.
 cp app/common/services/admin/FeatureSwitchService.scala tmp/.
-cp app/common/auth/actions/ItsaStatusRetrievalAction.scala tmp/.
 
 echo "Removing main code from the app folder"
 rm -rf app/common
@@ -38,7 +37,6 @@ cp -r tmp/journeyType app/shared/enums/.
 cp tmp/FeatureSwitchConnector.scala app/common/connectors/.
 cp tmp/FeatureSwitchName.scala app/common/models/admin/.
 cp tmp/FeatureSwitchService.scala app/common/services/admin/.
-cp tmp/ItsaStatusRetrievalAction.scala app/common/auth/actions/.
 
 echo "Removing unused files"
 rm app/shared/implicits/ImplicitCurrencyFormatter.scala
@@ -59,7 +57,6 @@ cp test/common/config/featureswitch/FeatureSwitchingSpec.scala tmp/.
 cp test/common/admin/FeatureSwitchNameSpec.scala tmp/.
 cp test/common/services/admin/FeatureSwitchServiceSpec.scala tmp/.
 cp test/common/mocks/connectors/MockFeatureSwitchConnector.scala tmp/.
-cp test/common/auth/actions/ItsaStatusRetrievalActionSpec.scala tmp/.
 
 echo "Removing current unit tests"
 
@@ -83,7 +80,6 @@ cp tmp/FeatureSwitchingSpec.scala test/common/config/featureswitch/.
 cp tmp/FeatureSwitchNameSpec.scala test/common/admin/.
 cp tmp/FeatureSwitchServiceSpec.scala test/common/services/admin/.
 cp tmp/MockFeatureSwitchConnector.scala test/common/mocks/connectors/.
-cp tmp/ItsaStatusRetrievalActionSpec.scala test/common/auth/actions/.
 
 echo "Removing unused files"
 rm test/common/models/liabilityCalculation/MetadataSpec.scala
