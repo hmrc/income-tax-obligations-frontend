@@ -13,7 +13,6 @@ cp app/common/models/incomeSourceDetails/IncomeSourceDetailsResponse.scala tmp/.
 cp -r app/shared/enums/journeyType tmp/.
 cp app/common/connectors/FeatureSwitchConnector.scala tmp/.
 cp cp app/common/models/admin/FeatureSwitchName.scala tmp/.
-cp app/common/services/admin/FeatureSwitchService.scala tmp/.
 
 echo "Removing main code from the app folder"
 rm -rf app/common
@@ -36,7 +35,6 @@ cp tmp/IncomeSourceDetailsResponse.scala app/common/models/incomeSourceDetails/.
 cp -r tmp/journeyType app/shared/enums/.
 cp tmp/FeatureSwitchConnector.scala app/common/connectors/.
 cp tmp/FeatureSwitchName.scala app/common/models/admin/.
-cp tmp/FeatureSwitchService.scala app/common/services/admin/.
 
 echo "Removing unused files"
 rm app/shared/implicits/ImplicitCurrencyFormatter.scala
