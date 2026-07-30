@@ -35,11 +35,8 @@ class FeatureSwitchService @Inject()(val featureSwitchConnector: FeatureSwitchCo
 
     def enrich(mongoSwitches: List[FeatureSwitch]) = {
       Logger("application").debug(s"reading FSS: $mongoSwitches")
-      val filteredMongoSwitches = mongoSwitches.filter(featureSwitch =>
-        FeatureSwitchName.allFeatureSwitches.contains(featureSwitch.name)
-      )
       FeatureSwitchName.allFeatureSwitches
-        .foldLeft(filteredMongoSwitches) { (featureSwitches, missingSwitch) =>
+        .foldLeft(mongoSwitches) { (featureSwitches, missingSwitch) =>
           if (featureSwitches.map(_.name).contains(missingSwitch))
             featureSwitches
           else
