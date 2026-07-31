@@ -49,6 +49,8 @@ object FeatureSwitchName {
       JsSuccess(TriggeredMigration)
     case JsString(FinancialsFrontend.name) =>
       JsSuccess(FinancialsFrontend)
+    case JsString(ReturnsFrontend.name) =>
+      JsSuccess(ReturnsFrontend)
     case notRequiredFS =>
       Logger("application").debug("Feature switch not required in this service")
       JsSuccess(NotRequiredFS)
@@ -78,7 +80,8 @@ object FeatureSwitchName {
       NoIncomeSourcesRedirect,
       BusinessDetailsFrontend,
       TriggeredMigration,
-      FinancialsFrontend
+      FinancialsFrontend,
+      ReturnsFrontend
     )
 
   def get(str: String): Option[FeatureSwitchName] = allFeatureSwitches find (_.name == str)
@@ -117,4 +120,9 @@ case object NotRequiredFS extends FeatureSwitchName {
 case object FinancialsFrontend extends FeatureSwitchName {
   override val name: String = "financials-frontend"
   override val toString: String = "Financials Frontend"
+}
+
+case object ReturnsFrontend extends FeatureSwitchName {
+  override val name: String = "returns-frontend"
+  override val toString: String = "Returns Frontend"
 }

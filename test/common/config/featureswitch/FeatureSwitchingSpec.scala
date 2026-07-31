@@ -47,7 +47,8 @@ class FeatureSwitchingSpec extends TestSupport with MockitoSugar {
     NoIncomeSourcesRedirect,
     BusinessDetailsFrontend,
     TriggeredMigration,
-    FinancialsFrontend
+    FinancialsFrontend,
+    ReturnsFrontend
   )
 
   "FeatureSwitchName" when {
