@@ -3,6 +3,4 @@ type: service
 service-type: frontend
 tags: []
 test-repositories:
-  - income-tax-view-change-acceptance-tests
-script:
-  - name: ./run_obligationsAgents.sh && ./run_obligationsIndividuals.sh && ./run_obligationsSupportingAgents.sh
+  - income-tax-view-change-frontend-acceptance-tests
