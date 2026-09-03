@@ -100,10 +100,12 @@ trait ExternalRedirectHelper {
       s"$vcFrontendAgentBaseUrl/complete-steps"
 
   def triggeredMigrationCompleteStepsUrl(isAgent: Boolean, businessDetailsFrontendEnabled: Boolean): String = {
-    if(isAgent) {
-      businessDetailsTriggeredMigrationCompleteStepsAgentUrl(businessDetailsFrontendEnabled)
+    if (businessDetailsFrontendEnabled) {
+      val baseUri = if (isAgent) businessDetailsAgentBaseUrl else businessDetailsBaseUrl
+      s"$baseUri/complete-steps"
     } else {
-      businessDetailsTriggeredMigrationCompleteStepsIndividualUrl(businessDetailsFrontendEnabled)
+      val baseUri = if (isAgent) vcFrontendAgentBaseUrl else vcFrontendBaseUrl
+      s"$baseUri/complete-steps"
     }
   }
   

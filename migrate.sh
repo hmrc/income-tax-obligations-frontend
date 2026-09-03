@@ -25,9 +25,9 @@ echo "Copying main code from the income-tax-view-change-frontend to app folder"
 cp -r ../income-tax-view-change-frontend/app/common app/.
 cp -r ../income-tax-view-change-frontend/app/shared app/.
 cp -r ../income-tax-view-change-frontend/app/obligations app/.
-cp ../income-tax-view-change-frontend/conf/messages app/conf/.
-cp ../income-tax-view-change-frontend/conf/messages.cy app/conf/.
-cp ../income-tax-view-change-frontend/conf/obligations.routes app/conf/.
+cp ../income-tax-view-change-frontend/conf/messages conf/.
+cp ../income-tax-view-change-frontend/conf/messages.cy conf/.
+cp ../income-tax-view-change-frontend/conf/obligations.routes conf/.
 
 echo "Copying files back from tmp folder to app folder"
 cp tmp/ExternalRedirectHelper.scala app/common/config/.
