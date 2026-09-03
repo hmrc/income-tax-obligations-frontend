@@ -84,6 +84,30 @@ trait ExternalRedirectHelper {
       businessDetailsManageBusinessesAgentUrl(businessDetailsFrontendEnabled)
     else
       businessDetailsManageBusinessesIndividualUrl(businessDetailsFrontendEnabled)
+
+
+
+  lazy val businessDetailsTriggeredMigrationCompleteStepsIndividualUrl: Boolean => String = businessDetailsFrontendEnabled =>
+    if (businessDetailsFrontendEnabled)
+      s"$businessDetailsBaseUrl/complete-steps"
+    else
+      s"$vcFrontendBaseUrl/complete-steps"
+
+  lazy val businessDetailsTriggeredMigrationCompleteStepsAgentUrl: Boolean => String = businessDetailsFrontendEnabled =>
+    if (businessDetailsFrontendEnabled)
+      s"$businessDetailsAgentBaseUrl/complete-steps"
+    else
+      s"$vcFrontendAgentBaseUrl/complete-steps"
+
+  def triggeredMigrationCompleteStepsUrl(isAgent: Boolean, businessDetailsFrontendEnabled: Boolean): String = {
+    if (businessDetailsFrontendEnabled) {
+      val baseUri = if (isAgent) businessDetailsAgentBaseUrl else businessDetailsBaseUrl
+      s"$baseUri/complete-steps"
+    } else {
+      val baseUri = if (isAgent) vcFrontendAgentBaseUrl else vcFrontendBaseUrl
+      s"$baseUri/complete-steps"
+    }
+  }
   
   //Returns routes
 
