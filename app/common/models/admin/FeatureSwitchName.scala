@@ -41,6 +41,8 @@ object FeatureSwitchName {
       JsSuccess(OptOutFs)
     case JsString(SignUpFs.name) =>
       JsSuccess(SignUpFs)
+    case JsString(PenaltiesAndAppeals.name) =>
+      JsSuccess(PenaltiesAndAppeals)
     case JsString(NoIncomeSourcesRedirect.name) =>
       JsSuccess(NoIncomeSourcesRedirect)
     case JsString(BusinessDetailsFrontend.name) =>
@@ -87,7 +89,8 @@ object FeatureSwitchName {
       FinancialsFrontend,
       ReturnsFrontend,
       NewHubContextRootEnabled,
-      HideBusinessName
+      HideBusinessName,
+      PenaltiesAndAppeals
     )
 
   def get(str: String): Option[FeatureSwitchName] = allFeatureSwitches find (_.name == str)
