@@ -952,7 +952,6 @@ taxCal_breakdown.table.head.cgt_type                            = Math o Dreth E
 taxCal_breakdown.table.head.national_insurance_type             = Math o Yswiriant Gwladol
 taxCal_breakdown.table.head.rates.uk                            = Cyfradd y DU ar gyfer Lloegr a Gogledd Iwerddon
 taxCal_breakdown.table.head.rates.scotland                      = Cyfradd ar gyfer yr Alban
-taxCal_breakdown.table.head.deducted                            = Treth a ddidynnwyd o incwm arall
 
 taxCal_breakdown.table.cgt.taxable_capital_gains                    = Enillion Cyfalaf trethadwy
 taxCal_breakdown.table.cgt.assets_or_investors_relief.band.single   = Enillion Rhyddhad Gwaredu Ased Busnes neu Ryddhad Buddsoddwyr (neu’r ddau) ({0} at {1}%)
@@ -1002,7 +1001,6 @@ taxCal_breakdown.table.taxDeductedAtSource.specialWithholdingTax             = T
 taxCal_breakdown.table.taxDeductedAtSource.voidISAs                          = ISAs di-rym
 taxCal_breakdown.table.taxDeductedAtSource.total					         = Cyfanswm y dreth a ddidynnwyd
 taxCal_breakdown.table.amount                                                = Swm
-taxCal_breakdown.table.taxDeductedAtSource.taxTakenOffOtherIncome            = Treth a ddidynnwyd o incwm arall
 
 taxCal_breakdown.table.studentLoanRepaymentsPlanType0X              = Ad-daliadau benthyciad myfyriwr (Cynllun {0})
 taxCal_breakdown.table.studentLoanPostGraduatePlan                  = Ad-daliadau Benthyciad Ôl-raddedig
@@ -1174,7 +1172,9 @@ nextUpdates.optOutOneYear.p.link                                = optio allan o 
 nextUpdates.optOutMultiYear.p.message                           = Ar hyn o bryd rhydych yn cyflwyno adroddiadau’n chwarterol ar sail wirfoddol. Cadarnhewch eich bod am
 nextUpdates.optOutMultiYear.p.link                              = optio allan o ddiweddariadau chwarterol ac am gyflwyno’n flynyddol yn lle hynny.
 
-nextUpdates.reporting.obligations.p.message                     = Yn dibynnu ar eich amgylchiadau, mae’n bosibl y byddwch yn gallu
+nextUpdates.reporting.obligations.p.text1                       = Mae’n rhaid i chi gyflwyno’ch diweddariadau chwarterol hwyr ar gyfer blwyddyn dreth {0} i {1}.
+nextUpdates.reporting.obligations.p.text2                       = Mae diweddariadau chwarterol yn gronnus. Mae hyn yn golygu efallai bod eich diweddariad diweddaraf sy’n hwyr yn cynnwys gwybodaeth o gyfnodau cynharach a fethwyd.
+nextUpdates.reporting.obligations.p.text3                       = Yn dibynnu ar eich amgylchiadau, mae’n bosibl y byddwch yn gallu
 nextUpdates.reporting.obligations.p.link                        = bwrw golwg dros eich ymrwymiadau adrodd
 
 ## Next updates Page - R17 Content Changes ##
@@ -1191,10 +1191,8 @@ nextUpdates.r17.tab.quarterly.link.text1                           = Os nad oes 
 nextUpdates.r17.tab.quarterly.link.text2                           = trosolwg ar gyfer blynyddoedd treth
 nextUpdates.r17.tab.quarterly.link.text3                           = .
 nextUpdates.r17.tab.quarterly.subheading2                          = Ffurflen Dreth i’w chyflwyno
-nextUpdates.r17.tab.quarterly.text3                                = Os ydych wedi cyflwyno diweddariadau chwarterol ar gyfer y flwyddyn dreth, byddwch hefyd yn nodi unrhyw incwm drethadwy arall yn eich Ffurflen Dreth. Yna, bydd angen i chi gyflwyno’ch Ffurflen Dreth gan ddefnyddio
-nextUpdates.r17.tab.quarterly.text4                                = meddalwedd sy’n cydweddu â’r cynllun Troi Treth yn Ddigidol ar gyfer Treth Incwm
-nextUpdates.r17.tab.quarterly.text5                                = Mae’n rhaid i chi gyflwyno’ch Ffurflen Dreth ar gyfer blwyddyn dreth {0} i {1} erbyn
-nextUpdates.r17.tab.quarterly.text6                                = 31 Ionawr {0}.
+nextUpdates.r17.tab.quarterly.text3                                = Mae’n rhaid i chi gyflwyno’ch Ffurflen Dreth ar gyfer blwyddyn dreth {0} i {1} erbyn
+nextUpdates.r17.tab.quarterly.text4                                = 31 Ionawr {0}.
 nextUpdates.r17.tab.quarterly.table.heading                        = Dyddiadau cau ar y gweill
 nextUpdates.r17.tab.quarterly.table.heading.row1                   = Dyddiad cau
 nextUpdates.r17.tab.quarterly.table.heading.row2                   = Cyfnod
@@ -1224,6 +1222,26 @@ nextUpdates.r17.tab.annual.text4                                   = 31 Ionawr {
 nextUpdates.r17.tab.annual.ny.label                                = Blwyddyn dreth {0} i {1}
 nextUpdates.r17.tab.annual.ny.heading                              = Blwyddyn dreth {0} i {1}
 nextUpdates.r17.tab.annual.ny.text1                                = Ni fydd dyddiadau cau i’w gweld hyd nes eu bod yn dod yn rhan o’r flwyddyn dreth bresennol.
+
+nextUpdates.r17.tab.gettingSoftware.h2                             = Cael meddalwedd
+nextUpdates.r17.tab.gettingSoftware.text                           = Er mwyn cyflwyno diweddariadau chwarterol, mae’n rhaid i chi, neu’ch asiant, ddefnyddio meddalwedd sy’n cydweddu â’r cynllun Troi Treth yn Ddigidol ar gyfer Treth Incwm. Mae sawl meddalwedd ar gael i chi, gan gynnwys rhai sy’n rhad ac am ddim a rhai y mae angen talu amdanynt.
+nextUpdates.r17.tab.gettingSoftware.link.text                      = Dysgwch ragor am feddalwedd sy’n cydweddu (yn agor tab newydd)
+
+nextUpdates.r17.tab.lateSubPen.link.text                           = Ewch i’r dudalen ynghylch cosbau ac apeliadau Hunanasesiad i fwrw golwg dros eich pwyntiau cosb am gyflwyno’n hwyr
+
+nextUpdates.r17.tab.businessMayNotBeShown.detail.heading           = Dysgwch pam ei bod hi’n bosibl nad yw busnes yn ymddangos
+nextUpdates.r17.tab.businessMayNotBeShown.detail.text1             = Ar gyfer blynyddoedd treth rydych yn defnyddio Troi Treth yn Ddigidol ar gyfer Treth Incwm, gallwch ddewis ar wahân i optio allan ar gyfer unrhyw ffynhonnell incwm o eiddo neu fasnachwr newydd:
+nextUpdates.r17.tab.businessMayNotBeShown.detail.ul1.text1         = a ddechreuodd llai na 2 flynedd yn ôl
+nextUpdates.r17.tab.businessMayNotBeShown.detail.ul1.text2         = sy’n cael ei ddechrau gennych yn y dyfodol
+nextUpdates.r17.tab.businessMayNotBeShown.detail.text2             = Mae’r opsiwn hwn ar gael i’ch busnesau newydd:
+nextUpdates.r17.tab.businessMayNotBeShown.detail.ul2.text1         = am hyd at 2 o flynyddoedd treth
+nextUpdates.r17.tab.businessMayNotBeShown.detail.ul2.text2         = dim ond pan fyddwch yn defnyddio Troi Treth yn Ddigidol ar gyfer Treth Incwm ar gyfer eich busnesau eraill
+nextUpdates.r17.tab.businessMayNotBeShown.detail.ul2.text3         = hyd yn oed os yw cyfanswm eich incwm gros o hunangyflogaeth neu eiddo, neu’r ddau, yn fwy na’r trothwy o £50,000
+nextUpdates.r17.tab.businessMayNotBeShown.detail.subHeading        = Sut i newid eich rhwymedigaethau adrodd ar gyfer ffynhonnell incwm newydd
+nextUpdates.r17.tab.businessMayNotBeShown.detail.link.prefix       = Gallwch wneud hyn ar unrhyw adeg yn yr adran ynghylch
+nextUpdates.r17.tab.businessMayNotBeShown.detail.link.text         = eich busnesau
+nextUpdates.r17.tab.businessMayNotBeShown.detail.link.suffix       =
+
 
 nextUpdates.updates.software.heading    					    = Cyflwyno diweddariadau drwy feddalwedd
 nextUpdates.updates.software.dec1       					    = Defnyddiwch eich
@@ -2099,11 +2117,6 @@ making-payment.money-in-account.heading                         = Arian yn eich 
 making-payment.money-in-account.p1.before                       = Mae gennych
 making-payment.money-in-account.p1.link                         = arian yn eich cyfrif
 making-payment.money-in-account.p1.after                        = ; eich balans cyfredol yw {0}. Gallwch adael yr arian yno i dalu’ch bil nesaf neu hawlio ad-daliad.
-making-payment.suspended-tax.heading                            = Talu’r dreth sydd wedi’i gohirio
-making-payment.suspended-tax.p1                                 = Os nad oes gennych dreth sy’n ddyledus neu sy’n hwyr, caiff eich taliad ei ddefnyddio i dalu’r dreth sydd wedi’i gohirio pan na fydd wedi’i gohirio mwyach.
-making-payment.suspended-tax.p2                                 = Tra bydd y dreth wedi’i gohirio:
-making-payment.suspended-tax.bullet1                            = gall eich taliad ymddangos fel credyd
-making-payment.suspended-tax.bullet2                            = mewn rhai achosion, efallai y byddwn yn cadw’r taliad ar wahân fel na chaiff ei ddefnyddio ar gyfer treth arall
 making-payment.continue                                         = Parhau i wneud taliad
 
 ## Charge Summary ##
@@ -3125,10 +3138,11 @@ income.source.added.few.minutes.overdue.updates                                 
 income.source.added.scenario.three.account.updated.p.a                                      = Hyd yn oed os nad ydynt yn ymddangos ar unwaith ar y dudalen
 income.source.added.scenario.three.account.updated.p.link                                   = dyddiadau cau ar gyfer cyflwyno
 income.source.added.scenario.three.account.updated.p.b                                      = mae’ch cyfrif wedi’i ddiweddaru.
-
-income.source.added.scenario.three.view.reporting.obligations.p.a                           = Yn dibynnu ar eich amgylchiadau, mae’n bosibl y byddwch yn gallu
-income.source.added.scenario.three.view.reporting.obligations.link                          = bwrw golwg dros a newid eich ymrwymiadau adrodd
-income.source.added.scenario.three.view.reporting.obligations.p.b                           = ar gyfer eich holl fusnesau.
+TODO = once Ayo has clarified change these:
+income.source.added.scenario.three.view.reporting.obligations.prefix                        = Quarterly updates are now cumulative. This means your latest outstanding update may include information from earlier missed periods.
+income.source.added.scenario.three.view.reporting.obligations.p.a                           = Depending on your circumstances, you may be able to
+income.source.added.scenario.three.view.reporting.obligations.link                          = view and change your reporting obligations
+income.source.added.scenario.three.view.reporting.obligations.p.b                           = for all your businesses.
 
 income.source.added.scenario.three.view.businesses.link                                     = Bwrw golwg dros eich busnesau
 income.source.added.scenario.three.view.businesses.p                                        = er mwyn ychwanegu, rheoli neu ddod â busnes neu ffynhonnell incwm i ben.
