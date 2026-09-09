@@ -145,3 +145,8 @@ case object HideBusinessName extends FeatureSwitchName {
   override val name: String = "hide-business-name"
   override val toString: String = "Hide business name when unknown"
 }
+
+case object PenaltiesAndAppeals extends FeatureSwitchName {
+  override val name: String = "penalties-and-appeals"
+  override val toString: String = "Penalties and Appeals"
+}
