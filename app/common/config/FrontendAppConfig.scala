@@ -143,4 +143,6 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
   lazy val threshold2028 = servicesConfig.getString("thresholds.threshold2028")
 
   lazy val dynamicStubUrl: String = servicesConfig.baseUrl("itvc-dynamic-stub")
+
+  lazy val incomeTaxPenaltiesFrontend: String = servicesConfig.getString("income-tax-penalties-frontend.homeUrl")
 }
