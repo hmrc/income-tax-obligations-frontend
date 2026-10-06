@@ -177,6 +177,38 @@ class ConfirmedOptOutControllerSpec extends MockAuthActions with MockOptOutServi
 
     "CurrentYearNYQuarterlyOrAnnualScenario" when {
 
+      "PreviousTaxYear && proposition.isCurrentYearQuarterly && proposition.isNextYearQuarterly" should {
+
+        "return the correct enum" in {
+
+          val quarterlyUpdatesCount = 0
+
+          when(mockOptOutService.getQuarterlyUpdatesCount(any(), any())(any(), any(), any()))
+            .thenReturn(Future.successful(quarterlyUpdatesCount))
+
+          when(mockOptOutService.fetchOptOutProposition()(any(), any(), any())).thenReturn(
+            Future(
+              OptOutProposition.createOptOutProposition(
+                currentYear = TaxYear(2024, 2025),
+                previousYearCrystallised = false,
+                previousYearItsaStatus = Voluntary,
+                currentYearItsaStatus = Mandated,
+                nextYearItsaStatus = Mandated
+              )
+            )
+          )
+
+          when(mockOptOutService.determineOptOutIntentYear()(any(), any()))
+            .thenReturn(
+              Future(PreviousTaxYear)
+            )
+
+          whenReady(testController.viewScenarioHandler()) { result =>
+            result shouldBe CurrentYearNYMandatedScenario
+          }
+        }
+      }
+
       "CurrentTaxYear && MultiYearOptOutProposition && proposition.isCurrentYearQuarterly && proposition.isNextYearQuarterly" should {
 
         "return the correct enum" in {
