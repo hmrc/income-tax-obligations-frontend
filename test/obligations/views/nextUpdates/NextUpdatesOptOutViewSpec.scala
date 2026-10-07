@@ -80,7 +80,7 @@ class NextUpdatesOptOutViewSpec extends TestSupport {
       NextUpdatesViewModel(ObligationsModel(Seq(GroupedObligationsModel(
         business1.incomeSourceId,
         twoObligationsSuccessModel.obligations
-      ))).obligationsByDate(false)(user).map { case (date: LocalDate, obligations: Seq[ObligationWithIncomeType]) =>
+      ))).obligationsByDueDateAndStartDate(false)(user).map { case (date: LocalDate, obligations: Seq[ObligationWithIncomeType]) =>
         DeadlineViewModel(QuarterlyObligation, standardAndCalendar = false, date, obligations, Seq.empty)
       },missedDeadlines = Seq(DeadlineViewModel(QuarterlyObligation,
         standardAndCalendar = false,
@@ -92,7 +92,7 @@ class NextUpdatesOptOutViewSpec extends TestSupport {
       NextUpdatesViewModel(ObligationsModel(Seq(GroupedObligationsModel(
         business1.incomeSourceId,
         twoObligationsSuccessModel.obligations
-      ))).obligationsByDate(false)(user).map { case (date: LocalDate, obligations: Seq[ObligationWithIncomeType]) =>
+      ))).obligationsByDueDateAndStartDate(false)(user).map { case (date: LocalDate, obligations: Seq[ObligationWithIncomeType]) =>
         DeadlineViewModel(QuarterlyObligation, standardAndCalendar = false, date, obligations, Seq.empty)
       }, isFinancialsEnabled = true)
 

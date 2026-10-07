@@ -49,7 +49,7 @@ class NextUpdatesService @Inject()(
 
   def getNextUpdatesViewModel(obligationsModel: ObligationsModel)(implicit user: MtdItUser[_]): NextUpdatesViewModel = {
     val allDeadlines =
-      obligationsModel.obligationsByDate(isEnabled(HideBusinessName)).flatMap { case (date: LocalDate, obligations: Seq[ObligationWithIncomeType]) =>
+      obligationsModel.obligationsByDueDateAndStartDate(isEnabled(HideBusinessName)).flatMap { case (date: LocalDate, obligations: Seq[ObligationWithIncomeType]) =>
         if (obligations.headOption.exists(_.obligation.obligationType == "Quarterly")) {
           val obligationsByType = obligationsModel.groupByQuarterPeriod(obligations)
           Some(

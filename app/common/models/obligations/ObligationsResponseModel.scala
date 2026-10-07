@@ -58,9 +58,14 @@ case class ObligationsModel(obligations: Seq[GroupedObligationsModel]) extends O
     if (previous) deadlines.sortBy(_.obligation.dateReceived.map(_.toEpochDay)).reverse else deadlines.sortBy(_.obligation.due.toEpochDay)
   }
 
-  def obligationsByDate(hideBusinessName: Boolean)(implicit mtdItUser: MtdItUser[_]): Seq[(LocalDate, Seq[ObligationWithIncomeType])] =
-    allDeadlinesWithSource(hideUnknownBusinessName = hideBusinessName).groupBy(_.obligation.due).toList.sortWith((x, y) => x._1.isBefore(y._1))
+  def obligationsByDueDateAndStartDate(hideBusinessName: Boolean)(implicit mtdItUser: MtdItUser[_]): Seq[(LocalDate, Seq[ObligationWithIncomeType])] = {
+    val groupedByDueDateAndStartDate = allDeadlinesWithSource(hideUnknownBusinessName = hideBusinessName)
+      .groupBy(obligation => (obligation.obligation.due, obligation.obligation.start))
 
+    groupedByDueDateAndStartDate.toList
+      .sortBy { case ((due, start), _) => (due, start) }
+      .map({ case ((dueDate, startDate), obligations) => (dueDate, obligations) })
+  }
 
   def quarterlyUpdatesCounts(hideBusinessName: Boolean)(implicit mtdItUser: MtdItUser[_]): Int =
     allDeadlinesWithSource(hideUnknownBusinessName = hideBusinessName)(mtdItUser)
@@ -81,7 +86,7 @@ case class ObligationsModel(obligations: Seq[GroupedObligationsModel]) extends O
       }.view
       .mapValues(_.sortBy(_.obligation.start))
       .toSeq
-      .sortBy { case (period, _) => period } // Sort by period
+      .sortBy { case (reportingType, _) => reportingType } // Sort by QuarterlyReportingType STANDARD or CALENDAR
       .map { case (period, obligations) =>
         // Sort obligations within each period by start date
         val sortedObligations = obligations.sortBy(_.obligation.start)

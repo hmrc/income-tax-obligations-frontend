@@ -368,7 +368,7 @@
 }
 
 @buildIncomeSourceRow(obligations: Seq[ObligationWithIncomeType]) = @{
-    Html(obligations.map(obl => messages(obl.incomeType)).map(msg => s"<div>$msg</div>").mkString)
+    Html(obligations.map(obl => messages(obl.incomeType)).sorted.map(msg => s"<div>$msg</div>").mkString)
 }
 
 @taxYearSummaryLink = @{appConfig.returnsTaxYearsUrl(user.isAgent, isReturnsEnabled)}

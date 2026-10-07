@@ -188,5 +188,27 @@ class ObligationsResponseModelSpec extends TestSupport with Matchers with Implic
         )
       }
     }
+
+    "return a correctly ordered list ordered first by due date and then by period start date" when {
+      "calling .obligationsByDueDateAndStartDate" in {
+
+        val sampleObligations = Map(
+          1 -> ObligationWithIncomeType("business", SingleObligationModel("2017-10-03", "2018-10-29", "2017-09-31", "Quarterly", None, "p1", StatusFulfilled)),
+          2 -> ObligationWithIncomeType("property", SingleObligationModel("2017-10-03", "2018-10-28", "2017-10-31", "Quarterly", None, "p1", StatusFulfilled)),
+          3 -> ObligationWithIncomeType("property", SingleObligationModel("2017-10-02", "2018-10-29", "2017-10-31", "Quarterly", None, "p1", StatusFulfilled)),
+          4 -> ObligationWithIncomeType("business", SingleObligationModel("2017-10-01", "2018-10-30", "2017-10-31", "Quarterly", None, "p1", StatusFulfilled))
+        )
+
+        val nextUpdateModelWithIncomeTypeList: Seq[ObligationWithIncomeType] = sampleObligations.values.toList
+
+        NextUpdatesTestConstants.obligationsAllDeadlinesSuccessModel.groupByQuarterPeriod(nextUpdateModelWithIncomeTypeList) shouldBe Map(
+          Some(QuarterTypeCalendar) -> List(
+            sampleObligations(4),
+            sampleObligations(3),
+            sampleObligations(2),
+            sampleObligations(1)),
+        )
+      }
+    }
   }
 }
