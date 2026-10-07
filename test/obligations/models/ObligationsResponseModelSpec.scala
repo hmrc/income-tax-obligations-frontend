@@ -23,7 +23,7 @@ import org.scalatest.matchers.should.Matchers
 import play.api.libs.json.{JsSuccess, Json}
 import BaseTestConstants.*
 import common.models.incomeSourceDetails.{QuarterTypeCalendar, QuarterTypeStandard}
-import common.models.obligations.{GroupedObligationsModel, ObligationWithIncomeType, ObligationsErrorModel, SingleObligationModel, StatusFulfilled}
+import common.models.obligations.{GroupedObligationsModel, ObligationWithIncomeType, ObligationsErrorModel, ObligationsModel, SingleObligationModel, StatusFulfilled}
 import common.testUtils.TestSupport
 import obligations.testConstants.BusinessDetailsTestConstants.obligationsAllDeadlinesSuccessNotValidObligationType
 import shared.testConstants.NextUpdatesTestConstants
@@ -192,22 +192,16 @@ class ObligationsResponseModelSpec extends TestSupport with Matchers with Implic
     "return a correctly ordered list ordered first by due date and then by period start date" when {
       "calling .obligationsByDueDateAndStartDate" in {
 
-        val sampleObligations = Map(
-          1 -> ObligationWithIncomeType("business", SingleObligationModel("2017-10-03", "2018-10-29", "2017-09-31", "Quarterly", None, "p1", StatusFulfilled)),
-          2 -> ObligationWithIncomeType("property", SingleObligationModel("2017-10-03", "2018-10-28", "2017-10-31", "Quarterly", None, "p1", StatusFulfilled)),
-          3 -> ObligationWithIncomeType("property", SingleObligationModel("2017-10-02", "2018-10-29", "2017-10-31", "Quarterly", None, "p1", StatusFulfilled)),
-          4 -> ObligationWithIncomeType("business", SingleObligationModel("2017-10-01", "2018-10-30", "2017-10-31", "Quarterly", None, "p1", StatusFulfilled))
+        //obligations in reverse order from desired order
+        val sampleObligations = List(
+          SingleObligationModel("2018-10-29", "2017-09-30", "2017-10-03", "Quarterly", None, "p1", StatusFulfilled),
+          SingleObligationModel("2018-10-28", "2017-09-30", "2017-10-03", "Quarterly", None, "p1", StatusFulfilled),
+          SingleObligationModel("2018-10-29", "2017-10-30", "2017-10-02", "Quarterly", None, "p1", StatusFulfilled),
+          SingleObligationModel("2018-10-30", "2017-10-30", "2017-10-01", "Quarterly", None, "p1", StatusFulfilled)
         )
 
-        val nextUpdateModelWithIncomeTypeList: Seq[ObligationWithIncomeType] = sampleObligations.values.toList
-
-        NextUpdatesTestConstants.obligationsAllDeadlinesSuccessModel.groupByQuarterPeriod(nextUpdateModelWithIncomeTypeList) shouldBe Map(
-          Some(QuarterTypeCalendar) -> List(
-            sampleObligations(4),
-            sampleObligations(3),
-            sampleObligations(2),
-            sampleObligations(1)),
-        )
+        ObligationsModel(Seq(GroupedObligationsModel(testSelfEmploymentId, sampleObligations))).obligationsByDueDateAndStartDate(false) shouldBe
+          sampleObligations.reverse.map(obligation => (obligation.due, Seq(ObligationWithIncomeType("nextUpdates.business", obligation))))
       }
     }
   }
