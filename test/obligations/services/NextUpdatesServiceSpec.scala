@@ -361,7 +361,7 @@ class NextUpdatesServiceSpec extends TestSupport with MockObligationsConnector w
     }
   }
 
-  ".getNextUpdatesViewModel" should {
+  "getNextUpdatesViewModel" should {
     "return a valid model with no obligations of unsupported types" in {
       val obligations = ObligationsModel(
         Seq(
@@ -383,6 +383,113 @@ class NextUpdatesServiceSpec extends TestSupport with MockObligationsConnector w
             List(ObligationWithIncomeType("nextUpdates.business", SingleObligationModel(LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-15"), "Quarterly", None, "#001", StatusFulfilled))),
             List())), isFinancialsEnabled = false
         )
+      }
+    }
+
+    "correctly group obligations into deadlines" when {
+      "their reporting periods and deadlines are the same" should {
+        "return a single deadline with multiple obligations grouped by reporting period" in {
+          val obligations = ObligationsModel(
+            Seq(
+              GroupedObligationsModel("XA00001234", List(
+                SingleObligationModel(fixedDate, fixedDate, fixedDate, "Quarterly", None, "#001", StatusFulfilled),
+                SingleObligationModel(fixedDate, fixedDate, fixedDate, "Quarterly", None, "#002", StatusFulfilled)
+              ))
+            )
+          )
+          TestNextUpdatesService.getNextUpdatesViewModel(obligations) shouldBe {
+            NextUpdatesViewModel(
+              List(DeadlineViewModel(QuarterlyObligation, true, LocalDate.parse("2023-12-15"),
+                List(
+                  ObligationWithIncomeType("nextUpdates.business", SingleObligationModel(LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-15"), "Quarterly", None, "#001", StatusFulfilled)),
+                  ObligationWithIncomeType("nextUpdates.business", SingleObligationModel(LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-15"), "Quarterly", None, "#002", StatusFulfilled))
+                ),
+                List()
+              )), isFinancialsEnabled = false
+            )
+          }
+        }
+      }
+
+      "their reporting periods are different but their deadlines are the same" should {
+        "return multiple deadlines each with an individual obligation ordered by their period start dates" in {
+          val obligations = ObligationsModel(
+            Seq(
+              GroupedObligationsModel("XA00001234", List(
+                SingleObligationModel(fixedDate.plusDays(1), fixedDate.plusDays(1), fixedDate, "Quarterly", None, "#002", StatusFulfilled),
+                SingleObligationModel(fixedDate, fixedDate, fixedDate, "Quarterly", None, "#001", StatusFulfilled)
+              ))
+            )
+          )
+          TestNextUpdatesService.getNextUpdatesViewModel(obligations) shouldBe {
+            NextUpdatesViewModel(
+              List(
+                DeadlineViewModel(QuarterlyObligation, true, LocalDate.parse("2023-12-15"),
+                  List(ObligationWithIncomeType("nextUpdates.business", SingleObligationModel(LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-15"), "Quarterly", None, "#001", StatusFulfilled))),
+                  List()
+                ),
+                DeadlineViewModel(QuarterlyObligation, true, LocalDate.parse("2023-12-15"),
+                  List(ObligationWithIncomeType("nextUpdates.business", SingleObligationModel(LocalDate.parse("2023-12-16"), LocalDate.parse("2023-12-16"), LocalDate.parse("2023-12-15"), "Quarterly", None, "#002", StatusFulfilled))),
+                  List()
+                )
+              ), isFinancialsEnabled = false
+            )
+          }
+        }
+      }
+
+      "their reporting periods are the same but their deadlines are different" should {
+        "return multiple deadlines each with an individual obligation" in {
+          val obligations = ObligationsModel(
+            Seq(
+              GroupedObligationsModel("XA00001234", List(
+                SingleObligationModel(fixedDate, fixedDate, fixedDate, "Quarterly", None, "#001", StatusFulfilled),
+                SingleObligationModel(fixedDate, fixedDate, fixedDate.plusDays(1), "Quarterly", None, "#002", StatusFulfilled)
+              ))
+            )
+          )
+          TestNextUpdatesService.getNextUpdatesViewModel(obligations) shouldBe {
+            NextUpdatesViewModel(
+              List(
+                DeadlineViewModel(QuarterlyObligation, true, LocalDate.parse("2023-12-15"),
+                  List(ObligationWithIncomeType("nextUpdates.business", SingleObligationModel(LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-15"), "Quarterly", None, "#001", StatusFulfilled))),
+                  List()
+                ),
+                DeadlineViewModel(QuarterlyObligation, true, LocalDate.parse("2023-12-16"),
+                  List(ObligationWithIncomeType("nextUpdates.business", SingleObligationModel(LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-16"), "Quarterly", None, "#002", StatusFulfilled))),
+                  List()
+                )
+              ), isFinancialsEnabled = false
+            )
+          }
+        }
+      }
+
+      "their reporting periods are different and their deadlines are different" should {
+        "return multiple deadlines each with an individual obligation" in {
+          val obligations = ObligationsModel(
+            Seq(
+              GroupedObligationsModel("XA00001234", List(
+                SingleObligationModel(fixedDate, fixedDate, fixedDate, "Quarterly", None, "#001", StatusFulfilled),
+                SingleObligationModel(fixedDate.plusDays(1), fixedDate.plusDays(1), fixedDate.plusDays(1), "Quarterly", None, "#002", StatusFulfilled)
+              ))
+            )
+          )
+          TestNextUpdatesService.getNextUpdatesViewModel(obligations) shouldBe {
+            NextUpdatesViewModel(
+              List(
+                DeadlineViewModel(QuarterlyObligation, true, LocalDate.parse("2023-12-15"),
+                  List(ObligationWithIncomeType("nextUpdates.business", SingleObligationModel(LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-15"), "Quarterly", None, "#001", StatusFulfilled))),
+                  List()
+                ),
+                DeadlineViewModel(QuarterlyObligation, true, LocalDate.parse("2023-12-16"),
+                  List(ObligationWithIncomeType("nextUpdates.business", SingleObligationModel(LocalDate.parse("2023-12-16"), LocalDate.parse("2023-12-16"), LocalDate.parse("2023-12-16"), "Quarterly", None, "#002", StatusFulfilled))),
+                  List()
+                )
+              ), isFinancialsEnabled = false
+            )
+          }
+        }
       }
     }
   }

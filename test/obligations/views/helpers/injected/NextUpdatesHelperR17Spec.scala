@@ -61,7 +61,7 @@ class NextUpdatesHelperR17Spec extends TestSupport {
   lazy val obligationsModel: NextUpdatesViewModel = NextUpdatesViewModel(ObligationsModel(Seq(GroupedObligationsModel(
     business1.incomeSourceId,
     twoObligationsSuccessModel.obligations
-  ))).obligationsByDate(false).map{
+  ))).obligationsByDueDateAndStartDate(false).map{
     case (date: LocalDate, obligations: Seq[ObligationWithIncomeType]) =>
     DeadlineViewModel(QuarterlyObligation, standardAndCalendar = false, date, obligations, Seq.empty)
   }, Seq(DeadlineViewModel(QuarterlyObligation, standardAndCalendar = false, LocalDate.of(2025, 1, 31), Seq(ObligationWithIncomeType("Quarter", quarterlyBusinessObligation)), Seq.empty)),
@@ -70,18 +70,34 @@ class NextUpdatesHelperR17Spec extends TestSupport {
   lazy val obligationsModelWithUnknown: NextUpdatesViewModel = NextUpdatesViewModel(ObligationsModel(Seq(GroupedObligationsModel(
     business1.copy(tradingName = None).incomeSourceId,
     twoObligationsSuccessModel.obligations
-  ))).obligationsByDate(true).map {
+  ))).obligationsByDueDateAndStartDate(true).map {
     case (date: LocalDate, obligations: Seq[ObligationWithIncomeType]) =>
       DeadlineViewModel(QuarterlyObligation, standardAndCalendar = false, date, obligations, Seq.empty)
   }, Seq(DeadlineViewModel(QuarterlyObligation, standardAndCalendar = false, LocalDate.of(2025, 1, 31), Seq(ObligationWithIncomeType("", quarterlyBusinessObligation)), Seq.empty)),
     isFinancialsEnabled = true)
 
+  val firstIncomeSource = "AAA"
+  val secondIncomeSource = "BBB"
+  lazy val obligationsModelOrderByIncome: NextUpdatesViewModel = NextUpdatesViewModel(
+    Seq(DeadlineViewModel(QuarterlyObligation, standardAndCalendar = false, LocalDate.of(2025, 1, 31), Seq(ObligationWithIncomeType(secondIncomeSource, quarterlyBusinessObligation), ObligationWithIncomeType(firstIncomeSource, quarterlyBusinessObligation)), Seq.empty)),
+    Seq(DeadlineViewModel(QuarterlyObligation, standardAndCalendar = false, LocalDate.of(2025, 1, 31), Seq(ObligationWithIncomeType(secondIncomeSource, quarterlyBusinessObligation), ObligationWithIncomeType(firstIncomeSource, quarterlyBusinessObligation)), Seq.empty)),
+    isFinancialsEnabled = true)
 
   "Next updates helper for Release 17" when {
 
     "displaying for all scenarios" should {
       "display the correct number of tabs" in new Setup(isAgent = false, obligationsModel, Annual, Annual) {
         pageDocument.select(".govuk-tabs__list-item").size() shouldBe 2
+      }
+
+      "display the correct ordering of income sources within individual deadline table rows" in new Setup(isAgent = false, obligationsModelOrderByIncome, Voluntary, Annual) {
+        //upcoming table
+        pageDocument.getElementById("quarterly-income-sources-upcoming-0").child(0).text() shouldBe firstIncomeSource
+        pageDocument.getElementById("quarterly-income-sources-upcoming-0").child(1).text() shouldBe secondIncomeSource
+
+        //missed table
+        pageDocument.getElementById("quarterly-income-sources-missed-0").child(0).text() shouldBe firstIncomeSource
+        pageDocument.getElementById("quarterly-income-sources-missed-0").child(1).text() shouldBe secondIncomeSource
       }
     }
 
