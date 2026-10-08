@@ -104,12 +104,12 @@
 
     @h2(getMessage("gettingSoftware.h2"), optId = Some("getting-software-subheading"))
     @p(id = Some("getting-software-text")){ @getMessage("gettingSoftware.text") }
-    @link(
+    @p(){ @link(
         link = appConfig.compatibleSoftwareLink,
         messageKey = getMessage("gettingSoftware.link.text"),
         id = Some("getting-software-link"),
         target = Some("_blank")
-    )
+    )}
 
     @h2(getMessage("quarterly.subheading"), optId = Some("active-quarterly-subheading"))
     @p(id = Some("active-quarterly-subdesc")){ @getMessage("quarterly.text2") }
@@ -272,7 +272,7 @@
         case Nil => HtmlFormat.empty
         case deadlines =>
             HtmlFormat.fill(Seq(
-                h3(getMessage("quarterly.table.heading"), optId = Some("active-quarterly-table-heading")),
+                h2(getMessage("quarterly.table.heading"), optId = Some("active-quarterly-table-heading")),
                 govukTable(Table(
                     head = Some(List(
                         HeadCell(
