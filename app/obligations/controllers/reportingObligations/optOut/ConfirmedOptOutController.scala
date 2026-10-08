@@ -68,6 +68,8 @@ class ConfirmedOptOutController @Inject()(val authActions: AuthActions,
       val isMandatedCurrent = optOutProposition.currentTaxYear.status == ITSAStatus.Mandated
 
       (chosenTaxYear, optOutProposition.optOutPropositionType) match {
+        case (PreviousTaxYear, _) if isMandatedCurrent && isMandatedNext =>
+          CurrentYearNYMandatedScenario
         case (CurrentTaxYear, _) if isCurrentQuarterly && isMandatedNext =>
           CurrentYearNYMandatedScenario
         case (CurrentTaxYear, Some(MultiYearOptOutProposition(p))) if p.isCurrentYearQuarterly && p.isNextYearQuarterly =>
@@ -76,7 +78,7 @@ class ConfirmedOptOutController @Inject()(val authActions: AuthActions,
           CurrentYearNYQuarterlyOrAnnualScenario
         case (NextTaxYear, _) if isCurrentAnnual && isNextQuarterly =>
           NextYearCYAnnualScenario
-        case (NextTaxYear, _) if isCurrentQuarterly || isNextQuarterly || (isMandatedCurrent && isNextQuarterly) =>
+        case (NextTaxYear, _) if isCurrentQuarterly || isNextQuarterly || (isMandatedCurrent && isNextQuarterly) => 
           NextYearCYMandatedOrQuarterlyScenario
         case (NoChosenTaxYear | PreviousTaxYear, _) if(isCurrentAnnual && isNextAnnual) || (isCurrentQuarterly && isNextAnnual) || (isCurrentAnnual && isNextQuarterly) || (isCurrentQuarterly && isNextQuarterly) =>
           PreviousAndNoStatusValidScenario
