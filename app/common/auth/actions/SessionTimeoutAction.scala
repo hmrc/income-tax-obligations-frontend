@@ -16,7 +16,6 @@
 
 package common.auth.actions
 
-import common.auth.RequestWithFeatureSwitches
 import common.config.FrontendAppConfig
 import common.viewUtils.InternalUrlHelper
 import play.api.Logging
@@ -29,9 +28,9 @@ import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class SessionTimeoutAction @Inject()()(implicit val executionContext: ExecutionContext, val appConfig: FrontendAppConfig)
-  extends ActionRefiner[RequestWithFeatureSwitches, RequestWithFeatureSwitches] with Logging {
+  extends ActionRefiner[Request, Request] with Logging {
 
-  override def refine[A](request: RequestWithFeatureSwitches[A]): Future[Either[Result, RequestWithFeatureSwitches[A]]] = {
+  override def refine[A](request: Request[A]): Future[Either[Result, Request[A]]] = {
 
     val updatedHeaders = request.session.get("Gov-Test-Scenario") match {
       case Some(data) => request.headers.add(("Gov-Test-Scenario", data))
@@ -44,8 +43,7 @@ class SessionTimeoutAction @Inject()()(implicit val executionContext: ExecutionC
         logger.warn("Session Time Out.")
         Future.successful(Left(Redirect(InternalUrlHelper.timeoutCall)))
       case (_, _) =>
-        val mtdItUserWithUpdatedHeaders = request.withHeaders(updatedHeaders)
-        Future.successful(Right(RequestWithFeatureSwitches(request.featureSwitches)(mtdItUserWithUpdatedHeaders)))
+        Future.successful(Right(request.withHeaders(updatedHeaders)))
     }
   }
 

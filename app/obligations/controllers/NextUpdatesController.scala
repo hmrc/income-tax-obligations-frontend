@@ -20,7 +20,7 @@ import obligations.models.audit.NextUpdatesAuditing.NextUpdatesAuditModel
 import common.auth.{AuthActions, MtdItUser}
 import common.config.{AgentItvcErrorHandler, FrontendAppConfig, ItvcErrorHandler, ShowInternalServerError}
 import common.config.featureswitch.FeatureSwitching
-import common.models.admin.{BusinessDetailsFrontend, OptOutFs, PenaltiesAndAppeals, ReturnsFrontend}
+import common.models.admin.{OptOutFs, PenaltiesAndAppeals}
 import common.models.obligations.ObligationsModel
 import common.services.AuditingService
 import obligations.services.NextUpdatesService
@@ -58,7 +58,7 @@ class NextUpdatesController @Inject()(
     if (user.incomeSources.hasBusinessIncome || user.incomeSources.hasPropertyIncome) {
       action
     } else {
-      Future.successful(Ok(noNextUpdatesView(backUrl = appConfig.individualHomeUrlWithOrigin(user.newHubContextRootEnabled, origin))))
+      Future.successful(Ok(noNextUpdatesView(backUrl = appConfig.individualHomeUrlWithOrigin(origin))))
     }
   }
 
@@ -94,9 +94,7 @@ class NextUpdatesController @Inject()(
                     isSupportingAgent = user.isSupportingAgent,
                     origin = origin,
                     taxYearStatusesCyNy = (optOutProposition.currentTaxYear.status, optOutProposition.nextTaxYear.status),
-                    isReturnsEnabled = isEnabled(ReturnsFrontend),
-                    penaltyAndAppealEnabled = isEnabled(PenaltiesAndAppeals),
-                    isBusinessDetailsEnabled = isEnabled(BusinessDetailsFrontend)
+                    penaltyAndAppealEnabled = isEnabled(PenaltiesAndAppeals)
                   )
                 )
               }
@@ -114,7 +112,7 @@ class NextUpdatesController @Inject()(
 
   def show(origin: Option[String] = None): Action[AnyContent] = authActions.asMTDIndividual().async { implicit user =>
     getNextUpdates(
-      backUrl = appConfig.individualHomeUrlWithOrigin(user.newHubContextRootEnabled, origin),
+      backUrl = appConfig.individualHomeUrlWithOrigin(origin),
       isAgent = false,
       errorHandler = itvcErrorHandler,
       origin = origin
@@ -124,7 +122,7 @@ class NextUpdatesController @Inject()(
   def showAgent: Action[AnyContent] = authActions.asMTDAgentWithConfirmedClient().async  {
     implicit mtdItUser =>
       getNextUpdates(
-        backUrl = appConfig.agentHomeUrl(mtdItUser.newHubContextRootEnabled),
+        backUrl = appConfig.agentHomeUrl(),
         isAgent = true,
         errorHandler = agentItvcErrorHandler,
         origin = None
