@@ -31,7 +31,7 @@ class SignInController @Inject()(authActions: AuthActions,
   val signIn: Action[AnyContent] = authActions.retrieveFeatureSwitches { implicit request =>
     Redirect(
       appConfig.ggSignInUrl, Map(
-        "continue_url" -> Seq(appConfig.individualHomeUrl(request.newHubContextRootEnabled)),
+        "continue_url" -> Seq(appConfig.individualHomeUrl()),
         "origin" -> Seq(appConfig.appName))
     )
   }

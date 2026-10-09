@@ -45,16 +45,8 @@ object FeatureSwitchName {
       JsSuccess(PenaltiesAndAppeals)
     case JsString(NoIncomeSourcesRedirect.name) =>
       JsSuccess(NoIncomeSourcesRedirect)
-    case JsString(BusinessDetailsFrontend.name) =>
-      JsSuccess(BusinessDetailsFrontend)
     case JsString(TriggeredMigration.name) =>
       JsSuccess(TriggeredMigration)
-    case JsString(FinancialsFrontend.name) =>
-      JsSuccess(FinancialsFrontend)
-    case JsString(ReturnsFrontend.name) =>
-      JsSuccess(ReturnsFrontend)
-    case JsString(NewHubContextRootEnabled.name) =>
-      JsSuccess(NewHubContextRootEnabled)
     case JsString(HideBusinessName.name) =>
       JsSuccess(HideBusinessName)
     case notRequiredFS =>
@@ -84,11 +76,7 @@ object FeatureSwitchName {
       OptOutFs,
       SignUpFs,
       NoIncomeSourcesRedirect,
-      BusinessDetailsFrontend,
       TriggeredMigration,
-      FinancialsFrontend,
-      ReturnsFrontend,
-      NewHubContextRootEnabled,
       HideBusinessName,
       PenaltiesAndAppeals
     )
@@ -111,11 +99,6 @@ case object NoIncomeSourcesRedirect extends FeatureSwitchName {
   override val toString: String = "No Income Sources Redirect"
 }
 
-case object BusinessDetailsFrontend extends FeatureSwitchName {
-  override val name: String = "business-details-frontend"
-  override val toString: String = "Business Details Frontend"
-}
-
 case object TriggeredMigration extends FeatureSwitchName {
   override val name: String = "triggered-migration"
   override def toString: String = "Triggered Migration"
@@ -124,21 +107,6 @@ case object TriggeredMigration extends FeatureSwitchName {
 case object NotRequiredFS extends FeatureSwitchName {
   override val name: String = "not-required-FS"
   override val toString: String = "Not required feature Switch"
-}
-
-case object FinancialsFrontend extends FeatureSwitchName {
-  override val name: String = "financials-frontend"
-  override val toString: String = "Financials Frontend"
-}
-
-case object ReturnsFrontend extends FeatureSwitchName {
-  override val name: String = "returns-frontend"
-  override val toString: String = "Returns Frontend"
-}
-
-case object NewHubContextRootEnabled extends FeatureSwitchName {
-  override val name: String = "new-hub-context-root"
-  override val toString: String = "New Hub Context-root Enabled"
 }
 
 case object HideBusinessName extends FeatureSwitchName {

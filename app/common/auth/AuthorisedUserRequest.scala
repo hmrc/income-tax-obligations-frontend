@@ -17,33 +17,22 @@
 package common.auth
 
 import common.enums.MTDUserRole
-import common.models.admin.{FeatureSwitch, NewHubContextRootEnabled}
+import common.models.admin.FeatureSwitch
 import play.api.mvc.{Request, WrappedRequest}
 import uk.gov.hmrc.auth.core.retrieve.Name
 
 case class RequestWithFeatureSwitches[A](featureSwitches: List[FeatureSwitch])
-                                        (implicit request: Request[A]) extends WrappedRequest[A](request) {
-
-  val newHubContextRootEnabled = featureSwitches.exists(x => x.name.name == NewHubContextRootEnabled.name && x.isEnabled)
-}
+                                        (implicit request: Request[A]) extends WrappedRequest[A](request)
 
 case class AuthorisedUserRequest[A](authUserDetails: AuthUserDetails,
                                     featureSwitches: List[FeatureSwitch])
-                                   (implicit request: Request[A]) extends WrappedRequest[A](request) {
-
-  val newHubContextRootEnabled = featureSwitches.exists(x => x.name.name == NewHubContextRootEnabled.name && x.isEnabled)
-
-}
+                                   (implicit request: Request[A]) extends WrappedRequest[A](request)
 
 
 case class AuthorisedAgentWithClientDetailsRequest[A](authUserDetails: AuthUserDetails,
                                                       clientDetails: AgentClientDetails,
                                                       featureSwitches: List[FeatureSwitch])
-                                                     (implicit request: Request[A]) extends WrappedRequest[A](request) {
-
-  val newHubContextRootEnabled = featureSwitches.exists(x => x.name.name == NewHubContextRootEnabled.name && x.isEnabled)
-
-}
+                                                     (implicit request: Request[A]) extends WrappedRequest[A](request)
 
 
 case class AuthorisedAndEnrolledRequest[A](mtditId: String,
@@ -64,7 +53,4 @@ case class AuthorisedAndEnrolledRequest[A](mtditId: String,
       case _ => None
     }
   }
-
-  val newHubContextRootEnabled = featureSwitches.exists(x => x.name.name == NewHubContextRootEnabled.name && x.isEnabled)
-
 }

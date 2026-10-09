@@ -19,7 +19,7 @@ package common.auth.actions
 import common.utils.AuthUtils.*
 import common.auth.{AgentClientDetails, AuthUserDetails, AuthorisedAgentWithClientDetailsRequest, AuthorisedAndEnrolledRequest, AuthorisedUserRequest, MtdItUser, RequestWithFeatureSwitches}
 import common.enums.{MTDIndividual, MTDPrimaryAgent, MTDSupportingAgent, MTDUserRole}
-import common.models.admin.{FeatureSwitch, NewHubContextRootEnabled}
+import common.models.admin.FeatureSwitch
 import common.models.incomeSourceDetails.{IncomeSourceDetailsError, IncomeSourceDetailsModel}
 import common.models.sessionData.SessionCookieData
 import common.utils.sessionUtils.SessionKeys
@@ -34,11 +34,10 @@ import uk.gov.hmrc.auth.core.retrieve.Credentials
 
 object AuthActionsTestData {
 
-  lazy val newHubContextRootEnabled = true
-  lazy val defaultFeatureSwitches = List(FeatureSwitch(NewHubContextRootEnabled, newHubContextRootEnabled))
+  lazy val defaultFeatureSwitches = List.empty[FeatureSwitch]
 
   def requestWithFeatureSwitches(implicit request: Request[_]): RequestWithFeatureSwitches[_] =
-    RequestWithFeatureSwitches(List(FeatureSwitch(NewHubContextRootEnabled, newHubContextRootEnabled)))
+    RequestWithFeatureSwitches(List.empty)
 
   val mtdEnrolment = Enrolment("HMRC-MTD-IT", Seq(EnrolmentIdentifier("MTDITID", testMtditid)), "Activated", None)
   val agentEnrolment = Enrolment("HMRC-AS-AGENT", Seq(EnrolmentIdentifier("AgentReferenceNumber", testArn)), "Activated", None)
