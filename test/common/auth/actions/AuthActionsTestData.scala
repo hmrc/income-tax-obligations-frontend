@@ -17,7 +17,7 @@
 package common.auth.actions
 
 import common.utils.AuthUtils.*
-import common.auth.{AgentClientDetails, AuthUserDetails, AuthorisedAgentWithClientDetailsRequest, AuthorisedAndEnrolledRequest, AuthorisedUserRequest, MtdItUser, RequestWithFeatureSwitches}
+import common.auth.{AgentClientDetails, AuthUserDetails, AuthorisedAgentWithClientDetailsRequest, AuthorisedAndEnrolledRequest, AuthorisedUserRequest, MtdItUser}
 import common.enums.{MTDIndividual, MTDPrimaryAgent, MTDSupportingAgent, MTDUserRole}
 import common.models.admin.FeatureSwitch
 import common.models.incomeSourceDetails.{IncomeSourceDetailsError, IncomeSourceDetailsModel}
@@ -35,9 +35,6 @@ import uk.gov.hmrc.auth.core.retrieve.Credentials
 object AuthActionsTestData {
 
   lazy val defaultFeatureSwitches = List.empty[FeatureSwitch]
-
-  def requestWithFeatureSwitches(implicit request: Request[_]): RequestWithFeatureSwitches[_] =
-    RequestWithFeatureSwitches(List.empty)
 
   val mtdEnrolment = Enrolment("HMRC-MTD-IT", Seq(EnrolmentIdentifier("MTDITID", testMtditid)), "Activated", None)
   val agentEnrolment = Enrolment("HMRC-AS-AGENT", Seq(EnrolmentIdentifier("AgentReferenceNumber", testArn)), "Activated", None)
@@ -112,18 +109,18 @@ object AuthActionsTestData {
 
   lazy val defaultAuthorisedRequest: (MTDUserRole, Request[_]) => AuthorisedUserRequest[_] = {
     (mtdUserRole, request) =>
-      AuthorisedUserRequest(defaultAuthUserDetails(mtdUserRole), defaultFeatureSwitches)(request)
+      AuthorisedUserRequest(defaultAuthUserDetails(mtdUserRole))(request)
   }
 
   lazy val defaultAuthorisedAndEnrolledRequest: (MTDUserRole, Request[_]) => AuthorisedAndEnrolledRequest[_] = {
     (mtdUserRole, request) =>
       val optClientDetails = if (mtdUserRole == MTDIndividual) None else Some(getAgentClientDetails(true))
       AuthorisedAndEnrolledRequest(testMtditid, mtdUserRole, defaultAuthUserDetails(mtdUserRole),
-        optClientDetails, defaultFeatureSwitches)(request)
+        optClientDetails)(request)
   }
 
   lazy val defaultAuthorisedWithClientDetailsRequest: Request[_] => AuthorisedAgentWithClientDetailsRequest[_] = fakeRequestWithClientDetails => {
-    AuthorisedAgentWithClientDetailsRequest(defaultAuthUserDetails(MTDPrimaryAgent), getAgentClientDetails(true), defaultFeatureSwitches)(fakeRequestWithClientDetails)
+    AuthorisedAgentWithClientDetailsRequest(defaultAuthUserDetails(MTDPrimaryAgent), getAgentClientDetails(true))(fakeRequestWithClientDetails)
   }
 
   def getMtdItUser(
@@ -192,7 +189,7 @@ object AuthActionsTestData {
         Some(AffinityGroup.Agent),
         Some(testCredentials),
         None
-      ), defaultFeatureSwitches
+      )
     )(request)
   }
 

@@ -16,7 +16,6 @@
 
 package common.controllers
 
-import common.auth.AuthActions
 import common.config.FrontendAppConfig
 import play.api.mvc.*
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
@@ -24,11 +23,10 @@ import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import javax.inject.{Inject, Singleton}
 
 @Singleton
-class SignInController @Inject()(authActions: AuthActions,
-                                 val appConfig: FrontendAppConfig)
+class SignInController @Inject()(val appConfig: FrontendAppConfig)
                                 (implicit mcc: MessagesControllerComponents) extends FrontendController(mcc) {
 
-  val signIn: Action[AnyContent] = authActions.retrieveFeatureSwitches { implicit request =>
+  val signIn: Action[AnyContent] = Action { implicit request =>
     Redirect(
       appConfig.ggSignInUrl, Map(
         "continue_url" -> Seq(appConfig.individualHomeUrl()),

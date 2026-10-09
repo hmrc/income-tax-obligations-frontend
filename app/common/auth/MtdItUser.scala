@@ -31,7 +31,7 @@ case class MtdItUser[A](mtditid: String,
                         clientDetails: Option[AgentClientDetails],
                         incomeSources: IncomeSourceDetailsModel,
                         serviceNavigationPartial: Option[ServiceNavigation] = None,
-                        featureSwitches: List[FeatureSwitch] = List.empty // TODO: remove default
+                        featureSwitches: List[FeatureSwitch] = List.empty
                        )(implicit request: Request[A]) extends WrappedRequest[A](request) {
 
   val saUtr: Option[String] = if (clientDetails.isDefined) clientDetails.map(_.utr)

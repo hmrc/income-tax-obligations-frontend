@@ -69,8 +69,7 @@ class RetrieveClientData @Inject()(sessionDataService: SessionDataService,
               )
               Right(AuthorisedAgentWithClientDetailsRequest(
               request.authUserDetails,
-                agentClientDetails,
-                request.featureSwitches
+                agentClientDetails
             ))
             case Left(error) =>
               logger.error(s"unable to find client with UTR: ${sessionData.utr} " + error)

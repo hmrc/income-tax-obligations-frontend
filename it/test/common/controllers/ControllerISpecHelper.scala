@@ -24,7 +24,7 @@ import common.enums.{MTDIndividual, MTDPrimaryAgent, MTDSupportingAgent, MTDUser
 import common.helpers.ComponentSpecBase
 import common.helpers.servicemocks.BusinessDetailsStub.stubGetBusinessDetails
 import common.helpers.servicemocks.CitizenDetailsStub.stubGetCitizenDetails
-import common.helpers.servicemocks.FeatureSwitchStub.{featureSwitchesResponse, stubGetFeatureSwitches}
+import common.helpers.servicemocks.FeatureSwitchStub.stubGetFeatureSwitches
 import common.helpers.servicemocks.{AuditStub, MTDAgentAuthStub, MTDIndividualAuthStub, SessionDataStub}
 import common.models.admin.FeatureSwitchName
 import common.models.audit.AccessDeniedForSupportingAgentAuditModel
@@ -267,8 +267,7 @@ trait ControllerISpecHelper extends ComponentSpecBase {
           pageTitle(MTDSupportingAgent, "agent-unauthorised.heading", isErrorPage = true)
         )
         AuditStub.verifyAuditEvent(AccessDeniedForSupportingAgentAuditModel(
-          getAuthorisedAndEnrolledUser(
-            MTDSupportingAgent, featureSwitchesResponse(featureSwitches))
+          getAuthorisedAndEnrolledUser(MTDSupportingAgent)
         ))
       }
     }

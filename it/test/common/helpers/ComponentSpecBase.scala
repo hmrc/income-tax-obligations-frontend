@@ -22,7 +22,6 @@ import common.config.FrontendAppConfig
 import common.enums.{MTDIndividual, MTDUserRole}
 import common.helpers.servicemocks.AuditStub
 import common.implicits.ImplicitDateFormatterImpl
-import common.models.admin.FeatureSwitch
 import common.models.incomeSourceDetails.{IncomeSourceDetailsModel, TaxYear}
 import common.services.{DateService, DateServiceInterface}
 import obligations.repositories.OptOutSessionDataRepository
@@ -130,13 +129,12 @@ trait ComponentSpecBase extends TestSuite with CustomMatchers
     )(FakeRequest())
   }
 
-  def getAuthorisedAndEnrolledUser(mtdUserRole: MTDUserRole, featureSwitches: List[FeatureSwitch]): AuthorisedAndEnrolledRequest[_] = {
+  def getAuthorisedAndEnrolledUser(mtdUserRole: MTDUserRole): AuthorisedAndEnrolledRequest[_] = {
     AuthorisedAndEnrolledRequest(
       testMtditid,
       mtdUserRole,
       defaultAuthUserDetails(mtdUserRole),
-      if(mtdUserRole == MTDIndividual) None else Some(defaultClientDetails),
-      featureSwitches
+      if(mtdUserRole == MTDIndividual) None else Some(defaultClientDetails)
     )(FakeRequest())
   }
 
