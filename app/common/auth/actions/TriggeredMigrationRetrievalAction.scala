@@ -64,7 +64,10 @@ class TriggeredMigrationRetrievalAction @Inject()(
             case (false, _) =>
               isItsaStatusVoluntaryOrMandated().flatMap {
                 case Right(false) => confirmIneligibleUser(req, isTriggeredMigrationPage)
-                case Left(errorResult) => Future(Left(errorResult))
+                case Left(errorResult) => {
+                  logger.warn("Error retrieving ITSA status - look out for potential loop")
+                  Future(Left(errorResult))
+                }
                 case Right(true) =>
                   getYearOfMigration(req).flatMap { taxYearOpt =>
                     isCalculationCrystallised(req, taxYearOpt).flatMap {
