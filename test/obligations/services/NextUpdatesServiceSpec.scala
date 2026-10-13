@@ -381,7 +381,7 @@ class NextUpdatesServiceSpec extends TestSupport with MockObligationsConnector w
         NextUpdatesViewModel(
           List(DeadlineViewModel(QuarterlyObligation, true, LocalDate.parse("2023-12-15"),
             List(ObligationWithIncomeType("nextUpdates.business", SingleObligationModel(LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-15"), "Quarterly", None, "#001", StatusFulfilled))),
-            List())), isFinancialsEnabled = false
+            List()))
         )
       }
     }
@@ -405,7 +405,7 @@ class NextUpdatesServiceSpec extends TestSupport with MockObligationsConnector w
                   ObligationWithIncomeType("nextUpdates.business", SingleObligationModel(LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-15"), "Quarterly", None, "#002", StatusFulfilled))
                 ),
                 List()
-              )), isFinancialsEnabled = false
+              ))
             )
           }
         }
@@ -432,7 +432,7 @@ class NextUpdatesServiceSpec extends TestSupport with MockObligationsConnector w
                   List(ObligationWithIncomeType("nextUpdates.business", SingleObligationModel(LocalDate.parse("2023-12-16"), LocalDate.parse("2023-12-16"), LocalDate.parse("2023-12-15"), "Quarterly", None, "#002", StatusFulfilled))),
                   List()
                 )
-              ), isFinancialsEnabled = false
+              )
             )
           }
         }
@@ -459,7 +459,7 @@ class NextUpdatesServiceSpec extends TestSupport with MockObligationsConnector w
                   List(ObligationWithIncomeType("nextUpdates.business", SingleObligationModel(LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-15"), LocalDate.parse("2023-12-16"), "Quarterly", None, "#002", StatusFulfilled))),
                   List()
                 )
-              ), isFinancialsEnabled = false
+              )
             )
           }
         }
@@ -486,7 +486,7 @@ class NextUpdatesServiceSpec extends TestSupport with MockObligationsConnector w
                   List(ObligationWithIncomeType("nextUpdates.business", SingleObligationModel(LocalDate.parse("2023-12-16"), LocalDate.parse("2023-12-16"), LocalDate.parse("2023-12-16"), "Quarterly", None, "#002", StatusFulfilled))),
                   List()
                 )
-              ), isFinancialsEnabled = false
+              )
             )
           }
         }

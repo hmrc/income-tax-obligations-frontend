@@ -16,7 +16,7 @@
 
 package common.auth.actions
 
-import common.auth.{MtdItUser, RequestWithFeatureSwitches}
+import common.auth.MtdItUser
 import common.models.admin.{FeatureSwitch, NoIncomeSourcesRedirect}
 import common.services.admin.FeatureSwitchService
 import org.mockito.ArgumentMatchers.any
@@ -30,6 +30,7 @@ import play.api.test.Helpers.*
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
+import AuthActionsTestData.getMtdItUser
 
 class FeatureSwitchRetrievalActionSpec extends AuthActionsSpecHelper {
 
@@ -42,8 +43,8 @@ class FeatureSwitchRetrievalActionSpec extends AuthActionsSpecHelper {
   }
 
   def defaultAsyncBody(
-                        requestTestCase: RequestWithFeatureSwitches[_] => Assertion
-                      ): RequestWithFeatureSwitches[_] => Future[Result] = testRequest => {
+                        requestTestCase: MtdItUser[_] => Assertion
+                      ): MtdItUser[_] => Future[Result] = testRequest => {
     requestTestCase(testRequest)
     Future.successful(Results.Ok("Successful"))
   }
@@ -61,7 +62,7 @@ class FeatureSwitchRetrievalActionSpec extends AuthActionsSpecHelper {
           .thenReturn(Future.successful(featureSwitch))
 
         val result = action.invokeBlock(
-          fakeRequestWithActiveSession,
+          getMtdItUser(uk.gov.hmrc.auth.core.AffinityGroup.Individual)(fakeRequestWithActiveSession),
           defaultAsyncBody (_.featureSwitches shouldBe featureSwitch)
         )
 
@@ -72,7 +73,7 @@ class FeatureSwitchRetrievalActionSpec extends AuthActionsSpecHelper {
         when(mockFeatureSwitchService.getAll()(any[HeaderCarrier]))
           .thenReturn(Future.successful(List.empty))
         val result = action.invokeBlock(
-          fakeRequestWithActiveSession,
+          getMtdItUser(uk.gov.hmrc.auth.core.AffinityGroup.Individual)(fakeRequestWithActiveSession),
           defaultAsyncBody(_.featureSwitches shouldBe List.empty)
         )
 

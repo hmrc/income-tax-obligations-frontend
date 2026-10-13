@@ -20,7 +20,6 @@ import common.auth.MtdItUser
 import common.models.incomeSourceDetails.TaxYear
 import common.models.itsaStatus.ITSAStatus.{Annual, Exempt, ITSAStatus, Mandated, Voluntary}
 import common.models.obligations.{GroupedObligationsModel, ObligationWithIncomeType, ObligationsModel}
-import common.models.admin.ReturnsFrontend
 import common.testUtils.TestSupport
 import obligations.models.*
 import obligations.services.reportingObligations.optOut.OptOutProposition
@@ -53,7 +52,7 @@ class NextUpdatesHelperR17Spec extends TestSupport {
       nextYearItsaStatus = nextYearStatus
     )
 
-    val html: HtmlFormat.Appendable = nextUpdatesHelper(currentObligations, optOutProposition, false, taxYearStatusesCyNy = (currentYearStatus, nextYearStatus), isReturnsEnabled = isEnabled(ReturnsFrontend), penaltyAndAppealEnabled = true, isBusinessDetailsEnabled = true)
+    val html: HtmlFormat.Appendable = nextUpdatesHelper(currentObligations, optOutProposition, false, taxYearStatusesCyNy = (currentYearStatus, nextYearStatus), penaltyAndAppealEnabled = true)
 
     val pageDocument: Document = Jsoup.parse(contentAsString(html))
   }
@@ -64,8 +63,7 @@ class NextUpdatesHelperR17Spec extends TestSupport {
   ))).obligationsByDueDateAndStartDate(false).map{
     case (date: LocalDate, obligations: Seq[ObligationWithIncomeType]) =>
     DeadlineViewModel(QuarterlyObligation, standardAndCalendar = false, date, obligations, Seq.empty)
-  }, Seq(DeadlineViewModel(QuarterlyObligation, standardAndCalendar = false, LocalDate.of(2025, 1, 31), Seq(ObligationWithIncomeType("Quarter", quarterlyBusinessObligation)), Seq.empty)),
-    isFinancialsEnabled = true)
+  }, Seq(DeadlineViewModel(QuarterlyObligation, standardAndCalendar = false, LocalDate.of(2025, 1, 31), Seq(ObligationWithIncomeType("Quarter", quarterlyBusinessObligation)), Seq.empty)))
 
   lazy val obligationsModelWithUnknown: NextUpdatesViewModel = NextUpdatesViewModel(ObligationsModel(Seq(GroupedObligationsModel(
     business1.copy(tradingName = None).incomeSourceId,
@@ -73,15 +71,13 @@ class NextUpdatesHelperR17Spec extends TestSupport {
   ))).obligationsByDueDateAndStartDate(true).map {
     case (date: LocalDate, obligations: Seq[ObligationWithIncomeType]) =>
       DeadlineViewModel(QuarterlyObligation, standardAndCalendar = false, date, obligations, Seq.empty)
-  }, Seq(DeadlineViewModel(QuarterlyObligation, standardAndCalendar = false, LocalDate.of(2025, 1, 31), Seq(ObligationWithIncomeType("", quarterlyBusinessObligation)), Seq.empty)),
-    isFinancialsEnabled = true)
+  }, Seq(DeadlineViewModel(QuarterlyObligation, standardAndCalendar = false, LocalDate.of(2025, 1, 31), Seq(ObligationWithIncomeType("", quarterlyBusinessObligation)), Seq.empty)))
 
   val firstIncomeSource = "AAA"
   val secondIncomeSource = "BBB"
   lazy val obligationsModelOrderByIncome: NextUpdatesViewModel = NextUpdatesViewModel(
     Seq(DeadlineViewModel(QuarterlyObligation, standardAndCalendar = false, LocalDate.of(2025, 1, 31), Seq(ObligationWithIncomeType(secondIncomeSource, quarterlyBusinessObligation), ObligationWithIncomeType(firstIncomeSource, quarterlyBusinessObligation)), Seq.empty)),
-    Seq(DeadlineViewModel(QuarterlyObligation, standardAndCalendar = false, LocalDate.of(2025, 1, 31), Seq(ObligationWithIncomeType(secondIncomeSource, quarterlyBusinessObligation), ObligationWithIncomeType(firstIncomeSource, quarterlyBusinessObligation)), Seq.empty)),
-    isFinancialsEnabled = true)
+    Seq(DeadlineViewModel(QuarterlyObligation, standardAndCalendar = false, LocalDate.of(2025, 1, 31), Seq(ObligationWithIncomeType(secondIncomeSource, quarterlyBusinessObligation), ObligationWithIncomeType(firstIncomeSource, quarterlyBusinessObligation)), Seq.empty)))
 
   "Next updates helper for Release 17" when {
 
@@ -373,11 +369,11 @@ class NextUpdatesHelperR17Spec extends TestSupport {
       }
       "display the 'find out why business may not be shown' dropdown your businesses link" in new Setup(isAgent = false, obligationsModel, Annual, Voluntary) {
         pageDocument.getElementById("business-may-not-be-shown-detail-link").text() shouldBe "You can do this at any time in the your businesses section."
-        pageDocument.getElementById("business-may-not-be-shown-detail-link-text").attr("href") shouldBe appConfig.manageBusinessesUrl(false, true)
+        pageDocument.getElementById("business-may-not-be-shown-detail-link-text").attr("href") shouldBe appConfig.manageBusinessesUrl(false)
       }
       "display the 'find out why business may not be shown' dropdown your businesses link - trig mig user" in new Setup(isAgent = false, obligationsModel, Annual, Voluntary, useTrigMigUser = true) {
         pageDocument.getElementById("business-may-not-be-shown-detail-link").text() shouldBe "You can do this at any time in the your businesses section."
-        pageDocument.getElementById("business-may-not-be-shown-detail-link-text").attr("href") shouldBe appConfig.triggeredMigrationCheckHMRCRecordsUrl(false, true)
+        pageDocument.getElementById("business-may-not-be-shown-detail-link-text").attr("href") shouldBe appConfig.triggeredMigrationCheckHMRCRecordsUrl(false)
       }
 
       //upcoming deadlines section
@@ -587,4 +583,3 @@ class NextUpdatesHelperR17Spec extends TestSupport {
     }
   }
 }
-

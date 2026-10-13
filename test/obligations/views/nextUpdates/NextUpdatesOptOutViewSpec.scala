@@ -22,7 +22,6 @@ import common.models.incomeSourceDetails.TaxYear
 import common.models.itsaStatus.ITSAStatus.Annual
 import common.models.obligations.{GroupedObligationsModel, ObligationWithIncomeType, ObligationsModel, SingleObligationModel, StatusFulfilled}
 import common.testUtils.TestSupport
-import common.models.admin.ReturnsFrontend
 import obligations.models.reportingObligations.optOut.NextUpdatesQuarterlyReportingContentChecks
 import obligations.models.*
 import obligations.services.reportingObligations.optOut.OptOutProposition
@@ -86,7 +85,7 @@ class NextUpdatesOptOutViewSpec extends TestSupport {
         standardAndCalendar = false,
         missedDeadlinesTestYear,
         Seq(ObligationWithIncomeType("uk-property", SingleObligationModel(start = missedDeadlinesTestYear, end = missedDeadlinesTestYear, due = missedDeadlinesTestYear, obligationType = "Quarterly", dateReceived = None, periodKey = StatusFulfilled.toString, status = StatusFulfilled))),
-        Seq.empty)), isFinancialsEnabled = true)
+        Seq.empty)))
 
     lazy val obligationsModel: NextUpdatesViewModel =
       NextUpdatesViewModel(ObligationsModel(Seq(GroupedObligationsModel(
@@ -94,7 +93,7 @@ class NextUpdatesOptOutViewSpec extends TestSupport {
         twoObligationsSuccessModel.obligations
       ))).obligationsByDueDateAndStartDate(false)(user).map { case (date: LocalDate, obligations: Seq[ObligationWithIncomeType]) =>
         DeadlineViewModel(QuarterlyObligation, standardAndCalendar = false, date, obligations, Seq.empty)
-      }, isFinancialsEnabled = true)
+      })
 
     def nextUpdatesDocument: Document =
       Jsoup.parse(contentAsString(
@@ -105,9 +104,7 @@ class NextUpdatesOptOutViewSpec extends TestSupport {
           "testBackURL",
           isSupportingAgent = isSupportingAgent,
           taxYearStatusesCyNy = (optOutProposition.currentTaxYear.status, optOutProposition.nextTaxYear.status),
-          isReturnsEnabled = isEnabled(ReturnsFrontend),
-          penaltyAndAppealEnabled = true,
-          isBusinessDetailsEnabled = true
+          penaltyAndAppealEnabled = true
         )(implicitly, user)
       ))
   }

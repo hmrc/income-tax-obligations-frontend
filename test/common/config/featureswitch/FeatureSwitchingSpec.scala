@@ -45,11 +45,7 @@ class FeatureSwitchingSpec extends TestSupport with MockitoSugar {
     OptOutFs,
     SignUpFs,
     NoIncomeSourcesRedirect,
-    BusinessDetailsFrontend,
     TriggeredMigration,
-    FinancialsFrontend,
-    ReturnsFrontend,
-    NewHubContextRootEnabled,
     HideBusinessName,
     PenaltiesAndAppeals
   )
@@ -111,7 +107,7 @@ class FeatureSwitchingSpec extends TestSupport with MockitoSugar {
 
     "use MongoDB feature switch status if MongoDB is enabled in config" in {
 
-      val featureSwitchName = BusinessDetailsFrontend
+      val featureSwitchName = TriggeredMigration
 
       when(MockFeatureSwitching.appConfig.readFeatureSwitchesFromMongo).thenReturn(true)
 
@@ -122,7 +118,7 @@ class FeatureSwitchingSpec extends TestSupport with MockitoSugar {
 
     "use MongoDB feature switch status when disabled for featureSwitches list" in {
 
-      val featureSwitchName = BusinessDetailsFrontend
+      val featureSwitchName = TriggeredMigration
 
       when(MockFeatureSwitching.appConfig.readFeatureSwitchesFromMongo).thenReturn(true)
 
