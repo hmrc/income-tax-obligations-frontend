@@ -44,7 +44,6 @@ class FeatureSwitchingSpec extends TestSupport with MockitoSugar {
   val allFeatureSwitches: Set[FeatureSwitchName] = Set(
     OptOutFs,
     SignUpFs,
-    NoIncomeSourcesRedirect,
     TriggeredMigration,
     HideBusinessName,
     PenaltiesAndAppeals

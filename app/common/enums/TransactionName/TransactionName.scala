@@ -34,10 +34,6 @@ case object ChargeSummary extends TransactionName {
   val name = "charge-summary"
 }
 
-case object ClaimARefund extends TransactionName {
-  val name = "claim-a-refund"
-}
-
 case object ForecastTaxCalculation extends TransactionName {
   val name = "forecast-tax-calculation"
 }
@@ -100,14 +96,6 @@ case object ViewInYearTaxEstimate extends TransactionName {
 
 case object WhatYouOweResponse extends TransactionName {
   val name = "what-you-owe-response"
-}
-
-case object RefundToTaxPayer extends TransactionName {
-  val name = "refund-to-taxpayer"
-}
-
-case object CreditsSummary extends TransactionName {
-  val name = "credits-summary"
 }
 
 case object CeaseIncomeSource extends TransactionName {

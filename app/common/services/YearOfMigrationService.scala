@@ -36,8 +36,4 @@ class YearOfMigrationService @Inject()(yearOfMigrationConnector: YearOfMigration
         Future.failed(new Exception("Error while trying to retrieve Year of Migration"))
     }
   }
-
-  def orderedTaxYearsByYearOfMigration(nino: String)(implicit headerCarrier: HeaderCarrier, ec: ExecutionContext, dateService: DateServiceInterface): Future[List[Int]] = {
-    getYearOfMigration(nino).map(_.yearOfMigrationEndYear.map(year => (year.toInt to dateService.getCurrentTaxYearEnd).toList).getOrElse(Nil))
-  }
 }

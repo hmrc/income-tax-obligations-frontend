@@ -17,7 +17,7 @@
 package common.auth.actions
 
 import common.auth.MtdItUser
-import common.models.admin.{FeatureSwitch, NoIncomeSourcesRedirect}
+import common.models.admin.{FeatureSwitch, HideBusinessName}
 import common.services.admin.FeatureSwitchService
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
@@ -57,7 +57,7 @@ class FeatureSwitchRetrievalActionSpec extends AuthActionsSpecHelper {
   "refine" when {
     "The feature switches are retrieved" should {
       "Return list of feature switches" in {
-        val featureSwitch = List(FeatureSwitch(NoIncomeSourcesRedirect, true))
+        val featureSwitch = List(FeatureSwitch(HideBusinessName, true))
         when(mockFeatureSwitchService.getAll()(any[HeaderCarrier]))
           .thenReturn(Future.successful(featureSwitch))
 

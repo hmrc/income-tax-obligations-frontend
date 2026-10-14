@@ -25,7 +25,6 @@ trait ExternalRedirectHelper {
   val config: Configuration
 
   lazy val vcFrontendBaseUrl: String = servicesConfig.getString("income-tax-view-change-frontend.baseUrl")
-  lazy val vcFrontendAgentBaseUrl: String = s"${vcFrontendBaseUrl}/agents"
 
   lazy val hubBaseUrl: String = servicesConfig.getString("income-tax-view-change-frontend.hubBaseUrl")
   lazy val hubAgentBaseUrl: String = s"$hubBaseUrl/agents"

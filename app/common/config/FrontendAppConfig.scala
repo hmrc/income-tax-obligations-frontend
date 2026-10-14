@@ -111,8 +111,6 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
 
   def incomeSourceOverrides(): Option[Seq[String]] = config.getOptional[Seq[String]]("afterIncomeSourceCreated")
   
-  def triggeredMigrationOverrides(): Option[Seq[String]] = config.getOptional[Seq[String]]("afterMigration")
-
   val cacheTtl: Int = config.get[Int]("mongodb.timeToLiveInSeconds")
   
   lazy val readFeatureSwitchesFromMongo: Boolean = servicesConfig.getBoolean("feature-switches.read-from-mongo")

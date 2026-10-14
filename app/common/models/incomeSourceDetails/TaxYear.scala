@@ -20,7 +20,6 @@ import common.services.DateServiceInterface
 import play.api.libs.json.{Format, JsError, JsNumber, Reads}
 
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import scala.util.Try
 
 case class TaxYear(startYear: Int, endYear: Int) {
@@ -60,14 +59,6 @@ case class TaxYear(startYear: Int, endYear: Int) {
 
   def toFinancialYearEnd: LocalDate = {
     LocalDate.of(this.endYear, April, Fifth)
-  }
-
-  def financialYearStartString: String = {
-    toFinancialYearStart.format(DateTimeFormatter.ISO_DATE)
-  }
-
-  def financialYearEndString: String = {
-    toFinancialYearEnd.format(DateTimeFormatter.ISO_DATE)
   }
 
   def shortenTaxYearEnd: String = {
@@ -138,10 +129,6 @@ object TaxYear {
       case Array(startYear, endYear) => Some(TaxYear(startYear.toInt, endYear.toInt))
       case _ => None
     }
-  }
-
-  def getCYPlusOneTaxYear(implicit dateService: DateServiceInterface): TaxYear = {
-    getTaxYear(dateService.getCurrentDate).nextYear
   }
 
 }

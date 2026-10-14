@@ -23,7 +23,7 @@ import common.config.featureswitch.FeatureSwitching
 import common.config.{FrontendAppConfig, ItvcHeaderCarrierForPartialsConverter}
 import common.enums.{MTDIndividual, MTDPrimaryAgent, MTDUserRole}
 import common.implicits.ImplicitDateFormatterImpl
-import common.models.incomeSourceDetails.{IncomeSourceDetailsModel, TaxYear, TaxYearRange}
+import common.models.incomeSourceDetails.{IncomeSourceDetailsModel, TaxYear}
 import common.services.DateService
 import common.testConstants.BaseTestConstants.*
 import common.testConstants.IncomeSourceDetailsTestConstants.*
@@ -122,9 +122,6 @@ trait TestSupport extends UnitSpec with GuiceOneAppPerSuite with BeforeAndAfterA
   // Set fixed date for DateService
   lazy val fixedDate: LocalDate = LocalDate.of(2023, 12, 15)
   lazy val fixedTaxYear: TaxYear = TaxYear(2023, 2024)
-  lazy val fixedTaxYearRange: TaxYearRange = TaxYearRange(fixedTaxYear, fixedTaxYear)
-
-  def multiYearRange: TaxYearRange = TaxYearRange(fixedTaxYear.previousYear, fixedTaxYear)
 
   implicit val dateService: DateService = new DateService {
 
