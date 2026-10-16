@@ -43,8 +43,6 @@ object FeatureSwitchName {
       JsSuccess(SignUpFs)
     case JsString(PenaltiesAndAppeals.name) =>
       JsSuccess(PenaltiesAndAppeals)
-    case JsString(NoIncomeSourcesRedirect.name) =>
-      JsSuccess(NoIncomeSourcesRedirect)
     case JsString(TriggeredMigration.name) =>
       JsSuccess(TriggeredMigration)
     case JsString(HideBusinessName.name) =>
@@ -75,7 +73,6 @@ object FeatureSwitchName {
     Set(
       OptOutFs,
       SignUpFs,
-      NoIncomeSourcesRedirect,
       TriggeredMigration,
       HideBusinessName,
       PenaltiesAndAppeals
@@ -92,11 +89,6 @@ case object OptOutFs extends FeatureSwitchName {
 case object SignUpFs extends FeatureSwitchName {
   override val name = "sign-up"
   override val toString = "Sign Up"
-}
-
-case object NoIncomeSourcesRedirect extends FeatureSwitchName {
-  override val name: String = "no-income-sources-redirect"
-  override val toString: String = "No Income Sources Redirect"
 }
 
 case object TriggeredMigration extends FeatureSwitchName {

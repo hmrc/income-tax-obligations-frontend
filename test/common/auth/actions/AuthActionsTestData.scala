@@ -21,8 +21,6 @@ import common.auth.{AgentClientDetails, AuthUserDetails, AuthorisedAgentWithClie
 import common.enums.{MTDIndividual, MTDPrimaryAgent, MTDSupportingAgent, MTDUserRole}
 import common.models.admin.FeatureSwitch
 import common.models.incomeSourceDetails.{IncomeSourceDetailsError, IncomeSourceDetailsModel}
-import common.models.sessionData.SessionCookieData
-import common.utils.sessionUtils.SessionKeys
 import common.models.sessionData.SessionDataGetResponse.{SessionDataGetSuccess, SessionDataNotFound}
 import play.api.mvc.Request
 import play.api.test.FakeRequest
@@ -191,12 +189,6 @@ object AuthActionsTestData {
         None
       )
     )(request)
-  }
-
-  def getSessionCookieData(confirmed: Boolean) = {
-    val cookieData = SessionCookieData(
-      testMtditid, testNino, testSaUtr, Some(testFirstName), Some(testSecondName)).toSessionCookieSeq
-    if (confirmed) cookieData ++ Seq(SessionKeys.confirmedClient -> "true") else cookieData
   }
 
   val sessionGetSuccessResponse = SessionDataGetSuccess(

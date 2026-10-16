@@ -22,9 +22,6 @@ object ExternalUrlHelper {
 
   val homepageLink = "https://www.gov.uk"
 
-  //SA for Agents Online Service
-  val saForAgents: String = "https://www.gov.uk/guidance/self-assessment-for-agents-online-service"
-
   def clientAuthorisationGuidance(implicit messages: Messages): String =
     messages.lang.code match {
       case "en" => "https://www.gov.uk/government/collections/making-tax-digital-for-income-tax-as-an-agent-step-by-step"
@@ -60,16 +57,5 @@ object ExternalUrlHelper {
       case _ => "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax#who-will-need-to-sign-up"
     }
 
-  val interestRateBankRateUrl = "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate"
-
-  val currentLPAndRepaymentInterestRatesUrl = "https://www.gov.uk/government/publications/rates-and-allowances-hmrc-interest-rates-for-late-and-early-payments/rates-and-allowances-hmrc-interest-rates#current-late-payment-and-repayment-interest-rates"
-
-  val saThroughYourTaxCodeUrl = "https://www.gov.uk/pay-self-assessment-tax-bill/through-your-tax-code"
-
-  val mtdForIncomeTaxUrl = "https://www.gov.uk/government/collections/making-tax-digital-for-income-tax"
-
-  val budgetPaymentPlanURL = "https://www.gov.uk/difficulties-paying-hmrc"
-  val saTaxReturnDeadlinesUrl = "https://www.gov.uk/self-assessment-tax-returns/deadlines"
-  val saGeneralEnquiriesUrl = "https://www.gov.uk/find-hmrc-contacts/self-assessment-general-enquiries"
   val agentUnauthorisedURL = "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax"
 }

@@ -40,7 +40,6 @@ class AuthActions @Inject()(
                              val retrieveFeatureSwitches: FeatureSwitchRetrievalAction,
                              val authoriseAndRetrieveIndividualForNrs: AuthoriseAndRetrieveIndividualForNrs,
                              val authoriseAndRetrieveAgentForNrs: AuthoriseAndRetrieveAgentForNrs,
-                             val redirectIfNoIncomeSourcesAction: RedirectIfNoIncomeSourcesAction,
                              val triggeredMigrationRetrievalAction: TriggeredMigrationRetrievalAction
                            ) extends FeatureSwitching {
 
@@ -80,16 +79,6 @@ class AuthActions @Inject()(
       triggeredMigrationRetrievalAction(isTriggeredMigrationPage)
   }
 
-  def asMTDAgentWithUnconfirmedClient: ActionBuilder[MtdItUser, AnyContent] = {
-    actionBuilder andThen
-      checkSessionTimeout andThen
-      authoriseAndRetrieveAgent.authorise() andThen
-      retrieveClientData.authorise(useCookies = true) andThen
-      authoriseAndRetrieveMtdAgent andThen
-      incomeSourceRetrievalAction andThen
-      retrieveFeatureSwitches
-  }
-
   def asMTDPrimaryAgent(isTriggeredMigrationPage: Boolean = false): ActionBuilder[MtdItUser, AnyContent] = {
     actionBuilder andThen
       checkSessionTimeout andThen
@@ -112,15 +101,6 @@ class AuthActions @Inject()(
       incomeSourceRetrievalAction andThen
       retrieveFeatureSwitches
   }
-
-  def asMTDIndividualWithIncomeSources(isTriggeredMigrationPage: Boolean = false): ActionBuilder[MtdItUser, AnyContent] =
-    asMTDIndividual(isTriggeredMigrationPage) andThen redirectIfNoIncomeSourcesAction
-
-  def asMTDAgentWithConfirmedClientWithIncomeSources(isTriggeredMigrationPage: Boolean = false): ActionBuilder[MtdItUser, AnyContent] =
-    asMTDAgentWithConfirmedClient(isTriggeredMigrationPage) andThen redirectIfNoIncomeSourcesAction
-
-  def asMTDPrimaryAgentWithIncomeSources(isTriggeredMigrationPage: Boolean = false): ActionBuilder[MtdItUser, AnyContent] =
-    asMTDPrimaryAgent(isTriggeredMigrationPage) andThen redirectIfNoIncomeSourcesAction
 
   def asMTDIndividualForNoIncomeSourcesPage: ActionBuilder[MtdItUser, AnyContent] = {
     actionBuilder andThen
@@ -147,22 +127,6 @@ class AuthActions @Inject()(
       asMTDAgentWithConfirmedClient(triggeredMigrationPage)
     } else {
       asMTDIndividual(triggeredMigrationPage)
-    }
-  }
-
-  def asMTDIndividualOrPrimaryAgentWithClient(isAgent: Boolean, triggeredMigrationPage: Boolean = false): ActionBuilder[MtdItUser, AnyContent] = {
-    if (isAgent) {
-      asMTDPrimaryAgent(triggeredMigrationPage)
-    } else {
-      asMTDIndividual(triggeredMigrationPage)
-    }
-  }
-
-  def asMTDIndividualOrPrimaryAgentWithClientForNrs(isAgent: Boolean): ActionBuilder[MtdItUser, AnyContent] = {
-    if (isAgent) {
-      asMTDPrimaryAgentForNrs
-    } else {
-      asMTDIndividualForNrs
     }
   }
 

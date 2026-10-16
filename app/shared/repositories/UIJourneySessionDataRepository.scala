@@ -17,14 +17,11 @@
 package shared.repositories
 
 import common.config.FrontendAppConfig
-import org.mongodb.scala.bson.collection.mutable.Document
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.*
 import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Updates.combine
-import org.mongodb.scala.result.UpdateResult
 import play.api.libs.json.Format
-import shared.enums.JourneyType.{JourneyType, Operation}
+import shared.enums.JourneyType.JourneyType
 import shared.models.UIJourneySessionData
 import uk.gov.hmrc.mongo.MongoComponent
 import uk.gov.hmrc.mongo.play.json.PlayMongoRepository
@@ -73,11 +70,6 @@ class UIJourneySessionDataRepository @Inject()(
     and(equal("sessionId", data.sessionId), equal("journeyType", data.journeyType))
   }
 
-  private def sessionFilter(sessionId: String, operation: Operation): Bson = {
-    import Filters.*
-    and(equal("sessionId", sessionId), regex("journeyType", operation.operationType))
-  }
-
   def keepAlive(data: UIJourneySessionData): Future[Boolean] =
     collection
       .updateOne(
@@ -111,29 +103,9 @@ class UIJourneySessionDataRepository @Inject()(
       .map(_.wasAcknowledged())
   }
 
-  def updateData(data: UIJourneySessionData, key: String, value: String): Future[UpdateResult] = {
-    collection.updateOne(
-      filter = dataFilter(data),
-      update = Document("$set" -> Document(key -> value))
-    ).toFuture()
-  }
-
-  def updateMultipleData(data: UIJourneySessionData, keyAndValue: Map[String, String]): Future[UpdateResult] = {
-    collection.updateOne(
-      filter = dataFilter(data),
-      update = combine(keyAndValue.map(keyAndValueTuple => org.mongodb.scala.model.Updates.set(keyAndValueTuple._1, keyAndValueTuple._2)).toList: _*)
-    ).toFuture()
-  }
-
   def deleteOne(data: UIJourneySessionData): Future[Boolean] =
     collection
       .deleteOne(dataFilter(data))
-      .toFuture()
-      .map(_.wasAcknowledged())
-
-  def deleteJourneySession(sessionId: String, operation: Operation): Future[Boolean] =
-    collection
-      .deleteOne(sessionFilter(sessionId, operation))
       .toFuture()
       .map(_.wasAcknowledged())
 

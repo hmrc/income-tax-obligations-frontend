@@ -25,7 +25,6 @@ trait FeatureSwitching {
   val appConfig: FrontendAppConfig
 
   val FEATURE_SWITCH_ON = "true"
-  val FEATURE_SWITCH_OFF = "false"
 
   def isEnabledFromConfig(featureSwitch: FeatureSwitchName): Boolean =
     appConfig.config.getOptional[String](s"feature-switch.enable-${featureSwitch.name}") contains FEATURE_SWITCH_ON
@@ -42,12 +41,6 @@ trait FeatureSwitching {
     }
   }
 
-  def areAllEnabled(featureSwitches: FeatureSwitchName*): Boolean = {
-    featureSwitches.foldLeft(false) { (_, switch) =>
-      isEnabledFromConfig(switch)
-    }
-  }
-
   protected implicit class FeatureOps(feature: FeatureSwitchName)(implicit user: MtdItUser[_]) {
     def fold[T](ifEnabled: => T, ifDisabled: => T): T = {
       if (isEnabled(feature)) ifEnabled
@@ -58,15 +51,6 @@ trait FeatureSwitching {
   def getFSList: List[FeatureSwitch] = {
     FeatureSwitchName.allFeatureSwitches.toList.map { currentFS =>
       FeatureSwitch(currentFS, isEnabled = isEnabledFromConfig(currentFS))
-    }
-  }
-
-  def getFSListFromConfig: List[FeatureSwitch] = {
-    FeatureSwitchName.allFeatureSwitches.toList.map { fs =>
-      FeatureSwitch(
-        fs,
-        isEnabled = appConfig.config.getOptional[Boolean](s"feature-switch.enable-${fs.name}").getOrElse(false)
-      )
     }
   }
 }

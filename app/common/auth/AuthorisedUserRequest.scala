@@ -35,7 +35,6 @@ case class AuthorisedAndEnrolledRequest[A](mtditId: String,
                                            clientDetails: Option[AgentClientDetails])
                                            (implicit request: Request[A]) extends WrappedRequest[A](request) {
   val saUtr: Option[String] = if(clientDetails.isDefined) clientDetails.map(_.utr) else authUserDetails.saUtr
-  val maybeArn: Option[String] = authUserDetails.agentReferenceNumber
   
   def optClientNameAsString: Option[String] = {
     val optClientName = clientDetails.fold[Option[Name]](None)(_.clientName)
