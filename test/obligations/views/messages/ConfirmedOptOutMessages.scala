@@ -33,7 +33,7 @@ object ConfirmedOptOutMessages {
   val singleYearSoftwareCompatibleLink = "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
 
 
-  val heading: String = "Opt out completed"
+  val heading: String = "Opt out completed You no longer need to use Making Tax Digital for Income Tax"
   val title: String =  "Opt out completed - Manage your Self Assessment - GOV.UK"
   val panelBodyOneYear: String = s"You are reporting annually for the ${taxYear.startYear} to ${taxYear.endYear} tax year"
   val panelBodyMultiYear: String = s"You are reporting annually from the ${taxYear.startYear} to ${taxYear.endYear} tax year onwards"
@@ -43,6 +43,7 @@ object ConfirmedOptOutMessages {
   val submitTaxP1Link: String = "filed your Self Assessment tax return"
   val submitTaxP2: String = "For any tax year you are reporting quarterly, you will need software compatible with Making Tax Digital for Income Tax (opens in new tab)."
   val submitTaxP2Link: String = "software compatible with Making Tax Digital for Income Tax"
+  val submitTaxBullet2: String = "using HMRC online services or other commercial software compatible with Making Tax Digital for Income Tax"
 
   val yourRevisedDeadlinesHeading: String = "Your revised deadlines"
   val yourRevisedDeadlinesContentP1: String = s"Your tax return for the ${taxYear.startYear} to ${taxYear.endYear} tax year is due by 31 January ${taxYear.nextYear.endYear}."
