@@ -37,8 +37,4 @@ object ConfirmOptOutControllerConstants {
   val emptyBodyString = ""
   val optOutExpectedTitle = "Check your answers"
 
-  def testUser(mtdUserRole: MTDUserRole): MtdItUser[_] = {
-    getTestUser(mtdUserRole, multipleBusinessesAndPropertyResponse)
-  }
-
 }
