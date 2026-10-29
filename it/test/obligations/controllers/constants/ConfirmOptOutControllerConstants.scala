@@ -18,7 +18,6 @@ package obligations.controllers.constants
 
 import common.auth.MtdItUser
 import common.enums.MTDUserRole
-import .getTestUser
 import common.services.DateService
 import common.models.incomeSourceDetails.TaxYear
 import common.testConstants.IncomeSourceIntegrationTestConstants.multipleBusinessesAndPropertyResponse
