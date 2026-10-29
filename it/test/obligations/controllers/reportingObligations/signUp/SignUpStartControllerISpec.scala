@@ -26,11 +26,11 @@ import obligations.models.reportingObligations.signUp.SignUpSessionData
 import play.api.http.Status.{OK, SEE_OTHER}
 import play.api.test.Helpers.{await, defaultAwaitTimeout}
 import common.testConstants.BaseIntegrationTestConstants.{testMtditid, testSessionId}
-
 import shared.models.UIJourneySessionData
 import shared.repositories.UIJourneySessionDataRepository
 import obligations.testConstants.IncomeSourcesObligationsIntegrationTestConstants.*
 import common.helpers.GetInsourceDetailsStub
+import obligations.views.reportingObligations.signUp.SignUpStartViewSpec
 import shared.enums.JourneyType.{Opt, SignUpJourney}
 
 class SignUpStartControllerISpec extends ControllerISpecHelper {
@@ -50,7 +50,7 @@ class SignUpStartControllerISpec extends ControllerISpecHelper {
     if (isAgent) "/agents/sign-up/start" else "/sign-up/start"
   }
 
-  mtdAllRoles.foreach { case mtdUserRole =>
+  mtdAllRoles.foreach { mtdUserRole =>
     val isAgent = mtdUserRole != MTDIndividual
     val path = getPath(isAgent)
     val additionalCookies = getAdditionalCookies(mtdUserRole)
@@ -75,15 +75,15 @@ class SignUpStartControllerISpec extends ControllerISpecHelper {
 
             result should have(
               httpStatus(OK),
-              pageTitle(mtdUserRole, SignUpStartControllerISpec.title),
-              elementTextByID("sign-up-start-heading")(SignUpStartControllerISpec.heading),
-              elementTextByID("sign-up-start-description")(SignUpStartControllerISpec.description),
-              elementTextByID("sign-up-inset")(SignUpStartControllerISpec.inset),
-              elementTextByID("sign-up-reporting-quarterly-heading")(SignUpStartControllerISpec.reportingQuarterlyHeading),
-              elementTextByID("sign-up-reporting-quarterly-text-1")(SignUpStartControllerISpec.reportingQuarterlyText),
-              elementTextByID("sign-up-if-you-change-your-mind-heading")(SignUpStartControllerISpec.ifYouChangeYourMindHeading),
-              elementTextByID("sign-up-if-you-change-your-mind-text")(SignUpStartControllerISpec.ifYouChangeYourMindText),
-              elementTextByID("sign-up-continue-button")(SignUpStartControllerISpec.button)
+              elementTextBySelector("head > title")(SignUpStartViewSpec.title),
+              elementTextByID("sign-up-start-heading")(SignUpStartViewSpec.heading),
+              elementTextByID("sign-up-start-description")(SignUpStartViewSpec.description),
+              elementTextByID("sign-up-inset")(SignUpStartViewSpec.inset),
+              elementTextByID("sign-up-reporting-quarterly-heading")(SignUpStartViewSpec.reportingQuarterlyHeading),
+              elementTextByID("sign-up-reporting-quarterly-text-1")(SignUpStartViewSpec.reportingQuarterlyText),
+              elementTextByID("sign-up-if-you-change-your-mind-heading")(SignUpStartViewSpec.ifYouChangeYourMindHeading),
+              elementTextByID("sign-up-if-you-change-your-mind-text")(SignUpStartViewSpec.ifYouChangeYourMindText),
+              elementTextByID("sign-up-continue-button")(SignUpStartViewSpec.button)
             )
           }
 
@@ -104,7 +104,7 @@ class SignUpStartControllerISpec extends ControllerISpecHelper {
 
             result should have(
               httpStatus(OK),
-              elementTextByID("sign-up-reporting-quarterly-text-2")(SignUpStartControllerISpec.cyOnlyDesc)
+              elementTextByID("sign-up-reporting-quarterly-text-2")(SignUpStartViewSpec.cyOnlyDesc)
             )
           }
         }
@@ -142,20 +142,4 @@ class SignUpStartControllerISpec extends ControllerISpecHelper {
         signUpSessionData =
           Some(SignUpSessionData(None, Some(currentTaxYear.toString), journeyIsComplete = Some(journeyComplete))))))
   }
-}
-
-object SignUpStartControllerISpec {
-  val title = "Signing up to Making Tax Digital for Income Tax"
-  val heading = "Signing up to Making Tax Digital for Income Tax"
-  val description = "This allows HMRC to give you a more precise forecast of how much tax you owe to help you budget more accurately."
-  val inset = "If you voluntarily sign up, you will need software compatible with Making Tax Digital for Income Tax. There are both paid and free options for you or your agent to choose from."
-  val reportingQuarterlyHeading ="Reporting quarterly"
-  val reportingQuarterlyText = "Voluntarily signing up will mean you need to:"
-  val bullet1 = "keep digital records of your sole trader and property income and expenses"
-  val bullet2 = "submit an update every 3 months for each of these income sources"
-  val bullet3 = "still file a tax return"
-  val cyOnlyDesc = "If for this tax year you have already used software to submit income and expenses to HMRC, you will need to resubmit this information in your next quarterly update."
-  val ifYouChangeYourMindHeading = "If you change your mind"
-  val ifYouChangeYourMindText = "As you would be voluntarily signed up, you could decide at any time to opt out."
-  val button = "Sign up"
 }

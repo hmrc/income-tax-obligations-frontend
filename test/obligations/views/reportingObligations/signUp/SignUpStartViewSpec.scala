@@ -23,7 +23,24 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.api.test.Helpers.{contentAsString, defaultAwaitTimeout}
 
+object SignUpStartViewSpec {
+  val title = "Signing up to Making Tax Digital for Income Tax - Manage your Self Assessment - GOV.UK"
+  val heading = "Signing up to Making Tax Digital for Income Tax"
+  val description = "This allows HMRC to give you a more precise forecast of how much tax you owe to help you budget more accurately."
+  val inset = "If you voluntarily sign up, you will need software compatible with Making Tax Digital for Income Tax. There are both paid and free options for you or your agent to choose from."
+  val reportingQuarterlyHeading = "Reporting quarterly"
+  val reportingQuarterlyText = "Voluntarily signing up will mean you need to use your software to:"
+  val bullet1 = "keep digital records of your sole trader and property income and expenses"
+  val bullet2 = "submit an update every 3 months for each of these income sources"
+  val bullet3 = "still file a tax return"
+  val cyOnlyDesc = "If for this tax year you have already used software to submit income and expenses to HMRC, you will need to resubmit this information in your next quarterly update."
+  val ifYouChangeYourMindHeading = "If you change your mind"
+  val ifYouChangeYourMindText = "As you would be voluntarily signed up, you could decide at any time to opt out."
+  val button = "Sign up"
+}
+
 class SignUpStartViewSpec extends TestSupport {
+  import SignUpStartViewSpec._
 
   val signUpStartView: SignUpStartView = app.injector.instanceOf[SignUpStartView]
   val startButtonUrl = "/some/signUp/url"
@@ -33,58 +50,42 @@ class SignUpStartViewSpec extends TestSupport {
     val pageDocument: Document = Jsoup.parse(contentAsString(signUpStartView(isCY, startButtonUrl)))
   }
 
-  object signUpStart {
-    val title = "Signing up to Making Tax Digital for Income Tax - Manage your Self Assessment - GOV.UK"
-    val heading = "Signing up to Making Tax Digital for Income Tax"
-    val description = "This allows HMRC to give you a more precise forecast of how much tax you owe to help you budget more accurately."
-    val inset = "If you voluntarily sign up, you will need software compatible with Making Tax Digital for Income Tax. There are both paid and free options for you or your agent to choose from."
-    val reportingQuarterlyHeading ="Reporting quarterly"
-    val reportingQuarterlyText = "Voluntarily signing up will mean you need to:"
-    val bullet1 = "keep digital records of your sole trader and property income and expenses"
-    val bullet2 = "submit an update every 3 months for each of these income sources"
-    val bullet3 = "still file a tax return"
-    val cyOnlyDesc = "If for this tax year you have already used software to submit income and expenses to HMRC, you will need to resubmit this information in your next quarterly update."
-    val ifYouChangeYourMindHeading = "If you change your mind"
-    val ifYouChangeYourMindText = "As you would be voluntarily signed up, you could decide at any time to opt out."
-    val button = "Sign up"
-  }
-
   "sign up start page" should {
     "have the correct title" in new Setup(false, isCY = false) {
-      pageDocument.title() shouldBe signUpStart.title
+      pageDocument.title() shouldBe title
     }
 
     "have the correct heading" in new Setup(false, isCY = false) {
-      pageDocument.select("h1").text() shouldBe signUpStart.heading
+      pageDocument.select("h1").text() shouldBe heading
     }
 
     "have the correct description" in new Setup(false, isCY = false) {
-      pageDocument.getElementById("sign-up-start-description").text() shouldBe signUpStart.description
+      pageDocument.getElementById("sign-up-start-description").text() shouldBe description
     }
 
     "have the correct inset text" in new Setup(false, isCY = false) {
-      pageDocument.getElementById("sign-up-inset").text() shouldBe signUpStart.inset
+      pageDocument.getElementById("sign-up-inset").text() shouldBe inset
     }
 
     "have the correct reporting quarterly heading and text" in new Setup(false, isCY = false) {
-      pageDocument.getElementById("sign-up-reporting-quarterly-heading").text() shouldBe signUpStart.reportingQuarterlyHeading
-      pageDocument.getElementById("sign-up-reporting-quarterly-text-1").text() shouldBe signUpStart.reportingQuarterlyText
-      pageDocument.select("#sign-up-bullet").get(0).text() shouldBe signUpStart.bullet1
-      pageDocument.select("#sign-up-bullet").get(1).text() shouldBe signUpStart.bullet2
-      pageDocument.select("#sign-up-bullet").get(2).text() shouldBe signUpStart.bullet3
+      pageDocument.getElementById("sign-up-reporting-quarterly-heading").text() shouldBe reportingQuarterlyHeading
+      pageDocument.getElementById("sign-up-reporting-quarterly-text-1").text() shouldBe reportingQuarterlyText
+      pageDocument.select("#sign-up-bullet").get(0).text() shouldBe bullet1
+      pageDocument.select("#sign-up-bullet").get(1).text() shouldBe bullet2
+      pageDocument.select("#sign-up-bullet").get(2).text() shouldBe bullet3
     }
 
     "have the correct CY only description" in new Setup(false, isCY = true) {
-      pageDocument.getElementById("sign-up-reporting-quarterly-text-2").text() shouldBe signUpStart.cyOnlyDesc
+      pageDocument.getElementById("sign-up-reporting-quarterly-text-2").text() shouldBe cyOnlyDesc
     }
 
     "have the correct 'if you change your mind' heading and text" in new Setup(false, isCY = false) {
-      pageDocument.getElementById("sign-up-if-you-change-your-mind-heading").text() shouldBe signUpStart.ifYouChangeYourMindHeading
-      pageDocument.getElementById("sign-up-if-you-change-your-mind-text").text() shouldBe signUpStart.ifYouChangeYourMindText
+      pageDocument.getElementById("sign-up-if-you-change-your-mind-heading").text() shouldBe ifYouChangeYourMindHeading
+      pageDocument.getElementById("sign-up-if-you-change-your-mind-text").text() shouldBe ifYouChangeYourMindText
     }
 
     "have the correct button text" in new Setup(false, isCY = false) {
-      pageDocument.getElementById("sign-up-continue-button").text() shouldBe signUpStart.button
+      pageDocument.getElementById("sign-up-continue-button").text() shouldBe button
     }
   }
 }
