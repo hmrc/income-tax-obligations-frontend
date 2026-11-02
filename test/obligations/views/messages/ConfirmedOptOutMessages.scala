@@ -55,6 +55,6 @@ object ConfirmedOptOutMessages {
   val multiYearReportingUpdatesListP2 = "you report an increase in your qualifying income in a tax return"
   val multiYearReportingUpdatesInset = s"For example, if your qualifying income exceeds the threshold in the ${optOutTaxYear.taxYear.startYear} to ${optOutTaxYear.taxYear.endYear} tax year, you would have to report quarterly from 6 April ${optOutTaxYear.taxYear.nextYear.endYear}."
   val multiYearReportingUpdatesP2 = "If this happens, we will write to you to let you know."
-  val multiYearReportingUpdatesP3 = "You can check the threshold for qualifying income in the criteria for people who will need to sign up for Making Tax Digital (opens in new tab) ."
-  val multiYearReportingUpdatesP3Link = "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax#who-will-need-to-sign-up"
+  val multiYearReportingUpdatesP3 = "You can find out more about the income threshold in the guidance on when you’ll need to use Making Tax Digital for Income Tax (opens in new tab) ."
+  val multiYearReportingUpdatesP3Link = "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
 }

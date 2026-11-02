@@ -71,7 +71,7 @@ class SignUpCompletedControllerISpec extends ControllerISpecHelper {
     val currentYearReportingObligationsBullet2 = "you report an increase in your qualifying income in a tax return"
     val currentYearReportingObligationsInset = "For example, if your total gross income from self-employment or property, or both, exceeds the £50,000 threshold in the 2025 to 2026 tax year, you would have to use Making Tax Digital for Income Tax from 6 April 2027."
     val currentYearReportingObligationsDesc2 = "If this happens, we will write to you to let you know."
-    val currentYearReportingObligationsDesc3 = "You can check the threshold for qualifying income in the criteria for people who will need to sign up for Making Tax Digital for Income Tax (opens in new tab)."
+    val currentYearReportingObligationsDesc3 = "You can find out more about the income threshold in the guidance on when you’ll need to use Making Tax Digital for Income Tax (opens in new tab)."
 
     val currentYearReportingObligationsMandatedHeading = "Your reporting obligations from the next tax year onwards"
     val currentYearReportingObligationsMandatedDesc = "You have just voluntarily signed up from the 2025 to 2026 tax year."
@@ -79,7 +79,7 @@ class SignUpCompletedControllerISpec extends ControllerISpecHelper {
     val currentYearReportingObligationsMandatedDesc2 = "This could be because:"
     val currentYearReportingObligationsMandatedBullet1 = "HMRC lowered the income threshold for it"
     val currentYearReportingObligationsMandatedBullet2 = "you reported an increase in your qualifying income in a tax return"
-    val currentYearReportingObligationsMandatedDesc3 = "You can check the threshold for qualifying income in the criteria for people who will need to sign up for Making Tax Digital for Income Tax (opens in new tab)."
+    val currentYearReportingObligationsMandatedDesc3 = "You can find out more about the income threshold in the guidance on when you’ll need to use Making Tax Digital for Income Tax (opens in new tab)."
 
     val nextYearCompletedHeading = "Sign up completed"
     val nextYearCompletedTitle = "Sign up completed"
@@ -100,7 +100,7 @@ class SignUpCompletedControllerISpec extends ControllerISpecHelper {
     val nextYearReportingObligationsBullet2 = "you report an increase in your qualifying income in a tax return"
     val nextYearReportingObligationsInset = "For example, if your income from self-employment or property, or both, exceeds the threshold in the 2026 to 2027 tax year, you would have to report quarterly from 6 April 2028."
     val nextYearReportingObligationsDesc2 = "If this happens, we will write to you to let you know."
-    val nextYearReportingObligationsDesc3 = "You can check the threshold for qualifying income in the criteria for people who will need to sign up for Making Tax Digital for Income Tax (opens in new tab)."
+    val nextYearReportingObligationsDesc3 = "You can find out more about the income threshold in the guidance on when you’ll need to use Making Tax Digital for Income Tax (opens in new tab)."
   }
 
   mtdAllRoles.foreach { case mtdUserRole =>
