@@ -16,12 +16,8 @@
 
 package obligations.controllers.constants
 
-import common.auth.MtdItUser
-import common.enums.MTDUserRole
-import common.helpers.servicemocks.BtaPartialStub.getTestUser
 import common.services.DateService
 import common.models.incomeSourceDetails.TaxYear
-import common.testConstants.IncomeSourceIntegrationTestConstants.multipleBusinessesAndPropertyResponse
 
 object ConfirmOptOutControllerConstants {
 
@@ -37,9 +33,5 @@ object ConfirmOptOutControllerConstants {
   val infoMessage = s"In future, you could be required to report quarterly again if, for example, your income increases or the threshold for reporting quarterly changes. If this happens, we’ll write to you to let you know."
   val emptyBodyString = ""
   val optOutExpectedTitle = "Check your answers"
-
-  def testUser(mtdUserRole: MTDUserRole): MtdItUser[_] = {
-    getTestUser(mtdUserRole, multipleBusinessesAndPropertyResponse)
-  }
 
 }
