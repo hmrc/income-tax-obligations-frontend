@@ -1320,7 +1320,7 @@ optout.confirmedOptOut.reportQuarterly.reason2                   = gwnaethoch ro
 
 optout.confirmedOptOut.scenario1.reporting.obligations.heading                = Eich ymrwymiadau o ran cyflwyno yn y dyfodol
 optout.confirmedOptOut.scenario1.reporting.obligations.p1                     = Os yw’ch incwm gros o hunangyflogaeth neu eiddo, neu’r ddau, dros y trothwy (sef £30,000), mae’n rhaid i chi ail-ddechrau defnyddio’r cynllun Troi Treth yn Ddigidol.
-optout.confirmedOptOut.scenario1.reporting.obligations.inset                  = Er enghraifft, os yw’ch incwm yn fwy na £30,000 ym mlwyddyn dreth {0} i {1}, bydd angen i chi ddechrau defnyddio’r cynllun Troi Treth yn Ddigidol ar gyfer Treth Incwm o 6 Ebrill {2} ymlaen.
+optout.confirmedOptOut.scenario1.reporting.obligations.inset                  = Er enghraifft, os yw’ch incwm yn fwy na £30,000 ym mlwyddyn dreth 2025 i 2026, bydd angen i chi ddechrau defnyddio’r cynllun Troi Treth yn Ddigidol ar gyfer Treth Incwm o 6 Ebrill 2027 ymlaen.
 optout.confirmedOptOut.scenario1.reporting.obligations.p2                     = Gallwch ddysgu rhagor am y trothwy o ran incwm yn yr
 optout.confirmedOptOut.scenario1.reporting.obligations.p2.link                = arweiniad ynghylch pryd fydd angen i chi ddefnyddio Troi Treth yn Ddigidol ar gyfer Treth Incwm
 
@@ -1328,22 +1328,21 @@ optout.confirmedOptOut.scenario2.reporting.obligations.heading                = 
 optout.confirmedOptOut.scenario2.reporting.obligations.inset                  = O 6 Ebrill {0} ymlaen, efallai bydd yn rhaid i chi ddefnyddio’r cynllun Troi Treth yn Ddigidol ar gyfer Treth Incwm.
 optout.confirmedOptOut.scenario2.reporting.obligations.p1                     = Mae hyn oherwydd bod eich incwm gros o hunangyflogaeth neu eiddo, neu’r ddau, yn fwy na’r trothwy o ran incwm (sef £30,000).
 
-
 optout.confirmedOptOut.scenario3.reporting.obligations.heading                = Eich ymrwymiadau o ran cyflwyno yn y dyfodol
 optout.confirmedOptOut.scenario3.reporting.obligations.p1                     = Os yw’ch incwm gros o hunangyflogaeth neu eiddo, neu’r ddau, dros y trothwy (sef £30,000), mae’n rhaid i chi ail-ddechrau defnyddio’r cynllun Troi Treth yn Ddigidol.
-optout.confirmedOptOut.scenario3.reporting.obligations.inset                  = Er enghraifft, os yw’ch incwm yn fwy na £30,000 ym mlwyddyn dreth {0} i {1}, bydd angen i chi ddechrau defnyddio’r cynllun Troi Treth yn Ddigidol ar gyfer Treth Incwm o 6 Ebrill {2} ymlaen.
+optout.confirmedOptOut.scenario3.reporting.obligations.inset                  = Er enghraifft, os yw’ch incwm yn fwy na £30,000 ym mlwyddyn dreth 2025 i 2026, bydd angen i chi ddechrau defnyddio’r cynllun Troi Treth yn Ddigidol ar gyfer Treth Incwm o 6 Ebrill 2027 ymlaen.
 optout.confirmedOptOut.scenario3.reporting.obligations.p2                     = Gallwch ddysgu rhagor am y trothwy o ran incwm yn yr
 optout.confirmedOptOut.scenario3.reporting.obligations.p2.link                = arweiniad ynghylch pryd fydd angen i chi ddefnyddio Troi Treth yn Ddigidol ar gyfer Treth Incwm
 
 optout.confirmedOptOut.scenario4.reporting.obligations.heading                = Eich ymrwymiadau o ran cyflwyno yn y dyfodol
 optout.confirmedOptOut.scenario4.reporting.obligations.p1                     = Os yw’ch incwm gros o hunangyflogaeth neu eiddo, neu’r ddau, dros y trothwy (sef £30,000), mae’n rhaid i chi ail-ddechrau defnyddio’r cynllun Troi Treth yn Ddigidol.
-optout.confirmedOptOut.scenario4.reporting.obligations.inset                  = Er enghraifft, os yw’ch incwm yn fwy na £30,000 ym mlwyddyn dreth {0} i {1}, bydd angen i chi ddechrau defnyddio’r cynllun Troi Treth yn Ddigidol ar gyfer Treth Incwm o 6 Ebrill {2} ymlaen.
+optout.confirmedOptOut.scenario4.reporting.obligations.inset                  = Er enghraifft, os yw’ch incwm yn fwy na £30,000 ym mlwyddyn dreth 2025 i 2026, bydd angen i chi ddechrau defnyddio’r cynllun Troi Treth yn Ddigidol ar gyfer Treth Incwm o 6 Ebrill 2027 ymlaen.
 optout.confirmedOptOut.scenario4.reporting.obligations.p2                     = Gallwch ddysgu rhagor am y trothwy o ran incwm yn yr
 optout.confirmedOptOut.scenario4.reporting.obligations.p2.link                = arweiniad ynghylch pryd fydd angen i chi ddefnyddio Troi Treth yn Ddigidol ar gyfer Treth Incwm
 
 optout.confirmedOptOut.scenario5.reporting.obligations.heading                = Eich ymrwymiadau o ran cyflwyno yn y dyfodol
 optout.confirmedOptOut.scenario5.reporting.obligations.p1                     = Os yw’ch incwm gros o hunangyflogaeth neu eiddo, neu’r ddau, dros y trothwy (sef £30,000), mae’n rhaid i chi ail-ddechrau defnyddio’r cynllun Troi Treth yn Ddigidol.
-optout.confirmedOptOut.scenario5.reporting.obligations.inset                  = Er enghraifft, os yw’ch incwm yn fwy na £30,000 ym mlwyddyn dreth {0} i {1}, bydd angen i chi ddechrau defnyddio’r cynllun Troi Treth yn Ddigidol ar gyfer Treth Incwm o 6 Ebrill {2} ymlaen.
+optout.confirmedOptOut.scenario5.reporting.obligations.inset                  = Er enghraifft, os yw’ch incwm yn fwy na £30,000 ym mlwyddyn dreth 2025 i 2026, bydd angen i chi ddechrau defnyddio’r cynllun Troi Treth yn Ddigidol ar gyfer Treth Incwm o 6 Ebrill 2027 ymlaen.
 optout.confirmedOptOut.scenario5.reporting.obligations.p2                     = Gallwch ddysgu rhagor am y trothwy o ran incwm yn yr
 optout.confirmedOptOut.scenario5.reporting.obligations.p2.link                = arweiniad ynghylch pryd fydd angen i chi ddefnyddio Troi Treth yn Ddigidol ar gyfer Treth Incwm
 
