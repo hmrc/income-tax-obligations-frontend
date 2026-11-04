@@ -176,7 +176,7 @@
     @{
         val content = HtmlContent(messages("optout.confirmedOptOut.scenario4.reporting.obligations.inset", viewModel.endYear))
         govukInsetText(InsetText(id = Some("gross-income-threshold-warning"), content = content))
-    }
+
     }
 
     @p(id=Some("you-can-check-thresholds")){
@@ -203,7 +203,7 @@
         val content = HtmlContent(messages("optout.confirmedOptOut.scenario5.reporting.obligations.inset", viewModel.endYear))
         govukInsetText(InsetText(id = Some("gross-income-threshold-warning"), content = content))
     }
-    }
+
 
     @p(id=Some("you-can-check-thresholds")){
         @messages("optout.confirmedOptOut.scenario5.reporting.obligations.p2")
