@@ -194,14 +194,6 @@
     )
 }
 
-@fileLink(itsaStatus: ITSAStatus) = @{
-    if (ITSAStatus.isExemptionStatus(itsaStatus)) {
-        appConfig.logInFileSelfAssessmentTaxReturnLink
-    } else {
-        appConfig.compatibleSoftwareLink
-    }
-}
-
 @currentYearTabContentAnnual = {
     @h2(getMessage("annual.heading", currentTaxYearStart, currentTaxYearEnd), classes = "govuk-heading-l", optId = Some("current-year-heading"))
     @p(id = Some("current-year-desc")){@getMessage("annual.text1")}
@@ -213,7 +205,7 @@
             } else {
                 getMessage("annual.text2")
             }),
-            link(link = fileLink(currentTaxYearStatus), target = Some("_blank"), messageKey = getMessage("annual.link"), id = Some("annual-compatible-software-link"), outerMessage = ".")
+            link(link = appConfig.logInFileSelfAssessmentTaxReturnLink, target = Some("_blank"), messageKey = getMessage("annual.link"), id = Some("annual-legacy-file-online-link"), outerMessage = ".")
         ))
     }
     @p(id = Some("current-year-return-due-date")) {
@@ -249,7 +241,7 @@
             } else {
                 getMessage("annual.text2")
             }),
-            link(link = fileLink(nextTaxYearStatus), target = Some("_blank"), messageKey = getMessage("annual.link"), id = Some("annual-compatible-software-link-ny"), outerMessage = ".")
+            link(link = appConfig.logInFileSelfAssessmentTaxReturnLink, target = Some("_blank"), messageKey = getMessage("annual.link"), id = Some("annual-legacy-file-online-link-ny"), outerMessage = ".")
         ))
     }
     @p(id = Some("next-year-desc2")){ @getMessage("annual.ny.text1") }
