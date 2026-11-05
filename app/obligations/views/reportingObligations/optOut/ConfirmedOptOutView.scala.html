@@ -104,7 +104,7 @@
             id = Some("sign-up-criteria-link"),
             messageKey = "optout.confirmedOptOut.scenario1.reporting.obligations.p2.link",
             target = Some("_blank"),
-            outerMessage = "."
+            outerMessage=messages("base.fullstop")
         )
     }
 
@@ -130,7 +130,7 @@
             id = Some("sign-up-criteria-link"),
             messageKey = "optout.confirmedOptOut.scenario1.reporting.obligations.p2.link",
             target = Some("_blank"),
-            additionalOpenTabMessage = Some(".")
+            outerMessage=messages("base.fullstop")
         )
     }
 
@@ -158,7 +158,7 @@
             id = Some("sign-up-criteria-link"),
             messageKey = "optout.confirmedOptOut.scenario3.reporting.obligations.p2.link",
             target = Some("_blank"),
-            additionalOpenTabMessage = Some(".")
+            outerMessage=messages("base.fullstop")
         )
     }
 
@@ -186,7 +186,7 @@
             id = Some("sign-up-criteria-link"),
             messageKey = "optout.confirmedOptOut.scenario4.reporting.obligations.p2.link",
             target = Some("_blank"),
-            additionalOpenTabMessage = Some(".")
+            outerMessage=messages("base.fullstop")
         )
     }
 }
@@ -212,7 +212,7 @@
             id = Some("sign-up-criteria-link"),
             messageKey = "optout.confirmedOptOut.scenario5.reporting.obligations.p2.link",
             target = Some("_blank"),
-            additionalOpenTabMessage = Some(".")
+            outerMessage=messages("base.fullstop")
         )
     }
 }
@@ -308,7 +308,8 @@
                     id = Some("sign-up-criteria-ext"),
                     target = Some("_blank"),
                     link = externalRefLink,
-                    messageKey = "optout.confirmedOptOut.reportQuarterly.desc2.anchor-text"
+                    messageKey = "optout.confirmedOptOut.reportQuarterly.desc2.anchor-text",
+                    outerMessage=messages("base.fullstop")
                 )
 
                 Html(messages("optout.confirmedOptOut.reportQuarterly.desc2", anchor.toString()))
