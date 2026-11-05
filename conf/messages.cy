@@ -1314,9 +1314,8 @@ optout.confirmedOptOut.reportQuarterly.desc2.anchor-text         = arweiniad yng
 optout.confirmedOptOut.report-quarterly-next-year-onwards        = Cyflwyno adroddiadau’n chwarterol o’r flwyddyn dreth nesaf ymlaen
 optout.confirmedOptOut.warning-quarterly-update.text             = O 6 Ebrill {0} ymlaen, bydd gofyn i chi anfon diweddariadau chwarterol drwy
 optout.confirmedOptOut.software-compatible                       = feddalwedd sy’n cydweddu â’r cynllun Troi Treth yn Ddigidol
-optout.confirmedOptOut.reportQuarterly.reason-list               = Gallai hyn fod oherwydd y canlynol:
-optout.confirmedOptOut.reportQuarterly.reason1                   = gostyngodd CThEF y trothwy incwm ar gyfer y cynllun Troi Treth yn Ddigidol
-optout.confirmedOptOut.reportQuarterly.reason2                   = gwnaethoch roi gwybod am gynnydd yn eich incwm cymwys mewn Ffurflen Dreth
+optout.confirmedOptOut.reportQuarterly.reason-list               = Mae hyn oherwydd bod eich incwm gros o hunangyflogaeth neu eiddo, neu’r ddau, yn fwy na’r trothwy o ran incwm (sef £30,000).
+
 
 optout.confirmedOptOut.scenario1.reporting.obligations.heading                = Eich ymrwymiadau o ran cyflwyno yn y dyfodol
 optout.confirmedOptOut.scenario1.reporting.obligations.p1                     = Os yw’ch incwm gros o hunangyflogaeth neu eiddo, neu’r ddau, dros y trothwy (sef £30,000), mae’n rhaid i chi ail-ddechrau defnyddio’r cynllun Troi Treth yn Ddigidol.
