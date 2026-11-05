@@ -1324,7 +1324,7 @@ optout.confirmedOptOut.scenario1.reporting.obligations.p2                     = 
 optout.confirmedOptOut.scenario1.reporting.obligations.p2.link                = arweiniad ynghylch pryd fydd angen i chi ddefnyddio Troi Treth yn Ddigidol ar gyfer Treth Incwm
 
 optout.confirmedOptOut.scenario2.reporting.obligations.heading                = Cyflwyno adroddiadau’n chwarterol o’r flwyddyn dreth nesaf ymlaen
-optout.confirmedOptOut.scenario2.reporting.obligations.inset                  = O 6 Ebrill {0} ymlaen, efallai bydd yn rhaid i chi ddefnyddio’r cynllun Troi Treth yn Ddigidol ar gyfer Treth Incwm.
+optout.confirmedOptOut.scenario2.reporting.obligations.inset                  = O 6 Ebrill {0} ymlaen, bydd gofyn i chi anfon diweddariadau chwarterol drwy feddalwedd sy’n cydweddu â’r cynllun Troi Treth yn Ddigidol ar gyfer Treth Incwm.
 optout.confirmedOptOut.scenario2.reporting.obligations.p1                     = Mae hyn oherwydd bod eich incwm gros o hunangyflogaeth neu eiddo, neu’r ddau, yn fwy na’r trothwy o ran incwm (sef £30,000).
 
 optout.confirmedOptOut.scenario3.reporting.obligations.heading                = Eich ymrwymiadau o ran cyflwyno yn y dyfodol
