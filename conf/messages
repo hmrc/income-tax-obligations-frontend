@@ -1329,7 +1329,7 @@ optout.confirmedOptOut.scenario1.reporting.obligations.inset                  = 
 optout.confirmedOptOut.scenario1.reporting.obligations.p2                     = You can find out more about the income threshold in the
 optout.confirmedOptOut.scenario1.reporting.obligations.p2.link                = guidance on when you’ll need to use Making Tax Digital for Income Tax
 
-optout.confirmedOptOut.scenario2.reporting.obligations.heading                = Your reporting obligations from the next tax year onwards
+optout.confirmedOptOut.scenario2.reporting.obligations.heading                = Reporting quarterly from next tax year onwards
 optout.confirmedOptOut.scenario2.reporting.obligations.inset                  = From 6 April {0}, you will be required to use Making Tax Digital for Income Tax.
 optout.confirmedOptOut.scenario2.reporting.obligations.p1                     = This is because your gross income from self-employment or property, or both, is above the (£30,000) income threshold.
 
