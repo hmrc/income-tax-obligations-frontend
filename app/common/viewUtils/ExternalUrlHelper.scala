@@ -52,9 +52,9 @@ object ExternalUrlHelper {
 
   def saWhoNeedsToSignUpUrl(implicit messages: Messages): String =
     messages.lang.code match {
-      case "en" => "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax#who-will-need-to-sign-up"
+      case "en" => "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
       case "cy" => "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax.cy"
-      case _ => "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax#who-will-need-to-sign-up"
+      case _ => "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
     }
 
   val agentUnauthorisedURL = "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax"

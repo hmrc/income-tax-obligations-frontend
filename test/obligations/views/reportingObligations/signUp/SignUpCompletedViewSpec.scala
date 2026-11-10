@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ class SignUpCompletedViewSpec extends TestSupport {
     val currentYearReportingObligationsBullet2 = "you report an increase in your qualifying income in a tax return"
     val currentYearReportingObligationsInset = "For example, if your total gross income from self-employment or property, or both, exceeds the £50,000 threshold in the 2025 to 2026 tax year, you would have to use Making Tax Digital for Income Tax from 6 April 2027."
     val currentYearReportingObligationsDesc2 = "If this happens, we will write to you to let you know."
-    val currentYearReportingObligationsDesc3 = "You can check the threshold for qualifying income in the criteria for people who will need to sign up for Making Tax Digital for Income Tax (opens in new tab)."
+    val currentYearReportingObligationsDesc3 = "You can find out more about the income threshold in the guidance on when you’ll need to use Making Tax Digital for Income Tax (opens in new tab)."
 
     val currentYearReportingObligationsMandatedHeading = "Your reporting obligations from the next tax year onwards"
     val currentYearReportingObligationsMandatedDesc = "You have just voluntarily signed up from the 2025 to 2026 tax year."
@@ -56,7 +56,7 @@ class SignUpCompletedViewSpec extends TestSupport {
     val currentYearReportingObligationsMandatedDesc2 = "This could be because:"
     val currentYearReportingObligationsMandatedBullet1 = "HMRC lowered the income threshold for it"
     val currentYearReportingObligationsMandatedBullet2 = "you reported an increase in your qualifying income in a tax return"
-    val currentYearReportingObligationsMandatedDesc3 = "You can check the threshold for qualifying income in the criteria for people who will need to sign up for Making Tax Digital for Income Tax (opens in new tab)."
+    val currentYearReportingObligationsMandatedDesc3 = "You can find out more about the income threshold in the guidance on when you’ll need to use Making Tax Digital for Income Tax (opens in new tab)."
 
     val nextYearCompletedHeading = "Sign up completed"
     val nextYearCompletedTitle = "Sign up completed - Manage your Self Assessment - GOV.UK"
@@ -77,11 +77,11 @@ class SignUpCompletedViewSpec extends TestSupport {
     val nextYearReportingObligationsBullet2 = "you report an increase in your qualifying income in a tax return"
     val nextYearReportingObligationsInset = "For example, if your income from self-employment or property, or both, exceeds the threshold in the 2026 to 2027 tax year, you would have to report quarterly from 6 April 2028."
     val nextYearReportingObligationsDesc2 = "If this happens, we will write to you to let you know."
-    val nextYearReportingObligationsDesc3 = "You can check the threshold for qualifying income in the criteria for people who will need to sign up for Making Tax Digital for Income Tax (opens in new tab)."
+    val nextYearReportingObligationsDesc3 = "You can find out more about the income threshold in the guidance on when you’ll need to use Making Tax Digital for Income Tax (opens in new tab)."
 
     val compatibleSoftwareLink = "https://www.gov.uk/guidance/choose-the-right-software-for-making-tax-digital-for-income-tax"
     val fileATaxReturnLink = "https://www.gov.uk/log-in-file-self-assessment-tax-return"
-    val criteriaForMtdLink = "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax#who-will-need-to-sign-up"
+    val criteriaForMtdLink = "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
   }
 
   val view: SignUpCompletedView = app.injector.instanceOf[SignUpCompletedView]
