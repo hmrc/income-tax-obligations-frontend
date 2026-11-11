@@ -53,7 +53,7 @@ object ReportingFrequencyViewMessages {
 
   val mandatoryReportingHeadingR17 = "When Making Tax Digital for Income Tax is required"
   val mandatoryReportingHeading = "When reporting quarterly is mandatory"
-  val mandatoryReportingInsetR17 =  "You must use Making Tax Digital for Income Tax if your total gross income from self-employment or property, or both, exceeds the £50,000 threshold."
+  val mandatoryReportingInsetR17 =  "You must use Making Tax Digital for Income Tax if your total gross income from self-employment or property, or both, exceeds the £30,000 threshold."
   val mandatoryReportingInset =  "Reporting quarterly is required if your income from self-employment or property, or both, exceeds the income threshold."
   val mandatoryReportingTextR17 = "If this happens in the 2022 to 2023 tax year, you would be required to use Making Tax Digital for Income Tax for the 2024 to 2025 tax year."
   val mandatoryReportingText = "You can find out more about the income threshold in the guidance on when you’ll need to use Making Tax Digital for Income Tax (opens in new tab)."

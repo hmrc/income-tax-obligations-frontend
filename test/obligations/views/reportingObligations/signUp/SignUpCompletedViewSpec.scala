@@ -42,20 +42,16 @@ class SignUpCompletedViewSpec extends TestSupport {
     val currentYearSubmitUpdatesHeading = "Submit updates in software"
     val currentYearSubmitUpdatesDesc = "For any tax year you are using Making Tax Digital for Income Tax, you need compatible software (opens in new tab)."
 
-    val currentYearReportingObligationsHeading = "Your reporting obligations in the future"
-    val currentYearReportingObligationsDesc = "You are now voluntarily signed up from the 2025 to 2026 tax year onwards, but in future you could be required to use Making Tax Digital for Income Tax if:"
-    val currentYearReportingObligationsBullet1 = "HMRC lowers the income threshold for it"
-    val currentYearReportingObligationsBullet2 = "you report an increase in your qualifying income in a tax return"
-    val currentYearReportingObligationsInset = "For example, if your total gross income from self-employment or property, or both, exceeds the £50,000 threshold in the 2025 to 2026 tax year, you would have to use Making Tax Digital for Income Tax from 6 April 2027."
+    val currentYearReportingObligationsHeading = "Your future obligations"
+    val currentYearReportingObligationsDesc = "You are now voluntarily signed up from the 2025 to 2026 tax year onwards. If your gross income from self-employment or property, or both, is above the (£30,000) threshold, you must start using Making Tax Digital again."
+    val currentYearReportingObligationsInset = "For example, if your income exceeds £30,000 in the 2025 to 2026 tax year, you’ll be required to use Making Tax Digital for Income Tax from 6 April 2027."
     val currentYearReportingObligationsDesc2 = "If this happens, we will write to you to let you know."
     val currentYearReportingObligationsDesc3 = "You can find out more about the income threshold in the guidance on when you’ll need to use Making Tax Digital for Income Tax (opens in new tab)."
 
-    val currentYearReportingObligationsMandatedHeading = "Your reporting obligations from the next tax year onwards"
-    val currentYearReportingObligationsMandatedDesc = "You have just voluntarily signed up from the 2025 to 2026 tax year."
-    val currentYearReportingObligationsMandatedInset = "From 6 April 2026, you will be required to use Making Tax Digital for Income Tax."
-    val currentYearReportingObligationsMandatedDesc2 = "This could be because:"
-    val currentYearReportingObligationsMandatedBullet1 = "HMRC lowered the income threshold for it"
-    val currentYearReportingObligationsMandatedBullet2 = "you reported an increase in your qualifying income in a tax return"
+    val currentYearReportingObligationsMandatedHeading = "Reporting quarterly from next tax year onwards"
+    val currentYearReportingObligationsMandatedDesc = "You have just chosen to voluntarily report quarterly for the 2025 to 2026 tax year."
+    val currentYearReportingObligationsMandated= "From 6 April 2026, you’ll be required to send quarterly updates through software compatible with Making Tax Digital for Income Tax."
+    val currentYearReportingObligationsMandatedDesc2 = "This is because your gross income from self-employment or property, or both, is above the (£30,000) income threshold."
     val currentYearReportingObligationsMandatedDesc3 = "You can find out more about the income threshold in the guidance on when you’ll need to use Making Tax Digital for Income Tax (opens in new tab)."
 
     val nextYearCompletedHeading = "Sign up completed"
@@ -71,11 +67,9 @@ class SignUpCompletedViewSpec extends TestSupport {
     val nextYearSubmitUpdatesDesc = "For any tax year you are using Making Tax Digital for Income Tax, you need compatible software (opens in new tab)."
     val nextYearSubmitUpdatesDescAnnual = "When you are not using Making Tax Digital for Income Tax, you can find out here how to file your Self Assessment tax return (opens in new tab)."
 
-    val nextYearReportingObligationsHeading = "Your reporting obligations in the future"
-    val nextYearReportingObligationsDesc = "You have just chosen to sign up from the next tax year onwards, but in future you could have to use Making Tax Digital for Income Tax if:"
-    val nextYearReportingObligationsBullet1 = "HMRC lowers the income threshold for it"
-    val nextYearReportingObligationsBullet2 = "you report an increase in your qualifying income in a tax return"
-    val nextYearReportingObligationsInset = "For example, if your income from self-employment or property, or both, exceeds the threshold in the 2026 to 2027 tax year, you would have to report quarterly from 6 April 2028."
+    val nextYearReportingObligationsHeading = "Your future obligations"
+    val nextYearReportingObligationsDesc = "You are now voluntarily signed up from the 2026 to 2027 tax year onwards. If your gross income from self-employment or property, or both, is above the (£30,000) threshold, you must start using Making Tax Digital again."
+    val nextYearReportingObligationsInset = "For example, if your income exceeds £30,000 in the 2026 to 2027 tax year, you’ll be required to use Making Tax Digital for Income Tax from 6 April 2028."
     val nextYearReportingObligationsDesc2 = "If this happens, we will write to you to let you know."
     val nextYearReportingObligationsDesc3 = "You can find out more about the income threshold in the guidance on when you’ll need to use Making Tax Digital for Income Tax (opens in new tab)."
 
@@ -136,8 +130,7 @@ class SignUpCompletedViewSpec extends TestSupport {
       "render the correct your reporting obligations section when CY+1 isn't mandated" in new Setup(taxYear = TaxYear(2025, 2026), isCurrentYear = true) {
         pageDocument.getElementById("your-reporting-obligations-heading").text() shouldBe SignUpCompletedViewMessages.currentYearReportingObligationsHeading
         pageDocument.getElementById("your-reporting-obligations-desc").text() shouldBe SignUpCompletedViewMessages.currentYearReportingObligationsDesc
-        pageDocument.getElementsByClass("govuk-list govuk-list--bullet").text() shouldBe SignUpCompletedViewMessages.currentYearReportingObligationsBullet1 + " " + SignUpCompletedViewMessages.currentYearReportingObligationsBullet2
-        pageDocument.getElementById("your-reporting-obligations-inset").text() shouldBe SignUpCompletedViewMessages.currentYearReportingObligationsInset
+         pageDocument.getElementById("your-reporting-obligations-inset").text() shouldBe SignUpCompletedViewMessages.currentYearReportingObligationsInset
         pageDocument.getElementById("your-reporting-obligations-desc-2").text() shouldBe SignUpCompletedViewMessages.currentYearReportingObligationsDesc2
         pageDocument.getElementById("your-reporting-obligations-desc-3").text() shouldBe SignUpCompletedViewMessages.currentYearReportingObligationsDesc3
         pageDocument.getElementById("your-reporting-obligations-desc-3").select("a").attr("href") shouldBe SignUpCompletedViewMessages.criteriaForMtdLink
@@ -146,11 +139,10 @@ class SignUpCompletedViewSpec extends TestSupport {
       "render the correct your reporting obligations section when CY+1 is mandated" in new Setup(taxYear = TaxYear(2025, 2026), isCurrentYear = true, isNextYearMandated = true) {
         pageDocument.getElementById("your-reporting-obligations-ny-mandated-heading").text() shouldBe SignUpCompletedViewMessages.currentYearReportingObligationsMandatedHeading
         pageDocument.getElementById("your-reporting-obligations-ny-mandated-desc").text() shouldBe SignUpCompletedViewMessages.currentYearReportingObligationsMandatedDesc
-        pageDocument.getElementById("your-reporting-obligations-ny-mandated-inset").text() shouldBe SignUpCompletedViewMessages.currentYearReportingObligationsMandatedInset
-        pageDocument.getElementById("your-reporting-obligations-ny-mandated-desc-2").text() shouldBe SignUpCompletedViewMessages.currentYearReportingObligationsMandatedDesc2
-        pageDocument.getElementsByClass("govuk-list govuk-list--bullet").text() shouldBe SignUpCompletedViewMessages.currentYearReportingObligationsMandatedBullet1 + " " + SignUpCompletedViewMessages.currentYearReportingObligationsMandatedBullet2
-        pageDocument.getElementById("your-reporting-obligations-ny-mandated-desc-3").text() shouldBe SignUpCompletedViewMessages.currentYearReportingObligationsMandatedDesc3
-        pageDocument.getElementById("your-reporting-obligations-ny-mandated-desc-3").select("a").attr("href") shouldBe SignUpCompletedViewMessages.criteriaForMtdLink
+        pageDocument.getElementById("your-reporting-obligations-ny-mandated-desc-2").text() shouldBe SignUpCompletedViewMessages.currentYearReportingObligationsMandated
+        pageDocument.getElementById("your-reporting-obligations-ny-mandated-desc3").text() shouldBe SignUpCompletedViewMessages.currentYearReportingObligationsMandatedDesc2
+        pageDocument.getElementById("your-reporting-obligations-ny-mandated-desc-4").text() shouldBe SignUpCompletedViewMessages.currentYearReportingObligationsMandatedDesc3
+        pageDocument.getElementById("your-reporting-obligations-ny-mandated-desc-4").select("a").attr("href") shouldBe SignUpCompletedViewMessages.criteriaForMtdLink
       }
 
       "render the correct links for agents" in new Setup(isAgent = true, taxYear = TaxYear(2025, 2026), isCurrentYear = true) {
@@ -192,7 +184,6 @@ class SignUpCompletedViewSpec extends TestSupport {
       "render the correct your reporting obligations section" in new Setup(taxYear = TaxYear(2026, 2027), isCurrentYear = false) {
         pageDocument.getElementById("your-reporting-obligations-heading").text() shouldBe SignUpCompletedViewMessages.nextYearReportingObligationsHeading
         pageDocument.getElementById("your-reporting-obligations-desc").text() shouldBe SignUpCompletedViewMessages.nextYearReportingObligationsDesc
-        pageDocument.getElementsByClass("govuk-list govuk-list--bullet").text() shouldBe SignUpCompletedViewMessages.nextYearReportingObligationsBullet1 + " " + SignUpCompletedViewMessages.nextYearReportingObligationsBullet2
         pageDocument.getElementById("your-reporting-obligations-inset").text() shouldBe SignUpCompletedViewMessages.nextYearReportingObligationsInset
         pageDocument.getElementById("your-reporting-obligations-desc-2").text() shouldBe SignUpCompletedViewMessages.nextYearReportingObligationsDesc2
         pageDocument.getElementById("your-reporting-obligations-desc-3").text() shouldBe SignUpCompletedViewMessages.nextYearReportingObligationsDesc3
