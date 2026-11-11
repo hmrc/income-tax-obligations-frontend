@@ -50,7 +50,8 @@ class ReportingFrequencyViewModelSpec extends UnitSpec with MockDateService with
     (false, Voluntary, Annual, Mandated, List(Some("optOut.previousYear.single"), Some("signUp.currentYear.single"), None)),
     (false, Voluntary, Mandated, Voluntary, List(Some("optOut.previousYear.single"), None, Some("optOut.nextYear"))),
     (false, Voluntary, Mandated, Annual, List(Some("optOut.previousYear.single"), None, Some("signUp.nextYear"))),
-    (false, Voluntary, Mandated, Mandated, List(Some("optOut.previousYear.single"), None, None))
+    (false, Voluntary, Mandated, Mandated, List(Some("optOut.previousYear.single"), None, None)),
+    (false, Voluntary, Exempt, Annual, List(Some("optOut.previousYear.single"), None, Some("signUp.nextYear")))
   )
 
   "ReportingFrequencyViewModel" when {
@@ -405,34 +406,6 @@ class ReportingFrequencyViewModelSpec extends UnitSpec with MockDateService with
           model.signUpExistsWhileEnabled shouldBe false
           model.optOutExistsWhileEnabled shouldBe false
           model.getSummaryCardSuffixes shouldBe List(None, None, None)
-        }
-
-        "there is an exempt status" in {
-          setupMockGetCurrentTaxYear(mockDateServiceInjected)(TaxYear(2025, 2026))
-
-          val optOutProposition = OptOutProposition.createOptOutProposition(
-            currentYear = TaxYear(2025, 2026),
-            previousYearCrystallised = false,
-            previousYearItsaStatus = Voluntary,
-            currentYearItsaStatus = Exempt,
-            nextYearItsaStatus = Annual
-          )
-
-          val model = ReportingFrequencyViewModel(
-            isAgent = false,
-            signUpTaxYears = Seq.empty,
-            itsaStatusTable = Seq(),
-            displayCeasedBusinessWarning = false,
-            isAnyOfBusinessLatent = false,
-            mtdThreshold = "",
-            proposition = optOutProposition,
-            isSignUpEnabled = true,
-            isOptOutEnabled = true
-          )(mockDateServiceInjected)
-
-          model.signUpExistsWhileEnabled shouldBe false
-          model.optOutExistsWhileEnabled shouldBe true
-          model.getSummaryCardSuffixes shouldBe List()
         }
       }
 
