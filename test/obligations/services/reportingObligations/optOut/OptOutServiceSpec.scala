@@ -464,7 +464,7 @@ class OptOutServiceSpec
           previousYearCrystallisedStatus = false,
           previousYearStatus = Exempt,
           currentYearStatus = Voluntary,
-          nextYearStatus = Exempt,
+          nextYearStatus = DigitallyExempt,
           nino = testNino
         )
 
@@ -478,7 +478,7 @@ class OptOutServiceSpec
           Some(OneYearOptOutFollowedByAnnual),
           1,
           Voluntary,
-          Exempt
+          DigitallyExempt
         ))
       }
 
