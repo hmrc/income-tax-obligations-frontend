@@ -16,7 +16,7 @@
 
 package obligations.services.reportingObligations.optOut
 
-import common.models.itsaStatus.ITSAStatus.{Annual, Dormant, Mandated, Voluntary}
+import common.models.itsaStatus.ITSAStatus.{Annual, DigitallyExempt, Dormant, Exempt, Mandated, Voluntary}
 
 sealed trait OptOutPropositionTypes {
   val proposition: OptOutProposition
@@ -34,10 +34,10 @@ case class OneYearOptOutProposition (proposition: OptOutProposition) extends Opt
 
     (intent, currentTaxYear.status, nextTaxYear.status) match {
       case (selectedYear, Mandated | Dormant, _) if selectedYear == previousTaxYear => Some(OneYearOptOutFollowedByMandated)
-      case (selectedYear, Annual, _) if selectedYear == previousTaxYear => Some(OneYearOptOutFollowedByAnnual)
+      case (selectedYear, Annual | Exempt | DigitallyExempt, _) if selectedYear == previousTaxYear => Some(OneYearOptOutFollowedByAnnual)
 
       case (selectedYear, _, Mandated | Dormant) if selectedYear == currentTaxYear => Some(OneYearOptOutFollowedByMandated)
-      case (selectedYear, _, Annual) if selectedYear == currentTaxYear => Some(OneYearOptOutFollowedByAnnual)
+      case (selectedYear, _, Annual | Exempt | DigitallyExempt) if selectedYear == currentTaxYear => Some(OneYearOptOutFollowedByAnnual)
 
       case (selectedYear, _, _) if selectedYear == nextTaxYear => Some(NextYearOptOut)
 

@@ -148,12 +148,8 @@ case class ReportingFrequencyViewModel(
       case Voluntary | Annual => MultiYearCard
       case _ => NoCard
     }
-
-    if (hasExemptStatuses) {
-      List()
-    } else {
-      List(previousYearCheck, currentYearCheck, nextYearCheck)
-    }
+    
+    List(previousYearCheck, currentYearCheck, nextYearCheck)
   }
 
   val getSummaryCardSuffixes: List[Option[String]] = {
