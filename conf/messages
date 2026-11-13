@@ -1314,7 +1314,7 @@ optout.confirmedOptOut.updatesDue.desc                           = Check the {0}
 optout.confirmedOptOut.next-updates                              = submission deadlines
 
 optout.confirmedOptOut.reportQuarterly                           = Your future obligations
-optout.confirmedOptOut.reportQuarterly.desc1                     = You opted out from the current year onwards. If your gross income from self-employment or property, or both, is above the (£30,000) threshold, you must start using Making Tax Digital again. If this happens, we’ll write to you to let you know.
+optout.confirmedOptOut.reportQuarterly.desc1                     = You opted out from the current tax year onwards. If your gross income from self-employment or property, or both, is above the (£30,000) threshold, you must start using Making Tax Digital again. If this happens, we’ll write to you to let you know.
 optout.confirmedOptOut.reportQuarterly.desc2                     = If this happens, we will write to you to let you know.
 optout.confirmedOptOut.reportQuarterly.example                   = For example, if your income exceeds £30,000 in the {0} to {1} tax year, you’ll be required to use Making Tax Digital for Income Tax from 6 April {2}.
 optout.confirmedOptOut.reportQuarterly.desc3                     = You can find out more about the income threshold in the {0} .
@@ -1324,7 +1324,7 @@ optout.confirmedOptOut.warning-quarterly-update.text             = From 6 April 
 optout.confirmedOptOut.reportQuarterly.reason-list               = This is because your gross income from self-employment or property, or both, is above the (£30,000) income threshold.
 
 optout.confirmedOptOut.scenario1.reporting.obligations.heading                = Your future obligations
-optout.confirmedOptOut.scenario1.reporting.obligations.p1                     = You opted out from the current year onwards. If your gross income from self-employment or property, or both, is above the (£30,000) threshold, you must start using Making Tax Digital again. If this happens, we’ll write to you to let you know.
+optout.confirmedOptOut.scenario1.reporting.obligations.p1                     = You opted out from the current tax year onwards. If your gross income from self-employment or property, or both, is above the (£30,000) threshold, you must start using Making Tax Digital again. If this happens, we’ll write to you to let you know.
 optout.confirmedOptOut.scenario1.reporting.obligations.inset                  = For example, if your income exceeds £30,000 in the {0} to {1} tax year, you’ll be required to use Making Tax Digital for Income Tax from 6 April {2}.
 optout.confirmedOptOut.scenario1.reporting.obligations.p2                     = You can find out more about the income threshold in the
 optout.confirmedOptOut.scenario1.reporting.obligations.p2.link                = guidance on when you’ll need to use Making Tax Digital for Income Tax
@@ -1335,21 +1335,21 @@ optout.confirmedOptOut.scenario2.reporting.obligations.p1                     = 
 optout.confirmedOptOut.scenario2.reporting.obligations.p2                     = This is because your gross income from self-employment or property, or both, is above the (£30,000) income threshold.
 
 optout.confirmedOptOut.scenario3.reporting.obligations.heading                = Your future obligations
-optout.confirmedOptOut.scenario3.reporting.obligations.p1                     = You opted out from the current year onwards. If your gross income from self-employment or property, or both, is above the (£30,000) threshold, you must start using Making Tax Digital again. If this happens, we’ll write to you to let you know.
+optout.confirmedOptOut.scenario3.reporting.obligations.p1                     = You opted out from the current tax year onwards. If your gross income from self-employment or property, or both, is above the (£30,000) threshold, you must start using Making Tax Digital again. If this happens, we’ll write to you to let you know.
 optout.confirmedOptOut.scenario3.reporting.obligations.inset                  = For example, if your income exceeds £30,000 in the {0} to {1} tax year, you’ll be required to use Making Tax Digital for Income Tax from 6 April {2}.
 optout.confirmedOptOut.scenario3.reporting.obligations.p2                     = You can find out more about the income threshold in the
 optout.confirmedOptOut.scenario3.reporting.obligations.p2.link                = guidance on when you’ll need to use Making Tax Digital for Income Tax
 optout.confirmedOptOut.scenario3.reporting.obligations.p3                     = If this happens, we will write to you to let you know.
 
 optout.confirmedOptOut.scenario4.reporting.obligations.heading                = Your future obligations
-optout.confirmedOptOut.scenario4.reporting.obligations.p1                     = You opted out from the current year onwards. If your gross income from self-employment or property, or both, is above the (£30,000) threshold, you must start using Making Tax Digital again. If this happens, we’ll write to you to let you know.
+optout.confirmedOptOut.scenario4.reporting.obligations.p1                     = You opted out from the current tax year onwards. If your gross income from self-employment or property, or both, is above the (£30,000) threshold, you must start using Making Tax Digital again. If this happens, we’ll write to you to let you know.
 optout.confirmedOptOut.scenario4.reporting.obligations.inset                  = For example, if your income exceeds £30,000 in the {0} to {1} tax year, you’ll be required to use Making Tax Digital for Income Tax from 6 April {2}.
 optout.confirmedOptOut.scenario4.reporting.obligations.p2                     = You can find out more about the income threshold in the
 optout.confirmedOptOut.scenario4.reporting.obligations.p2.link                = guidance on when you’ll need to use Making Tax Digital for Income Tax
 optout.confirmedOptOut.scenario4.reporting.obligations.p3                     = If this happens, we will write to you to let you know.
 
 optout.confirmedOptOut.scenario5.reporting.obligations.heading                = Your future obligations
-optout.confirmedOptOut.scenario5.reporting.obligations.p1                     = You opted out from the current year onwards. If your gross income from self-employment or property, or both, is above the (£30,000) threshold, you must start using Making Tax Digital again. If this happens, we’ll write to you to let you know.
+optout.confirmedOptOut.scenario5.reporting.obligations.p1                     = You opted out from the tax current year onwards. If your gross income from self-employment or property, or both, is above the (£30,000) threshold, you must start using Making Tax Digital again. If this happens, we’ll write to you to let you know.
 optout.confirmedOptOut.scenario5.reporting.obligations.inset                  = For example, if your income exceeds £30,000 in the {0} to {1} tax year, you’ll be required to use Making Tax Digital for Income Tax from 6 April {2}.
 optout.confirmedOptOut.scenario5.reporting.obligations.p2                     = You can find out more about the income threshold in the
 optout.confirmedOptOut.scenario5.reporting.obligations.p2.link                = guidance on when you’ll need to use Making Tax Digital for Income Tax
