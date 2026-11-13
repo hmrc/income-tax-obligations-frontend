@@ -65,21 +65,17 @@ class SignUpCompletedControllerISpec extends ControllerISpecHelper {
     val currentYearSubmitUpdatesHeading = "Submit updates in software"
     val currentYearSubmitUpdatesDesc = "For any tax year you are using Making Tax Digital for Income Tax, you need compatible software (opens in new tab)."
 
-    val currentYearReportingObligationsHeading = "Your reporting obligations in the future"
-    val currentYearReportingObligationsDesc = "You are now voluntarily signed up from the 2025 to 2026 tax year onwards, but in future you could be required to use Making Tax Digital for Income Tax if:"
-    val currentYearReportingObligationsBullet1 = "HMRC lowers the income threshold for it"
-    val currentYearReportingObligationsBullet2 = "you report an increase in your qualifying income in a tax return"
-    val currentYearReportingObligationsInset = "For example, if your total gross income from self-employment or property, or both, exceeds the £50,000 threshold in the 2025 to 2026 tax year, you would have to use Making Tax Digital for Income Tax from 6 April 2027."
+    val currentYearReportingObligationsHeading = "Your future obligations"
+    val currentYearReportingObligationsDesc = "You are now voluntarily signed up from the 2025 to 2026 tax year onwards. If your gross income from self-employment or property, or both, is above the (£30,000) threshold, you must start using Making Tax Digital again."
+    val currentYearReportingObligationsInset = "For example, if your income exceeds £30,000 in the 2025 to 2026 tax year, you’ll be required to use Making Tax Digital for Income Tax from 6 April 2027."
     val currentYearReportingObligationsDesc2 = "If this happens, we will write to you to let you know."
     val currentYearReportingObligationsDesc3 = "You can find out more about the income threshold in the guidance on when you’ll need to use Making Tax Digital for Income Tax (opens in new tab)."
 
-    val currentYearReportingObligationsMandatedHeading = "Your reporting obligations from the next tax year onwards"
-    val currentYearReportingObligationsMandatedDesc = "You have just voluntarily signed up from the 2025 to 2026 tax year."
-    val currentYearReportingObligationsMandatedInset = "From 6 April 2026, you will be required to use Making Tax Digital for Income Tax."
-    val currentYearReportingObligationsMandatedDesc2 = "This could be because:"
-    val currentYearReportingObligationsMandatedBullet1 = "HMRC lowered the income threshold for it"
-    val currentYearReportingObligationsMandatedBullet2 = "you reported an increase in your qualifying income in a tax return"
-    val currentYearReportingObligationsMandatedDesc3 = "You can find out more about the income threshold in the guidance on when you’ll need to use Making Tax Digital for Income Tax (opens in new tab)."
+    val currentYearReportingObligationsMandatedHeading = "Reporting quarterly from next tax year onwards"
+    val currentYearReportingObligationsMandatedDesc = "You have just chosen to voluntarily report quarterly for the 2025 to 2026 tax year."
+    val currentYearReportingObligationsMandatedDesc2 = "From 6 April 2026, you’ll be required to send quarterly updates through software compatible with Making Tax Digital for Income Tax."
+    val currentYearReportingObligationsMandatedDesc3 = "This is because your gross income from self-employment or property, or both, is above the (£30,000) income threshold."
+    val currentYearReportingObligationsMandatedDesc4 = "You can find out more about the income threshold in the guidance on when you’ll need to use Making Tax Digital for Income Tax (opens in new tab)."
 
     val nextYearCompletedHeading = "Sign up completed"
     val nextYearCompletedTitle = "Sign up completed"
@@ -94,11 +90,9 @@ class SignUpCompletedControllerISpec extends ControllerISpecHelper {
     val nextYearSubmitUpdatesDesc = "For any tax year you are using Making Tax Digital for Income Tax, you need compatible software (opens in new tab)."
     val nextYearSubmitUpdatesDescAnnual = "When you are not using Making Tax Digital for Income Tax, you can find out here how to file your Self Assessment tax return (opens in new tab)."
 
-    val nextYearReportingObligationsHeading = "Your reporting obligations in the future"
-    val nextYearReportingObligationsDesc = "You have just chosen to sign up from the next tax year onwards, but in future you could have to use Making Tax Digital for Income Tax if:"
-    val nextYearReportingObligationsBullet1 = "HMRC lowers the income threshold for it"
-    val nextYearReportingObligationsBullet2 = "you report an increase in your qualifying income in a tax return"
-    val nextYearReportingObligationsInset = "For example, if your income from self-employment or property, or both, exceeds the threshold in the 2026 to 2027 tax year, you would have to report quarterly from 6 April 2028."
+    val nextYearReportingObligationsHeading = "Your future obligations"
+    val nextYearReportingObligationsDesc = "You are now voluntarily signed up from the 2026 to 2027 tax year onwards. If your gross income from self-employment or property, or both, is above the (£30,000) threshold, you must start using Making Tax Digital again."
+    val nextYearReportingObligationsInset = "For example, if your income exceeds £30,000 in the 2026 to 2027 tax year, you’ll be required to use Making Tax Digital for Income Tax from 6 April 2028."
     val nextYearReportingObligationsDesc2 = "If this happens, we will write to you to let you know."
     val nextYearReportingObligationsDesc3 = "You can find out more about the income threshold in the guidance on when you’ll need to use Making Tax Digital for Income Tax (opens in new tab)."
   }
@@ -135,7 +129,6 @@ class SignUpCompletedControllerISpec extends ControllerISpecHelper {
                 elementTextByID("submit-updates-desc")(SignUpCompletedViewMessages.currentYearSubmitUpdatesDesc),
                 elementTextByID("your-reporting-obligations-heading")(SignUpCompletedViewMessages.currentYearReportingObligationsHeading),
                 elementTextByID("your-reporting-obligations-desc")(SignUpCompletedViewMessages.currentYearReportingObligationsDesc),
-                elementTextByClass("govuk-list govuk-list--bullet")(SignUpCompletedViewMessages.currentYearReportingObligationsBullet1 + " " + SignUpCompletedViewMessages.currentYearReportingObligationsBullet2),
                 elementTextByID("your-reporting-obligations-inset")(SignUpCompletedViewMessages.currentYearReportingObligationsInset),
                 elementTextByID("your-reporting-obligations-desc-2")(SignUpCompletedViewMessages.currentYearReportingObligationsDesc2),
                 elementTextByID("your-reporting-obligations-desc-3")(SignUpCompletedViewMessages.currentYearReportingObligationsDesc3)
@@ -166,13 +159,10 @@ class SignUpCompletedControllerISpec extends ControllerISpecHelper {
                 elementTextByID("submit-updates-desc")(SignUpCompletedViewMessages.currentYearSubmitUpdatesDesc),
                 elementTextByID("your-reporting-obligations-ny-mandated-heading")(SignUpCompletedViewMessages.currentYearReportingObligationsMandatedHeading),
                 elementTextByID("your-reporting-obligations-ny-mandated-desc")(SignUpCompletedViewMessages.currentYearReportingObligationsMandatedDesc),
-                elementTextByClass("govuk-list govuk-list--bullet")(
-                  SignUpCompletedViewMessages.currentYearReportingObligationsMandatedBullet1 + " " +
-                    SignUpCompletedViewMessages.currentYearReportingObligationsMandatedBullet2
-                ),
-                elementTextByID("your-reporting-obligations-ny-mandated-inset")(SignUpCompletedViewMessages.currentYearReportingObligationsMandatedInset),
                 elementTextByID("your-reporting-obligations-ny-mandated-desc-2")(SignUpCompletedViewMessages.currentYearReportingObligationsMandatedDesc2),
-                elementTextByID("your-reporting-obligations-ny-mandated-desc-3")(SignUpCompletedViewMessages.currentYearReportingObligationsMandatedDesc3)
+                elementTextByID("your-reporting-obligations-ny-mandated-desc3")(SignUpCompletedViewMessages.currentYearReportingObligationsMandatedDesc3),
+                  elementTextByID("your-reporting-obligations-ny-mandated-desc-4")(SignUpCompletedViewMessages.currentYearReportingObligationsMandatedDesc4)
+
               )
             }
             "is for the next tax year" in {
@@ -199,7 +189,6 @@ class SignUpCompletedControllerISpec extends ControllerISpecHelper {
                 elementTextByID("submit-updates-desc-2")(SignUpCompletedViewMessages.nextYearSubmitUpdatesDescAnnual),
                 elementTextByID("your-reporting-obligations-heading")(SignUpCompletedViewMessages.nextYearReportingObligationsHeading),
                 elementTextByID("your-reporting-obligations-desc")(SignUpCompletedViewMessages.nextYearReportingObligationsDesc),
-                elementTextByClass("govuk-list govuk-list--bullet")(SignUpCompletedViewMessages.nextYearReportingObligationsBullet1 + " " + SignUpCompletedViewMessages.nextYearReportingObligationsBullet2),
                 elementTextByID("your-reporting-obligations-inset")(SignUpCompletedViewMessages.nextYearReportingObligationsInset),
                 elementTextByID("your-reporting-obligations-desc-2")(SignUpCompletedViewMessages.nextYearReportingObligationsDesc2),
                 elementTextByID("your-reporting-obligations-desc-3")(SignUpCompletedViewMessages.nextYearReportingObligationsDesc3)
@@ -228,7 +217,6 @@ class SignUpCompletedControllerISpec extends ControllerISpecHelper {
                 elementTextByID("submit-updates-desc")(SignUpCompletedViewMessages.nextYearSubmitUpdatesDesc),
                 elementTextByID("your-reporting-obligations-heading")(SignUpCompletedViewMessages.nextYearReportingObligationsHeading),
                 elementTextByID("your-reporting-obligations-desc")(SignUpCompletedViewMessages.nextYearReportingObligationsDesc),
-                elementTextByClass("govuk-list govuk-list--bullet")(SignUpCompletedViewMessages.nextYearReportingObligationsBullet1 + " " + SignUpCompletedViewMessages.nextYearReportingObligationsBullet2),
                 elementTextByID("your-reporting-obligations-inset")(SignUpCompletedViewMessages.nextYearReportingObligationsInset),
                 elementTextByID("your-reporting-obligations-desc-2")(SignUpCompletedViewMessages.nextYearReportingObligationsDesc2),
                 elementTextByID("your-reporting-obligations-desc-3")(SignUpCompletedViewMessages.nextYearReportingObligationsDesc3)
