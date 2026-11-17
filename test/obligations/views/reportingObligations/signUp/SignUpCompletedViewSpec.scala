@@ -43,7 +43,7 @@ class SignUpCompletedViewSpec extends TestSupport {
     val currentYearSubmitUpdatesDesc = "For any tax year you are using Making Tax Digital for Income Tax, you need compatible software (opens in new tab)."
 
     val currentYearReportingObligationsHeading = "Your future obligations"
-    val currentYearReportingObligationsDesc = "You are now voluntarily signed up from the 2025 to 2026 tax year onwards. If your gross income from self-employment or property, or both, is above the (£30,000) threshold, you must start using Making Tax Digital again."
+    val currentYearReportingObligationsDesc = "You are now voluntarily signed up from the 2025 to 2026 tax year onwards. If your gross income from self-employment or property, or both, is above the £30,000 threshold, you must start using Making Tax Digital again."
     val currentYearReportingObligationsInset = "For example, if your income exceeds £30,000 in the 2025 to 2026 tax year, you’ll be required to use Making Tax Digital for Income Tax from 6 April 2027."
     val currentYearReportingObligationsDesc2 = "If this happens, we will write to you to let you know."
     val currentYearReportingObligationsDesc3 = "You can find out more about the income threshold in the guidance on when you’ll need to use Making Tax Digital for Income Tax (opens in new tab)."
@@ -51,7 +51,7 @@ class SignUpCompletedViewSpec extends TestSupport {
     val currentYearReportingObligationsMandatedHeading = "Reporting quarterly from next tax year onwards"
     val currentYearReportingObligationsMandatedDesc = "You have just chosen to voluntarily report quarterly for the 2025 to 2026 tax year."
     val currentYearReportingObligationsMandated= "From 6 April 2026, you’ll be required to send quarterly updates through software compatible with Making Tax Digital for Income Tax."
-    val currentYearReportingObligationsMandatedDesc2 = "This is because your gross income from self-employment or property, or both, is above the (£30,000) income threshold."
+    val currentYearReportingObligationsMandatedDesc2 = "This is because your gross income from self-employment or property, or both, is above the £30,000 income threshold."
     val currentYearReportingObligationsMandatedDesc3 = "You can find out more about the income threshold in the guidance on when you’ll need to use Making Tax Digital for Income Tax (opens in new tab)."
 
     val nextYearCompletedHeading = "Sign up completed"
@@ -68,7 +68,7 @@ class SignUpCompletedViewSpec extends TestSupport {
     val nextYearSubmitUpdatesDescAnnual = "When you are not using Making Tax Digital for Income Tax, you can find out here how to file your Self Assessment tax return (opens in new tab)."
 
     val nextYearReportingObligationsHeading = "Your future obligations"
-    val nextYearReportingObligationsDesc = "You are now voluntarily signed up from the 2026 to 2027 tax year onwards. If your gross income from self-employment or property, or both, is above the (£30,000) threshold, you must start using Making Tax Digital again."
+    val nextYearReportingObligationsDesc = "You are now voluntarily signed up from the 2026 to 2027 tax year onwards. If your gross income from self-employment or property, or both, is above the £30,000 threshold, you must start using Making Tax Digital again."
     val nextYearReportingObligationsInset = "For example, if your income exceeds £30,000 in the 2026 to 2027 tax year, you’ll be required to use Making Tax Digital for Income Tax from 6 April 2028."
     val nextYearReportingObligationsDesc2 = "If this happens, we will write to you to let you know."
     val nextYearReportingObligationsDesc3 = "You can find out more about the income threshold in the guidance on when you’ll need to use Making Tax Digital for Income Tax (opens in new tab)."
