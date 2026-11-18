@@ -186,7 +186,7 @@ class ReportingFrequencyViewSpec extends TestSupport {
               Seq(("2024 to 2025", Some("Yes"), Some("Quarterly"))),
               isAnyOfBusinessLatent = false,
               displayCeasedBusinessWarning = false,
-              mtdThreshold = "£50,000",
+              mtdThreshold = "£30,000",
               proposition = optOutProposition,
               isSignUpEnabled = true,
               isOptOutEnabled = true
@@ -224,7 +224,7 @@ class ReportingFrequencyViewSpec extends TestSupport {
               ),
               isAnyOfBusinessLatent = false,
               displayCeasedBusinessWarning = false,
-              mtdThreshold = "£50,000",
+              mtdThreshold = "£30,000",
               proposition = optOutProposition,
               isSignUpEnabled = true,
               isOptOutEnabled = true
@@ -290,7 +290,7 @@ class ReportingFrequencyViewSpec extends TestSupport {
               itsaStatusTable = Seq(("2024 to 2025", Some("Yes"), Some("Quarterly"))),
               displayCeasedBusinessWarning = false,
               isAnyOfBusinessLatent = true,
-              mtdThreshold = "£50,000",
+              mtdThreshold = "£30,000",
               proposition = optOutProposition,
               isSignUpEnabled = true,
               isOptOutEnabled = true
@@ -324,7 +324,7 @@ class ReportingFrequencyViewSpec extends TestSupport {
               itsaStatusTable = Seq(("2024 to 2025", Some("Yes"), Some("Quarterly"))),
               isAnyOfBusinessLatent = false,
               displayCeasedBusinessWarning = false,
-              mtdThreshold = "£50,000",
+              mtdThreshold = "£30,000",
               proposition = optOutProposition,
               isSignUpEnabled = true,
               isOptOutEnabled = true
@@ -367,7 +367,7 @@ class ReportingFrequencyViewSpec extends TestSupport {
               itsaStatusTable = Seq(("2024 to 2025", Some("Yes"), Some("Quarterly"))),
               isAnyOfBusinessLatent = false,
               displayCeasedBusinessWarning = false,
-              mtdThreshold = "£50,000",
+              mtdThreshold = "£30,000",
               proposition = optOutProposition,
               isSignUpEnabled = true,
               isOptOutEnabled = true
@@ -409,7 +409,7 @@ class ReportingFrequencyViewSpec extends TestSupport {
               itsaStatusTable = Seq(("2024 to 2025", Some("Yes"), Some("Quarterly"))),
               isAnyOfBusinessLatent = false,
               displayCeasedBusinessWarning = false,
-              mtdThreshold = "£50,000",
+              mtdThreshold = "£30,000",
               proposition = optOutProposition,
               isSignUpEnabled = true,
               isOptOutEnabled = true
@@ -445,7 +445,7 @@ class ReportingFrequencyViewSpec extends TestSupport {
               itsaStatusTable = Seq(("2024 to 2025", Some("Yes"), Some("Quarterly"))),
               displayCeasedBusinessWarning = false,
               isAnyOfBusinessLatent = true,
-              mtdThreshold = "£50,000",
+              mtdThreshold = "£30,000",
               proposition = optOutProposition,
               isSignUpEnabled = true,
               isOptOutEnabled = true
@@ -478,7 +478,7 @@ class ReportingFrequencyViewSpec extends TestSupport {
               Seq(("2024 to 2025", Some("Yes"), Some("Quarterly"))),
               isAnyOfBusinessLatent = false,
               displayCeasedBusinessWarning = false,
-              mtdThreshold = "£50,000",
+              mtdThreshold = "£30,000",
               proposition = optOutProposition,
               isSignUpEnabled = true,
               isOptOutEnabled = true
@@ -512,7 +512,7 @@ class ReportingFrequencyViewSpec extends TestSupport {
               Seq(("2024 to 2025", Some("Yes"), Some("Quarterly"))),
               isAnyOfBusinessLatent = false,
               displayCeasedBusinessWarning = false,
-              mtdThreshold = "£50,000",
+              mtdThreshold = "£30,000",
               proposition = optOutProposition,
               isSignUpEnabled = true,
               isOptOutEnabled = true
@@ -549,7 +549,7 @@ class ReportingFrequencyViewSpec extends TestSupport {
               ),
               isAnyOfBusinessLatent = false,
               displayCeasedBusinessWarning = true,
-              mtdThreshold = "£50,000",
+              mtdThreshold = "£30,000",
               proposition = optOutProposition,
               isSignUpEnabled = true,
               isOptOutEnabled = true
@@ -591,7 +591,7 @@ class ReportingFrequencyViewSpec extends TestSupport {
             ),
             isAnyOfBusinessLatent = false,
             displayCeasedBusinessWarning = false,
-            mtdThreshold = "£50,000",
+            mtdThreshold = "£30,000",
             proposition = optOutProposition,
             isSignUpEnabled = true,
             isOptOutEnabled = true
