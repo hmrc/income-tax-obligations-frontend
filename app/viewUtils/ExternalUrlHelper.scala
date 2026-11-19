@@ -1,0 +1,61 @@
+/*
+ * Copyright 2026 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package viewUtils
+
+import play.api.i18n.Messages
+
+object ExternalUrlHelper {
+
+  val homepageLink = "https://www.gov.uk"
+
+  def clientAuthorisationGuidance(implicit messages: Messages): String =
+    messages.lang.code match {
+      case "en" => "https://www.gov.uk/government/collections/making-tax-digital-for-income-tax-as-an-agent-step-by-step"
+      case "cy" => "https://www.gov.uk/government/collections/troi-treth-yn-ddigidol-ar-gyfer-treth-incwm-fel-asiant-cam-wrth-gam.cy"
+      case _ => "https://www.gov.uk/government/collections/making-tax-digital-for-income-tax-as-an-agent-step-by-step"
+    }
+
+  def seNationalInsuranceRatesUrl(implicit messages: Messages): String =
+    messages.lang.code match {
+      case "en" => "https://www.gov.uk/self-employed-national-insurance-rates"
+      case "cy" => "https://www.gov.uk/cyfraddau-yswiriant-gwladol-ir-hunangyflogedig"
+      case _ => "https://www.gov.uk/self-employed-national-insurance-rates"
+    }
+
+  def chooseAgentGuidanceUrl(implicit messages: Messages): String =
+    messages.lang.code match {
+      case "en" => "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax"
+      case "cy" => "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax.cy"
+      case _ => "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax"
+    }
+
+  def quarterlyUpdatesGuidanceUrl(implicit messages: Messages): String =
+    messages.lang.code match {
+      case "en" => "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+      case "cy" => "https://www.gov.uk/guidance/defnyddio-r-cynllun-troi-treth-yn-ddigidol-ar-gyfer-treth-incwm/anfon-diweddariadau-chwarterol"
+      case _ => "https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax/send-quarterly-updates"
+    }
+
+  def saWhoNeedsToSignUpUrl(implicit messages: Messages): String =
+    messages.lang.code match {
+      case "en" => "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+      case "cy" => "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax.cy"
+      case _ => "https://www.gov.uk/guidance/find-out-if-and-when-you-need-to-use-making-tax-digital-for-income-tax"
+    }
+
+  val agentUnauthorisedURL = "https://www.gov.uk/guidance/choose-agents-for-making-tax-digital-for-income-tax"
+}

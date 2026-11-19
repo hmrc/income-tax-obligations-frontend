@@ -1,0 +1,136 @@
+/*
+ * Copyright 2023 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package auth
+
+import auth.actions.{AgentHasConfirmedClientAction, AgentIsPrimaryAction, AuthoriseAndRetrieve, AuthoriseAndRetrieveAgent, AuthoriseAndRetrieveAgentForNrs, AuthoriseAndRetrieveIndividual, AuthoriseAndRetrieveIndividualForNrs, AuthoriseAndRetrieveMtdAgent, FeatureSwitchRetrievalAction, IncomeSourceRetrievalAction, NavBarRetrievalAction, RetrieveClientData, SessionTimeoutAction, TriggeredMigrationRetrievalAction}
+import config.FrontendAppConfig
+import config.featureswitch.FeatureSwitching
+import play.api.mvc.*
+
+import javax.inject.{Inject, Singleton}
+
+@Singleton
+class AuthActions @Inject()(
+                             frontendAppConfig: FrontendAppConfig,
+                             val actionBuilder: DefaultActionBuilder,
+                             val checkSessionTimeout: SessionTimeoutAction,
+                             val authoriseAndRetrieve: AuthoriseAndRetrieve,
+                             val authoriseAndRetrieveIndividual: AuthoriseAndRetrieveIndividual,
+                             val authoriseAndRetrieveAgent: AuthoriseAndRetrieveAgent,
+                             val authoriseAndRetrieveMtdAgent: AuthoriseAndRetrieveMtdAgent,
+                             val agentHasConfirmedClientAction: AgentHasConfirmedClientAction,
+                             val agentIsPrimaryAction: AgentIsPrimaryAction,
+                             val retrieveNavBar: NavBarRetrievalAction,
+                             val incomeSourceRetrievalAction: IncomeSourceRetrievalAction,
+                             val retrieveClientData: RetrieveClientData,
+                             val retrieveFeatureSwitches: FeatureSwitchRetrievalAction,
+                             val authoriseAndRetrieveIndividualForNrs: AuthoriseAndRetrieveIndividualForNrs,
+                             val authoriseAndRetrieveAgentForNrs: AuthoriseAndRetrieveAgentForNrs,
+                             val triggeredMigrationRetrievalAction: TriggeredMigrationRetrievalAction
+                           ) extends FeatureSwitching {
+
+  override val appConfig: FrontendAppConfig = frontendAppConfig
+
+  def asMTDIndividual(isTriggeredMigrationPage: Boolean = false): ActionBuilder[MtdItUser, AnyContent] = {
+    actionBuilder andThen
+      checkSessionTimeout andThen
+      authoriseAndRetrieveIndividual andThen
+      incomeSourceRetrievalAction andThen
+      retrieveFeatureSwitches andThen
+      retrieveNavBar andThen
+      triggeredMigrationRetrievalAction(isTriggeredMigrationPage)
+  }
+
+  def asMTDIndividualForNrs: ActionBuilder[MtdItUser, AnyContent] = {
+    actionBuilder andThen
+      checkSessionTimeout andThen
+      authoriseAndRetrieveIndividualForNrs andThen
+      incomeSourceRetrievalAction andThen
+      retrieveFeatureSwitches andThen
+      retrieveNavBar
+  }
+
+  def asAgent(arnRequired: Boolean = true): ActionBuilder[AuthorisedUserRequest, AnyContent] =
+    actionBuilder andThen checkSessionTimeout andThen authoriseAndRetrieveAgent.authorise(arnRequired)
+
+  def asMTDAgentWithConfirmedClient(isTriggeredMigrationPage: Boolean = false): ActionBuilder[MtdItUser, AnyContent] = {
+    actionBuilder andThen
+      checkSessionTimeout andThen
+      authoriseAndRetrieveAgent.authorise() andThen
+      retrieveClientData.authorise() andThen
+      authoriseAndRetrieveMtdAgent andThen
+      agentHasConfirmedClientAction andThen
+      incomeSourceRetrievalAction andThen
+      retrieveFeatureSwitches andThen
+      triggeredMigrationRetrievalAction(isTriggeredMigrationPage)
+  }
+
+  def asMTDPrimaryAgent(isTriggeredMigrationPage: Boolean = false): ActionBuilder[MtdItUser, AnyContent] = {
+    actionBuilder andThen
+      checkSessionTimeout andThen
+      authoriseAndRetrieveAgent.authorise() andThen
+      retrieveClientData.authorise() andThen
+      authoriseAndRetrieveMtdAgent andThen
+      agentIsPrimaryAction andThen
+      incomeSourceRetrievalAction andThen
+      retrieveFeatureSwitches andThen
+      triggeredMigrationRetrievalAction(isTriggeredMigrationPage)
+  }
+
+  def asMTDPrimaryAgentForNrs: ActionBuilder[MtdItUser, AnyContent] = {
+    actionBuilder andThen
+      checkSessionTimeout andThen
+      authoriseAndRetrieveAgentForNrs.authorise() andThen
+      retrieveClientData.authorise() andThen
+      authoriseAndRetrieveMtdAgent andThen
+      agentIsPrimaryAction andThen
+      incomeSourceRetrievalAction andThen
+      retrieveFeatureSwitches
+  }
+
+  def asMTDIndividualForNoIncomeSourcesPage: ActionBuilder[MtdItUser, AnyContent] = {
+    actionBuilder andThen
+      checkSessionTimeout andThen
+      authoriseAndRetrieveIndividual andThen
+      incomeSourceRetrievalAction andThen
+      retrieveFeatureSwitches andThen
+      retrieveNavBar
+  }
+
+  def asMTDAgentWithConfirmedClientForNoIncomeSourcesPage: ActionBuilder[MtdItUser, AnyContent] = {
+    actionBuilder andThen
+      checkSessionTimeout andThen
+      authoriseAndRetrieveAgent.authorise() andThen
+      retrieveClientData.authorise() andThen
+      authoriseAndRetrieveMtdAgent andThen
+      agentHasConfirmedClientAction andThen
+      incomeSourceRetrievalAction andThen
+      retrieveFeatureSwitches
+  }
+
+  def asMTDIndividualOrAgentWithClient(isAgent: Boolean, triggeredMigrationPage: Boolean = false): ActionBuilder[MtdItUser, AnyContent] = {
+    if (isAgent) {
+      asMTDAgentWithConfirmedClient(triggeredMigrationPage)
+    } else {
+      asMTDIndividual(triggeredMigrationPage)
+    }
+  }
+
+  def asAuthorisedUser: ActionBuilder[AuthorisedUserRequest, AnyContent] = {
+    actionBuilder andThen checkSessionTimeout andThen authoriseAndRetrieve
+  }
+}
